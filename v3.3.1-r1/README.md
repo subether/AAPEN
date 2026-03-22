@@ -30,7 +30,7 @@ Keep in mind, **AAPEN** is developed on limited resources; internal functionalit
 
 
 ## AAPEN | Architecture
-![AAPEN | Architecture](img/aapen_architecture.jpg)
+![AAPEN | Architecture](../img/aapen_architecture.jpg)
 
 ## AAPEN | Demo
 [![Watch the demo](https://img.youtube.com/vi/0lMvCLUGjkI/hqdefault.jpg)](https://www.youtube.com/watch?v=0lMvCLUGjkI)
