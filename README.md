@@ -41,13 +41,13 @@ As the author of the project I am fully able to "vibe code" additions using purc
 
 
 ## AAPEN | Architecture
-[picture](https://syn.ether.no:8080/aapen-release/aapen_architecture_00.drawio.png)
+![AAPEN | Architecture](https://syn.ether.no:8080/aapen-release/aapen_architecture_00.drawio.png)
 
 ## AAPEN | Demo
-[![Watch the demo](https://img.youtube.com/vi/0lMvCLUGjkI/hqdefault.jpg)](https://www.youtube.com/watch?v=0lMvCLUGjkI)
+![Watch the demo](https://img.youtube.com/vi/0lMvCLUGjkI/hqdefault.jpg)](https://www.youtube.com/watch?v=0lMvCLUGjkI)
 
 
-[YouTube | AAPEN | Demo](https://www.youtube.com/watch?v=0lMvCLUGjkI)
+![YouTube | AAPEN | Demo](https://www.youtube.com/watch?v=0lMvCLUGjkI)
 
 ## AAPEN | Key Features
 
