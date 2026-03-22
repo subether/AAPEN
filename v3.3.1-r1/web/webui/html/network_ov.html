@@ -1,0 +1,132 @@
+<!--
+ * ETHER|AAPEN|WEB - HTML|NETWORK|OV
+ * Licensed under AGPLv3+
+ * (c) 2010-2025 | ETHER.NO
+ * Author: Frode Moseng Monsson
+ * Contact: aapen@ether.no
+ * Version: 3.3.1
+ -->
+
+<!-- Network Dashboard Overview -->
+
+<div class="row row-space g-1 mt-1 pt-2 ms-0">
+	<!-- NETWORK HEADER -->
+	<div class="col-lg-3 rounded-3 p-2 col-md-offset-2">
+		<div class="row row-space pb-2 mt-3">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bs-icon-ov bi bi-diagram-3" style="font-size: 3rem"></i>
+				<div class="ms-3">
+					<div class="mt-2"><h3>[ Networks ]</h3></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-1 rounded-3 p-2 col-md-offset-2 me-auto"></div>
+
+	<!-- NETWORK TYPE HEADER -->
+	<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-diagram-3" style="font-size: 1.5rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Network Types</h5></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row row-space mt-0">
+			<div class="col-lg-6 d-flex align-items-center ms-3">
+				<div>TUN-TAP</div>
+			</div>
+			<div class="col-lg-4 d-flex align-items-center">
+				<div id="main-net-overview-tapnet"><b>n/a</b></div>
+			</div>
+		</div>
+
+		<div class="row row-space mt-1 mb-1">
+			<div class="col-lg-6 d-flex align-items-center ms-3">
+				<div>DPDK-VPP</div>
+			</div>
+			<div class="col-lg-4 d-flex align-items-center">
+				<div id="main-net-overview-vppnet"><b>n/a</b></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-diagram-3" style="font-size: 1.5rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Network Models</h5></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row row-space mt-0">
+			<div class="col-lg-6 d-flex align-items-center ms-3">
+				<div>VLAN</div>
+			</div>
+			<div class="col-lg-4 d-flex align-items-center">
+				<div id="main-net-overview-vlannet"><b>n/a</b></div>
+			</div>
+		</div>
+
+		<div class="row row-space mt-1 mb-1">
+			<div class="col-lg-6 d-flex align-items-center ms-3">
+				<div>TRUNK</div>
+			</div>
+			<div class="col-lg-4 d-flex align-items-center">
+				<div id="main-net-overview-trunknet"><b>n/a</b></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-grid" style="font-size: 1.5rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Clustered</h5></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row row-space mt-0">
+			<div class="col-lg-6 d-flex align-items-center ms-3">
+				<div>Cluster</div>
+			</div>
+			<div class="col-lg-5 d-flex align-items-center">
+				<div id="main-net-overview-cluster"><b>n/a</b></div>
+			</div>
+		</div>
+
+		<div class="row row-space mt-1 mb-1">
+			<div class="col-lg-6 d-flex align-items-center ms-3">
+				<div>Local</div>
+			</div>
+			<div class="col-lg-5 d-flex align-items-center">
+				<div id="main-net-overview-local"><b>n/a</b></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- NETWORK OVERVIEW TABLE -->
+<table id="netTable" class="table table-outline table-striped table-hover">
+	<thead>
+		<tr>
+			<th style="width: 7%">[ id ]</th>
+			<th style="width: 10%">[ name ]</th>
+			<th style="width: 7%">[ model ]</th>
+			<th style="width: 7%">[ type ]</th>
+			<th style="width: 7%">[ vlan ]</th>
+			<th style="width: 50%">[ nodes ]</th>
+			<th style="width: 10%">[ address ]</th>
+			<th style="width: 10%">[ mask ]</th>
+			<th style="width: 8%">[ cluster ]</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>

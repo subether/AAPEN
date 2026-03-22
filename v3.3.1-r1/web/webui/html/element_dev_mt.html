@@ -1,0 +1,576 @@
+<!--
+ * ETHER|AAPEN|WEB - HTML|ELEMENT|DEV|MT
+ * Licensed under AGPLv3+
+ * (c) 2010-2025 | ETHER.NO
+ * Author: Frode Moseng Monsson
+ * Contact: aapen@ether.no
+ * Version: 3.3.1
+ -->
+
+
+<!-- MikroTik Device Management Dashboard -->
+
+<!-- System Configuration Section - Device and health management -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<div class="col-lg-12 border rounded-3 p-2 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-pencil-square" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Element</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Device Information Section - RouterOS device details -->
+	<div class="accordion mt-1" id="accordionDeviceApiMtDevice">
+		<!-- NETWORK ELEMENTS -->	
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-element-device-api-mt-device">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDevApiSysDevMT">
+					<i class="bi bi-router" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-elm-dev-api-mt-dev-header">Device [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<!-- NETWORK ELEMENTS -->	
+			<div id="collapseDevApiSysDevMT" class="accordion-collapse collapse" data-bs-parent="#accordionDeviceApiMtDevice">
+				<div class="accordion-body">
+					<div class="row row-space g-1 mt-1 pt-1 ms-1">
+
+						<!-- TABLE SECTION: System details listing -->
+						<table id="elementDevMtTableHw" class="table table-outline table-striped table-hover mb-4">
+							<thead>
+								<tr>
+									<th style="width: 10%">[ platform ]</th>
+									<th style="width: 10%">[ model ]</th>
+									<th style="width: 10%">[ serial ]</th>
+									<th style="width: 10%">[ firmware ]</th>
+									<th style="width: 10%">[ uptime ]</th>
+									<th style="width: 10%">[ updated ]</th>
+									<th style="width: 10%">[ delta ]</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+
+						<h6 id="elementCpuUsage">CPU Usage</h6>
+						<div class="progress">
+							<div id="elementCpuProgress" class="progress-bar" role="progressbar" style="width:0%">0 %</div>
+						</div>
+
+						<h6 id="elementRamUsage">RAM Usage</h6>
+						<div class="progress">
+							<div id="elementRamProgress" class="progress-bar" role="progressbar" style="width:0%">0 %</div>
+						</div>
+	
+						<h6 id="elementHddUsage">HDD Usage</h6>
+						<div class="progress">
+							<div id="elementHddProgress" class="progress-bar" role="progressbar" style="width:0%">0 %</div>
+						</div>
+						
+						<!-- TABLE SECTION: System details listing -->
+						<table id="elementDevMtTableRes" class="table table-outline table-striped table-hover mb-2">
+							<thead>
+								<tr>
+									<th style="width: 10%">[ cpu type ]</th>
+									<th style="width: 10%">[ cpu count ]</th>
+									<th style="width: 10%">[ cpu MHz ]</th>
+									<th style="width: 10%">[ cpu % ]</th>
+									<th style="width: 10%">[ ram total ]</th>
+									<th style="width: 10%">[ ram free ]</th>
+									<th style="width: 10%">[ ram % ]</th>
+									<th style="width: 10%">[ hdd size ]</th>
+									<th style="width: 10%">[ hdd free ]</th>
+									<th style="width: 10%">[ hdd % ]</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-element-device-api-mt-helath">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDevApiSysHealthMT">
+					<i class="bi bi-heart-pulse" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-elm-dev-api-mt-health-header">Health [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseDevApiSysHealthMT" class="accordion-collapse collapse" data-bs-parent="#accordionDeviceApiMtDevice">
+				<div class="accordion-body">
+					
+					<div class="row row-space g-1 mt-1 pt-1 ms-1">
+						
+						<!-- TABLE SECTION: System details listing -->
+						<table id="elementDevMtTableHealth" class="table table-outline table-striped table-hover">
+							<thead>
+								<tr>
+									<th style="width: 10%">[ sensor ]</th>
+									<th style="width: 10%">[ value ]</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+
+					
+					</div>					
+	
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Address Management Section - IP and routing configuration -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<div class="col-lg-12 border rounded-3 p-2 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-pencil-square" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Address</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- IP Address Management Section - VRF and routing tables -->
+	<div class="accordion mt-1" id="accordionDeviceApiMtAddress">
+		<!-- NETWORK ELEMENTS -->	
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-element-device-api-mt-helath">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDevApiIpAddrMT">
+					<i class="bi bi-braces" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-element-device-mt-api-mt-ip-header">IP Address [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<!-- NETWORK ELEMENTS -->	
+			<div id="collapseDevApiIpAddrMT" class="accordion-collapse collapse" data-bs-parent="#accordionDeviceApiMtAddress">
+				<div class="accordion-body">
+					<div class="row row-space g-1 mt-1 pt-1 ms-1">
+						<h6>IP Address</h6>
+						
+						<!-- TABLE SECTION: System details listing -->
+						<table id="elementDevMtTableIpAddr" class="table table-outline table-striped table-hover">
+							<thead>
+								<tr>
+									<th style="width: 10%">[ interface ]</th>
+									<th style="width: 10%">[ actual if ]</th>
+									<th style="width: 10%">[ comment ]</th>
+									<th style="width: 10%">[ disabled ]</th>
+									<th style="width: 10%">[ invalid ]</th>
+									<th style="width: 10%">[ dynamic ]</th>
+									<th style="width: 10%">[ slave ]</th>
+									<th style="width: 10%">[ address ]</th>
+									<th style="width: 10%">[ network ]</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-element-device-xx">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDevApiIpRouteMT">
+					<i class="bi bi-shuffle" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-element-device-mt-ip-routes-header">Routes [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseDevApiIpRouteMT" class="accordion-collapse collapse">
+				<div class="accordion-body">
+					
+					<h6>VRF</h6>
+					<table id="elementDevMtTableIpVRF" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 10%">[ vrf ]</th>
+								<th style="width: 10%">[ builtin ]</th>
+								<th style="width: 10%">[ disabled ]</th>
+								<th style="width: 10%">[ interfaces ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+					
+					<br/>
+					<h6>Routes</h6>
+					<table id="elementDevMtTableIpRoute" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 10%">[ vrf ]</th>
+								<th style="width: 5%">[ active ]</th>
+								<th style="width: 5%">[ dynamic ]</th>
+								<th style="width: 5%">[ distance ]</th>
+								<th style="width: 10%">[ gateway ]</th>
+								<th style="width: 10%">[ immediate-gw ]</th>
+								<th style="width: 10%">[ dst-address ]</th>
+								<th style="width: 10%">[ local-address ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+						
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Interface Management Section - Physical and virtual interfaces -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<div class="col-lg-12 border rounded-3 p-2 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-pencil-square" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Interface</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Interface Configuration Section - Ethernet, VLAN, Bridge, etc. -->
+	<div class="accordion mt-1" id="accordionDeviceApiMtInterface">
+		<!-- NETWORK ELEMENTS -->	
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-element-device-node">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordionDeviceApiMtInterfaceInt">
+					<i class="bi bi-ethernet" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-element-device-mt-interface">Interfaces [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<!-- NETWORK ELEMENTS -->	
+			<div id="accordionDeviceApiMtInterfaceInt" class="accordion-collapse collapse" data-bs-parent="#accordionDeviceApiMtInterface">
+				<div class="accordion-body">
+					
+					<!-- ether;vlan;bond;loopback;bridge;vrf;wg -->
+					<h6><b>Loopback</b></h6>
+					<table id="elementDevMtTableEthLo" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 10%">[ name ]</th>
+								<th style="width: 10%">[ running ]</th>
+								<th style="width: 10%">[ disabled ]</th>
+								<th style="width: 10%">[ mtu ]</th>
+								<th style="width: 10%">[ mac ]</th>
+								<th style="width: 10%">[ rx-byte ]</th>
+								<th style="width: 10%">[ rx-drop ]</th>
+								<th style="width: 10%">[ rx-error ]</th>
+								<th style="width: 10%">[ tx-byte ]</th>
+								<th style="width: 10%">[ tx-drop ]</th>
+								<th style="width: 10%">[ tx-error ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+
+					<br/>
+					<h6><b>Bridge</b></h6>
+					<table id="elementDevMtTableEthBri" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 10%">[ name ]</th>
+								<th style="width: 10%">[ running ]</th>
+								<th style="width: 10%">[ disabled ]</th>
+								<th style="width: 10%">[ mtu ]</th>
+								<th style="width: 10%">[ mac ]</th>
+								<th style="width: 10%">[ rx-byte ]</th>
+								<th style="width: 10%">[ rx-drop ]</th>
+								<th style="width: 10%">[ rx-error ]</th>
+								<th style="width: 10%">[ tx-byte ]</th>
+								<th style="width: 10%">[ tx-drop ]</th>
+								<th style="width: 10%">[ tx-error ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				
+					<br/>
+					<h6><b>Ethernet</b></h6>
+					<table id="elementDevMtTableEth" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 10%">[ name ]</th>
+								<th style="width: 10%">[ comment ]</th>
+								<th style="width: 7%">[ running ]</th>
+								<th style="width: 7%">[ disabled ]</th>
+								<th style="width: 7%">[ slave ]</th>
+								<th style="width: 5%">[ mtu ]</th>
+								<th style="width: 10%">[ mac ]</th>
+								<th style="width: 10%">[ rx-byte ]</th>
+								<th style="width: 10%">[ tx-byte ]</th>
+								<th style="width: 7%">[ linkdowns ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+
+					<br/>
+					<h6><b>Bonds</b></h6>
+					<table id="elementDevMtTableBond" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								 <th style="width: 10%">[ name ]</th>
+								 <th style="width: 10%">[ comment ]</th>
+								 <th style="width: 5%">[ running ]</th>
+								 <th style="width: 5%">[ disabled ]</th>
+								 <th style="width: 5%">[ mtu ]</th>
+								 <th style="width: 10%">[ mac ]</th>
+								 <th style="width: 5%">[ type ]</th>
+								 <th style="width: 5%">[ hash ]</th>
+								 <th style="width: 5%">[ mode ]</th>
+								 <th style="width: 10%">[ slaves ]</th>
+								 <th style="width: 7%">[ mlag id ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+
+					<br/>
+					<h6><b>VRRP</b></h6>
+					<table id="elementDevMtTableEthVrrp" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 10%">[ name ]</th>
+								<th style="width: 10%">[ comment ]</th>
+								<th style="width: 10%">[ running ]</th>
+								<th style="width: 10%">[ disabled ]</th>
+								<th style="width: 10%">[ mtu ]</th>
+								<th style="width: 10%">[ mac ]</th>
+								<th style="width: 10%">[ rx-byte ]</th>   
+								<th style="width: 10%">[ rx-drop ]</th>   
+								<th style="width: 10%">[ rx-error ]</th>   
+								<th style="width: 10%">[ tx-byte ]</th>   
+								<th style="width: 10%">[ tx-drop ]</th>   
+								<th style="width: 10%">[ tx-error ]</th>
+								<th style="width: 10%">[ linkdowns ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+
+					<br/>
+					<h6><b>VLAN</b></h6>
+					<table id="elementDevMtTableEthVlan" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 5%">[ vlan-id ]</th>
+								<th style="width: 10%">[ name ]</th>
+								<th style="width: 10%">[ comment ]</th>
+								<th style="width: 10%">[ running ]</th>  
+								<th style="width: 10%">[ disabled ]</th>
+								<th style="width: 10%">[ mtu ]</th>
+								<th style="width: 10%">[ mac ]</th>
+								<th style="width: 10%">[ interface ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+					
+					<br/>
+					<h6><b>VLAN Interfaces</b></h6>
+					<table id="elementDevMtTableEthVlanIf" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 10%">[ name ]</th>
+								<th style="width: 10%">[ comment ]</th>
+								<th style="width: 10%">[ running ]</th>
+								<th style="width: 10%">[ disabled ]</th>
+								<th style="width: 10%">[ mtu ]</th>
+								<th style="width: 15%">[ mac ]</th>
+								<th style="width: 10%">[ rx-byte ]</th>   
+								<th style="width: 10%">[ rx-drop ]</th>   
+								<th style="width: 10%">[ rx-error ]</th>   
+								<th style="width: 10%">[ tx-byte ]</th>   
+								<th style="width: 10%">[ tx-drop ]</th>   
+								<th style="width: 10%">[ tx-error ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				
+					<br/>
+					<h6><b>Wireguard</b></h6>
+					<table id="elementDevMtTableEthWg" class="table table-outline table-striped table-hover mb-5">
+						<thead>
+							<tr>
+								<th style="width: 10%">[ name ]</th>
+								<th style="width: 10%">[ comment ]</th>
+								<th style="width: 10%">[ running ]</th>
+								<th style="width: 10%">[ disabled ]</th>
+								<th style="width: 10%">[ mtu ]</th>
+								<th style="width: 10%">[ rx-byte ]</th>   
+								<th style="width: 10%">[ rx-drop ]</th>   
+								<th style="width: 10%">[ rx-error ]</th>   
+								<th style="width: 10%">[ tx-byte ]</th>   
+								<th style="width: 10%">[ tx-drop ]</th>   
+								<th style="width: 10%">[ tx-error ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-element-device-bridge">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordionDeviceApiMtInterfaceBridge">
+					<i class="bi bi-diagram-3" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-element-device-mt-interface-bridge">Bridges [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="accordionDeviceApiMtInterfaceBridge" class="accordion-collapse collapse" data-bs-parent="#accordionDeviceApiMtInterface">
+				<div class="accordion-body">
+				</div>
+			</div>
+		</div>
+
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-element-device-wifi">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordionDeviceApiMtInterfaceWifi">
+					<i class="bi bi-wifi" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-element-device-mt-interface-wifi">Wireless [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="accordionDeviceApiMtInterfaceWifi" class="accordion-collapse collapse" data-bs-parent="#accordionDeviceApiMtInterface">
+				<div class="accordion-body">
+					
+					<h6>WiFi CAP</h6>
+					<table id="elementDevMtTableWifiCap" class="table table-outline table-striped table-hover mb-5">
+						<thead>
+							<tr>
+								<th style="width: 10%">[ name ]</th>
+								<th style="width: 10%">[ type ]</th>
+								<th style="width: 10%">[ running ]</th>
+								<th style="width: 10%">[ disabled ]</th>
+								<th style="width: 5%">[ mtu ]</th>
+								<th style="width: 15%">[ mac ]</th>
+								<th style="width: 10%">[ rx-byte ]</th>   
+								<th style="width: 10%">[ rx-drop ]</th>   
+								<th style="width: 10%">[ rx-error ]</th>   
+								<th style="width: 10%">[ tx-byte ]</th>   
+								<th style="width: 10%">[ tx-drop ]</th>   
+								<th style="width: 10%">[ tx-error ]</th>
+								<th style="width: 10%">[ linkdowns ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+					
+				</div>
+			</div>
+		</div>
+
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-element-device-vpn">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordionDeviceApiMtInterfaceVPN">
+					<i class="bi bi-key" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-element-device-mt-interface-vpn">VPN [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="accordionDeviceApiMtInterfaceVPN" class="accordion-collapse collapse" data-bs-parent="#accordionDeviceApiMtInterface">
+				<div class="accordion-body">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Interface Management Section - Physical and virtual interfaces -->
+<div class="row row-space g-1 mt-2 pt-2 mb-5">
+	<div class="col-lg-12 border rounded-3 p-2 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-pencil-square" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Virtual Chassis</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Interface Configuration Section - Ethernet, VLAN, Bridge, etc. -->
+	<div class="accordion mt-1" id="accordionDeviceApiMtVdev">
+		<!-- NETWORK ELEMENTS -->	
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-element-device-mlag">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordionDeviceApiMtVdevBond">
+					<i class="bi bi-bezier" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-element-device-mt-bond-vdev">MLAG [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<!-- NETWORK ELEMENTS -->	
+			<div id="accordionDeviceApiMtVdevBond" class="accordion-collapse collapse" data-bs-parent="#accordionDeviceApiMtVdevBond">
+				<div class="accordion-body">
+					
+				</div>
+			</div>
+		</div>
+
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-element-device-vrrp">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordionDeviceApiMtVdevVrrp">
+					<i class="bi bi-bezier2" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-element-device-mt-vrrp-vdev">VRRP [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="accordionDeviceApiMtVdevVrrp" class="accordion-collapse collapse" data-bs-parent="#accordionDeviceApiMtVdev">
+				<div class="accordion-body">
+				</div>
+			</div>
+		</div>
+
+		
+		
+	</div>
+</div>

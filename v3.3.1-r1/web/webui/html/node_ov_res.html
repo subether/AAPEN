@@ -1,0 +1,234 @@
+<!--
+ * ETHER|AAPEN|WEB - HTML|NODE|OV|RES
+ * Licensed under AGPLv3+
+ * (c) 2010-2025 | ETHER.NO
+ * Author: Frode Moseng Monsson
+ * Contact: aapen@ether.no
+ * Version: 3.3.1
+ -->
+
+<!-- Cluster resource monitoring dashboard -->
+<div class="row row-space g-1 mt-1 pt-2 ms-0">
+	<!-- Resource overview header with title and icon -->
+    <div class="col-lg-3 rounded-3 p-2 col-md-offset-2">
+		<div class="row row-space pb-2 mt-3">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-graph-up" style="font-size: 3rem"></i>
+				<div class="ms-3">
+					<div class="mt-2"><h3>[ Resources ]</h3></div>
+				</div>
+			</div>
+		</div>    
+	</div>
+    
+	<div class="col-lg-1 rounded-3 p-2 col-md-offset-2 me-auto"></div>
+    
+	<!-- Node status counters (online/offline) -->
+	<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-activity" style="font-size: 1.5rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Status</h5></div>
+				</div>
+			</div>
+		</div>    
+        
+		<div class="row row-space mt-0">
+			<div class="col-lg-6 d-flex align-items-center ms-3">
+				<div>Online Nodes</div>
+			</div>
+			<div class="col-lg-4 d-flex align-items-center">
+				<div id="main-node-resview-online"><b>n/a</b></div>
+			</div>
+		</div>
+
+		<div class="row row-space mt-1 mb-1">
+			<div class="col-lg-6 d-flex align-items-center ms-3">
+				<div>Offline Nodes</div>
+			</div>
+			<div class="col-lg-4 d-flex align-items-center">
+				<div id="main-node-resview-offline"><b>n/a</b></div>
+			</div>
+		</div>                    
+	</div>
+
+	<!-- CPU resource utilization metrics -->
+	<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-cpu" style="font-size: 1.5rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Cluster Processing</h5></div>
+				</div>
+			</div>
+		</div>    
+        
+		<div class="row row-space mt-0">
+			<div class="col-lg-4 d-flex align-items-center ms-3">
+				<div>Cores</div>
+			</div>
+			<div class="col-lg-6 d-flex align-items-center">
+				<div id="main-node-resview-cores"><b>n/a</b></div>
+			</div>
+		</div>
+
+		<div class="row row-space mt-1 mb-1">
+			<div class="col-lg-4 d-flex align-items-center ms-3">
+				<div>Load</div>
+			</div>
+			<div class="col-lg-6 d-flex align-items-center">
+				<div id="main-node-resview-load"><b>n/a</b></div>
+			</div>
+		</div>                    
+	</div>
+    
+	<!-- Memory resource utilization metrics -->
+	<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-memory" style="font-size: 1.5rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Cluster Memory</h5></div>
+				</div>
+			</div>
+		</div>    
+        
+		<div class="row row-space mt-0">
+			<div class="col-lg-4 d-flex align-items-center ms-3">
+				<div>Total</div>
+			</div>
+			<div class="col-lg-7 d-flex align-items-center">
+				<div id="main-node-resview-mem-tot"><b>n/a</b></div>
+			</div>
+		</div>
+
+		<div class="row row-space mt-1 mb-1">
+			<div class="col-lg-4 d-flex align-items-center ms-3">
+				<div>Used</div>
+			</div>
+			<div class="col-lg-7 d-flex align-items-center">
+				<div id="main-node-resview-mem-used"><b>n/a</b></div>
+			</div>
+		</div>                    
+	</div>
+</div>
+
+<!-- Cluster resource utilization overview -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-graph-up" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Overview</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>        
+   
+    
+	<!-- Expandable cluster resource statistics -->
+	<div class="accordion mt-1" id="accordionNodeResourceOverview">
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingNodeResOverview">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeResOverview">
+					<i class="bi bi-hash" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-node-resview-header">Nodes [<b>n/a</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseNodeResOverview" class="accordion-collapse collapse" data-bs-parent="#accordionNodeResourceOverview">
+				<div class="accordion-body">
+					<div class="row row-space g-1 mt-1 pt-1 ms-1">
+						<h6>Cluster Resources</h6>
+						<table id="nodeResOverviewTable" class="table table-outline table-striped table-hover">
+							<thead>
+								<tr>
+									<th style="width: 20%">[ nodes ]</th>
+									<th style="width: 20%">[ cpus avail ]</th>
+									<th style="width: 20%">[ cpus allocated ]</th>
+									<th style="width: 20%">[ cluster cpu usage ]</th>
+									<th style="width: 20%">[ cluster cpu load ]</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+                        
+						<table id="nodeResOverviewMemTable" class="table table-outline table-striped table-hover">
+							<thead>
+								<tr>
+									<th style="width: 20%">[ memory avail ]</th>
+									<th style="width: 20%">[ memory use ]</th>
+									<th style="width: 20%">[ memory free ]</th>
+									<th style="width: 20%">[ memory res ]</th>
+									<th style="width: 20%">[ memory util ]</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+                        
+						<div class="mt-1">
+							<br/>
+							<h6 id="nodeResCpuLoadTotBarHeader">Cluster CPU Load</h6>
+							<div class="progress">
+								<div id="nodeResCpuLoadTotBar" class="progress-bar" role="progressbar" style="width:0%">
+									0 %
+								</div>
+							</div>
+						</div>
+
+						<div class="mt-1">
+							<br/>
+							<h6 id="nodeResCpuAllocBarHeader">Cluster CPU Allocation</h6>
+							<div class="progress">
+								<div id="nodeResCpuAllocBar" class="progress-bar" role="progressbar" style="width:0%">
+									0 %
+								</div>
+							</div>
+						</div>
+
+						<div class="mt-1">
+							<br/>
+							<h6 id="nodeResMemLoadTotBarHeader" class="pt-1">Cluster Memory Load</h6>
+							<div class="progress">
+								<div id="nodeResMemLoadTotBar" class="progress-bar" role="progressbar" style="width:0%">
+									0 %
+								</div>
+							</div>
+						</div>
+                        
+						<div class="mt-1 mb-1">
+							<br/>
+							<h6 id="nodeResMemResBarHeader">Cluster Memory Reserved</h6>
+							<div class="progress">
+								<div id="nodeResMemResBar" class="progress-bar" role="progressbar" style="width:0%">
+									0 %
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Detailed node resource statistics -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-view-stacked" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Nodes</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>        
+    
+	<!-- Expandable node resource details -->
+	<div class="accordion mt-1 mb-5" id="accordionNodeResource"></div>
+</div>

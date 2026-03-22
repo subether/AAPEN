@@ -1,0 +1,100 @@
+<!--
+ * ETHER|AAPEN|WEB - HTML|SEARCH
+ * Licensed under AGPLv3+
+ * (c) 2010-2025 | ETHER.NO
+ * Author: Frode Moseng Monsson
+ * Contact: aapen@ether.no
+ * Version: 3.3.1
+ -->
+ 
+<!-- Search header section with title and action buttons (Config, JSON) -->
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+	<h1 class="h3" id="main-search-header">[ Search ]</h1>
+	<div class="btn-toolbar mb-2 mb-md-0">
+		<div class="btn-group me-2">
+			<button type="button" id="main-search-btn-config" class="btn btn-sm btn-outline-secondary disabled">Config</button>
+			<button type="button" id="main-search-btn-json" class="btn btn-sm btn-outline-secondary disabled">JSON</button>
+		</div>
+	</div>
+</div>
+
+<!-- Node search results table (id, name, key, string, show) -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<div class="col-lg-12 border rounded-3 p-2 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-view-stacked" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5 id="main-search-node-header">Nodes</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<table id="searchNodeTable" class="table table-outline table-striped table-hover">
+		<thead>
+			<tr>
+				<th style="width: 7%">[ id ]</th>
+				<th style="width: 10%">[ name ]</th>
+				<th style="width: 10%">[ key ]</th>
+				<th style="width: 60%">[ string ]</th>
+				<th style="width: 7%">[ show ]</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+</div>
+
+<!-- System search results table (id, name, key, string, show) -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<div class="col-lg-12 border rounded-3 p-2 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-display" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5 id="main-search-system-header">Systems</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<table id="searchSystemTable" class="table table-outline table-striped table-hover">
+		<thead>
+			<tr>
+				<th style="width: 7%">[ id ]</th>
+				<th style="width: 10%">[ name ]</th>
+				<th style="width: 10%">[ key ]</th>
+				<th style="width: 60%">[ string ]</th>
+				<th style="width: 7%">[ show ]</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+</div>
+
+<!-- Network search results table (id, name, key, string, show) -->
+<div class="row row-space g-1 mt-2 pt-2 mb-5">
+	<div class="col-lg-12 border rounded-3 p-2 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-diagram-3" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5 id="main-search-network-header">Networks</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<table id="searchNetworkTable" class="table table-outline table-striped table-hover">
+		<thead>
+			<tr>
+				<th style="width: 7%">[ id ]</th>
+				<th style="width: 10%">[ name ]</th>
+				<th style="width: 10%">[ key ]</th>
+				<th style="width: 60%">[ string ]</th>
+				<th style="width: 7%">[ show ]</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+</div>

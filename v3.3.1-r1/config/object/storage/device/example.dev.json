@@ -1,0 +1,28 @@
+{	
+	"object":{
+		"type":"storage",
+		"class":"nvme",
+		"model":"device"
+	},
+	
+	"id":{
+		"name":"example_node-root",
+		"desc":"root",
+		"group":"root",
+		"id":"1"
+	},
+
+	"node":{
+		"name":"example_node",
+		"id":"1"
+	},
+	
+	"device":{
+		"dev":"/dev/nvme0n1",
+		"part":"/dev/nvme0n1p3",
+		"smart_check":"1",
+		"mount":"/",
+		"type":"ssd",
+		"size":"1000GB"
+	}
+}

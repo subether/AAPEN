@@ -1,0 +1,165 @@
+<!--
+ * ETHER|AAPEN|WEB - HTML|NETWORK|SYS|OV
+ * Licensed under AGPLv3+
+ * (c) 2010-2025 | ETHER.NO
+ * Author: Frode Moseng Monsson
+ * Contact: aapen@ether.no
+ * Version: 3.3.1
+ -->
+
+<!-- Header section with network title and status panels -->
+<div class="row row-space g-1 mt-1 pt-2 ms-0">
+	<div class="col-lg-3 rounded-3 p-2 col-md-offset-2">
+		<div class="row row-space pb-2 mt-3">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bs-icon-ov bi bi-diagram-3" style="font-size: 3rem"></i>
+				<div class="ms-3">
+					<div class="mt-2"><h3>[ Networks ]</h3></div>
+				</div>
+			</div>
+		</div>    
+	</div>
+
+	<div class="col-lg-1 rounded-3 p-2 col-md-offset-2 me-auto"></div>
+
+	<!-- Toggle switches for filtering online/offline systems -->
+	<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-funnel" style="font-size: 1.5rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Sorting</h5></div>
+				</div>
+			</div>
+		</div>    
+			
+		<div class="row row-space mt-0">
+			<div class="col-lg-11 d-flex align-items-center ms-2">
+				<div class="form-check form-switch">
+					<input class="form-check-input" type="checkbox" id="switchNetSysShowOnline" onchange="net_sys_overview_show()" checked>
+					<label class="form-check-label" for="switchSysOnline">Show Online Systems</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row row-space mt-0">
+			<div class="col-lg-11 d-flex align-items-center ms-2">
+				<div class="form-check form-switch">
+					<input class="form-check-input" type="checkbox" id="switchNetSysShowOffline" onchange="net_sys_overview_show()" checked>
+					<label class="form-check-label" for="switchSysShowOffline">Show Offline Systems</label>
+				</div>
+			</div>
+		</div>
+	</div>    
+		
+	<!-- Real-time counters for system connectivity status -->
+	<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-display" style="font-size: 1.5rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Systems</h5></div>
+				</div>
+			</div>
+		</div>    
+		
+		<div class="row row-space mt-0">
+			<div class="col-lg-6 d-flex align-items-center ms-3">
+				<div>Systems Online</div>
+			</div>
+			<div class="col-lg-4 d-flex align-items-center">
+				<div id="main-net-sys-ov-online"><b>n/a</b></div>
+			</div>
+		</div>
+
+		<div class="row row-space mt-1 mb-1">
+			<div class="col-lg-6 d-flex align-items-center ms-3">
+				<div>Systems Offline</div>
+			</div>
+			<div class="col-lg-4 d-flex align-items-center">
+				<div id="main-net-sys-ov-offline"><b>n/a</b></div>
+			</div>
+		</div>                    
+	</div>
+
+	<!-- Network type distribution statistics -->
+	<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-diagram-3" style="font-size: 1.5rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Networks</h5></div>
+				</div>
+			</div>
+		</div>    
+		
+		<div class="row row-space mt-0">
+			<div class="col-lg-6 d-flex align-items-center ms-3">
+				<div>BRI-TAP</div>
+			</div>
+			<div class="col-lg-4 d-flex align-items-center">
+				<div id="main-net-sys-ov-bri"><b>n/a</b></div>
+			</div>
+		</div>
+
+		<div class="row row-space mt-1 mb-1">
+			<div class="col-lg-6 d-flex align-items-center ms-3">
+				<div>DPDK-VPP</div>
+			</div>
+			<div class="col-lg-4 d-flex align-items-center">
+				<div id="main-net-sys-ov-vpp"><b>n/a</b></div>
+			</div>
+		</div>                    
+	</div>
+</div>
+
+<!-- TUN/TAP bridge configurations section -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-diagram-3" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Bridges</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>        
+	
+	<!-- TUNTAP table -->    
+	<div class="accordion mt-1" id="accordionNetworkSystemVlan"></div>
+</div>
+
+<!-- Trunk network configurations section -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-diagram-3" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Trunks</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>        
+	
+	<!-- TRUNK table -->
+	<div class="accordion mt-1" id="accordionNetworkSystemTrunk"></div>
+</div>
+
+<!-- VPP accelerated network configurations section -->
+<div class="row row-space g-1 mt-2 pt-2 mb-5">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-diagram-3" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>VPP</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>        
+	
+	<!-- VPP table -->
+	<div class="accordion mt-1" id="accordionNetworkSystemVpp"></div>
+</div>

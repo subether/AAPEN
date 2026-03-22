@@ -1,0 +1,85 @@
+{	
+	"base":{
+		
+		"env":{
+			"info": 1,
+			"verbose": 0,
+			"debug": 0,
+			"log": 1
+		},
+
+		"log":{
+			"level": "INFO",
+			"to_file": 1,
+			"max_size": "10_000_000",
+			"backups": 3
+		},
+
+		"meta":{
+			"timezone": "UTC",
+			"keyboard": "en-us"
+		},
+
+		"ssl":{
+			"ca":"example.crt",
+			"cert":"example.crt",
+			"key":"example.key"
+		},
+		
+		"api":{
+			"key":"letmein"
+		},
+
+		"perms":{
+			
+			"socket":{
+				"user":"aapen",
+				"group":"users"
+			},
+			
+			"vmm":{
+				"user":"aapen",
+				"group":"users"
+			}
+			
+		},
+
+		"ports":{
+			
+			"range":{
+				"limit":250,
+				"vnc":6500,
+				"novnc":6750,
+				"monitor":7000,
+				"migrate":7250
+			},
+			
+			"agent":{
+				"port":"9932"
+			},
+			
+			"multicast":{
+				"group":"226.1.1.2",
+				"port":"2222"
+			},
+			
+			"zmq":{
+				"port":"39120",
+				"pub":"39121",
+				"sync":"39122"
+			},
+
+			"rest":{
+				"port":"3001",
+				"proto":"http",
+				"listen":"*"
+			},
+			
+			"api":{
+				"port":"39113",
+				"address":"127.0.0.1"
+			}
+		}
+		
+	}
+}

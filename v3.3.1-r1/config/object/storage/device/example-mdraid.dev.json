@@ -1,0 +1,52 @@
+{	
+	"object":{
+		"type":"storage",
+		"class":"mdraid",
+		"model":"device"
+	},
+	
+	"id":{
+		"name":"example-md0",
+		"desc":"example-md0",
+		"group":"san",
+		"id":"10"
+	},
+
+	"node":{
+		"name":"example_node",
+		"id":"10"
+	},
+	
+	"mdraid":{
+		"dev":"/dev/md0",
+		"part":"/dev/md0",
+		"node":"md0",
+		"mount":"/example_storage/",
+		"type":"ssd",
+		"size":"10000GB",
+		"raid":"5",
+		"smart_check":"1",
+		"devices":"sda;sdb;sdc;sdd",
+		
+		"sda":{
+			"dev":"/dev/sda",
+			"part":"/dev/sda1"
+		},
+		
+		"sdb":{
+			"dev":"/dev/sdb",
+			"part":"/dev/sdb1"
+		},
+		
+		"sdc":{
+			"dev":"/dev/sdc",
+			"part":"/dev/sdc1"
+		},
+		
+		"sdd":{
+			"dev":"/dev/sdd",
+			"part":"/dev/sdd1"
+		}
+		
+	}
+}

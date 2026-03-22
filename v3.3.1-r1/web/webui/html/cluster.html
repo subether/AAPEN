@@ -1,0 +1,462 @@
+<!--
+ * ETHER|AAPEN|WEB - HTML|CLUSTER
+ * Licensed under AGPLv3+
+ * (c) 2010-2025 | ETHER.NO
+ * Author: Frode Moseng Monsson
+ * Contact: aapen@ether.no
+ * Version: 3.3.1
+ -->
+
+<!-- Cluster Management Dashboard -->
+	
+<!-- Cluster Page Header - Contains title and action buttons -->
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+	<h1 class="h3" id="main-cluster-header">[ cluster ]</h1>
+	<div class="btn-toolbar mb-2 mb-md-0">
+		<div class="btn-group me-2">
+			<button type="button" id="main-cluster-btn-config" class="btn btn-sm btn-outline-secondary disabled">Config</button>
+			<button type="button" id="main-cluster-btn-json" class="btn btn-sm btn-outline-secondary">JSON</button>
+		</div>
+	</div>
+</div>
+
+<!-- Cluster Overview Section - Shows cluster state and configuration -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-grid" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Cluster</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Cluster State Section - Displays master node and cluster details -->
+<div class="accordion mt-1" id="accordionClusterState">
+	<div class="accordion-item">
+		<h2 class="accordion-header" id="headingOne">
+			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClusterState">
+				<i class="bi bi-activity" style="font-size: 1.25rem"></i>
+				<div class="ms-3">
+					<div id="main-cluster-state">State [<b>UNKNOWN</b>]</div>
+				</div>
+			</button>
+		</h2>
+
+		<div id="collapseClusterState" class="accordion-collapse collapse" data-bs-parent="#accordionClusterState">
+			<div class="accordion-body">
+				<h6>Cluster Nodes</h6>
+			
+				<table id="clusterStatusMasterTable" class="table table-outline table-striped table-hover">
+					<thead>
+						<tr>									
+							<th style="width: 10%">[ local id ]</th>
+							<th style="width: 10%">[ local name ]</th>
+							<th style="width: 10%">[ master ]</th>
+							<th style="width: 10%">[ master id ]</th>
+							<th style="width: 10%">[ master name ]</th>
+							<th style="width: 10%">[ cluster name ]</th>
+							<th style="width: 10%">[ updated ]</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Cluster Objects Section - Manages all cluster object types -->
+<div class="row row-space g-1 mt-2 pt-2 mb-5">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-file-code" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Objects</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- OBJECT ELEMENTS ACCORDION -->	
+	<div class="accordion mt-1" id="accordionClusterObjects">
+		<!-- NODE OBJECTS -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingClusterNodes">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClusterNodes">
+					<i class="bi bi-view-stacked" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-cluster-nodes">Nodes [<b>n/a</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseClusterNodes" class="accordion-collapse collapse" data-bs-parent="#accordionClusterObjects">
+				<div class="accordion-body">
+					<table id="clusterNodeContextTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>									
+								<th style="width: 10%">[ context ]</th>
+								<th style="width: 10%">[ num ]</th>
+								<th style="width: 80%">[ object ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				
+					<hr/>
+					<table id="clusterNodeTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>									
+								<th style="width: 10%">[ object id ]</th>
+								<th style="width: 7%">[ obj type ]</th>
+								<th style="width: 7%">[ obj sub ]</th>
+								<th style="width: 7%">[ version ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 7%">[ context ]</th>
+								<th style="width: 5%">[ get ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- SERVICE OBJECTS -->	
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingClusterServices">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClusterServices">
+					<i class="bi bi-box" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-cluster-services">Services [<b>n/a</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseClusterServices" class="accordion-collapse collapse" data-bs-parent="#accordionClusterObjects">
+				<div class="accordion-body">
+					<h6 id="main-cluster-service-framework">Framework</h6>
+					<table id="clusterServiceFrameworkTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>									
+								<th style="width: 10%">[ object id ]</th>
+								<th style="width: 7%">[ obj type ]</th>
+								<th style="width: 7%">[ obj sub ]</th>
+								<th style="width: 7%">[ version ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 7%">[ context ]</th>
+								<th style="width: 5%">[ get ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				
+					<hr/>
+					<h6 id="main-cluster-service-network">Network</h6>
+					<table id="clusterServiceNetworkTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>									
+								<th style="width: 10%">[ object id ]</th>
+								<th style="width: 7%">[ obj type ]</th>
+								<th style="width: 7%">[ obj sub ]</th>
+								<th style="width: 7%">[ version ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 7%">[ context ]</th>
+								<th style="width: 5%">[ get ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+						
+					<hr/>
+					<h6 id="main-cluster-service-hypervisor">Hypervisor</h6>
+					<table id="clusterServiceHypervisorTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>									
+								<th style="width: 10%">[ object id ]</th>
+								<th style="width: 7%">[ obj type ]</th>
+								<th style="width: 7%">[ obj sub ]</th>
+								<th style="width: 7%">[ version ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 7%">[ context ]</th>
+								<th style="width: 5%">[ get ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+
+					<hr/>
+					<h6 id="main-cluster-service-storage">Storage</h6>
+					<table id="clusterServiceStorageTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>									
+								<th style="width: 10%">[ object id ]</th>
+								<th style="width: 7%">[ obj type ]</th>
+								<th style="width: 7%">[ obj sub ]</th>
+								<th style="width: 7%">[ version ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 7%">[ context ]</th>
+								<th style="width: 5%">[ get ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+					
+					<hr/>
+					<h6 id="main-cluster-service-monitor">Monitor</h6>
+					<table id="clusterServiceMonitorTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>									
+								<th style="width: 10%">[ object id ]</th>
+								<th style="width: 7%">[ obj type ]</th>
+								<th style="width: 7%">[ obj sub ]</th>
+								<th style="width: 7%">[ version ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 7%">[ context ]</th>
+								<th style="width: 5%">[ get ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- SYSTEM OBJECTS -->	
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingClusterSystems">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClusterSystems">
+					<i class="bi bi-display" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-cluster-systems">Systems [<b>n/a</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseClusterSystems" class="accordion-collapse collapse" data-bs-parent="#accordionClusterObjects">
+				<div class="accordion-body">
+					<table id="clusterSystemContextTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>									
+								<th style="width: 10%">[ context ]</th>
+								<th style="width: 10%">[ num ]</th>
+								<th style="width: 80%">[ object ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				
+					<hr/>
+					<table id="clusterSystemTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>									
+								<th style="width: 10%">[ object id ]</th>
+								<th style="width: 7%">[ obj type ]</th>
+								<th style="width: 7%">[ obj sub ]</th>
+								<th style="width: 7%">[ version ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 7%">[ context ]</th>
+								<th style="width: 5%">[ get ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- CONTAINER OBJECTS -->	
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingClusterContainers">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClusterContainers">
+					<i class="bi bi-layers" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-cluster-containers"><b>Container</b> objects [<b>n/a</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseClusterContainers" class="accordion-collapse collapse" data-bs-parent="#accordionClusterObjects">
+				<div class="accordion-body">
+					<table id="clusterContainerContextTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>									
+								<th style="width: 10%">[ context ]</th>
+								<th style="width: 10%">[ num ]</th>
+								<th style="width: 80%">[ object ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				
+					<hr/>
+					<table id="clusterContainerTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>									
+								<th style="width: 10%">[ object id ]</th>
+								<th style="width: 7%">[ object type ]</th>
+								<th style="width: 7%">[ object sub ]</th>
+								<th style="width: 7%">[ version ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 7%">[ context ]</th>
+								<th style="width: 5%">[ get ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- NETWORK OBJECTS -->	
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingClusterNetworks">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClusterNetworks">
+					<i class="bi bi-diagram-3" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-cluster-networks">Networks [<b>n/a</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseClusterNetworks" class="accordion-collapse collapse" data-bs-parent="#accordionClusterObjects">
+				<div class="accordion-body">
+					<table id="clusterNetworkContextTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>									
+								<th style="width: 10%">[ context ]</th>
+								<th style="width: 10%">[ num ]</th>
+								<th style="width: 80%">[ object ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				
+					<hr/>
+					<table id="clusterNetworkTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>									
+								<th style="width: 10%">[ object id ]</th>
+								<th style="width: 7%">[ obj type ]</th>
+								<th style="width: 7%">[ obj sub ]</th>
+								<th style="width: 7%">[ version ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 7%">[ context ]</th>
+								<th style="width: 5%">[ get ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- STORAGE OBJECTS -->	
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingClusterStorage">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClusterStorage">
+					<i class="bi bi-server" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-cluster-storage"><b>Storage</b> objects [<b>n/a</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseClusterStorage" class="accordion-collapse collapse" data-bs-parent="#accordionClusterObjects">
+				<div class="accordion-body">
+					<table id="clusterStorageContextTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>									
+								<th style="width: 10%">[ context ]</th>
+								<th style="width: 10%">[ num ]</th>
+								<th style="width: 80%">[ object ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				
+					<hr/>
+					<table id="clusterStorageTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>									
+								<th style="width: 10%">[ object id ]</th>
+								<th style="width: 7%">[ obj type ]</th>
+								<th style="width: 7%">[ obj sub ]</th>
+								<th style="width: 7%">[ version ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 7%">[ context ]</th>
+								<th style="width: 5%">[ get ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!-- STORAGE OBJECTS -->	
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingClusterElement">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClusterElement">
+					<i class="bi bi-layout-wtf" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-cluster-storage"><b>Elements</b> objects [<b>n/a</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseClusterElement" class="accordion-collapse collapse" data-bs-parent="#accordionClusterElement">
+				<div class="accordion-body">
+					<table id="clusterElementContextTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>									
+								<th style="width: 10%">[ context ]</th>
+								<th style="width: 10%">[ num ]</th>
+								<th style="width: 80%">[ object ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				
+					<hr/>
+					<table id="clusterElementTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>									
+								<th style="width: 10%">[ object id ]</th>
+								<th style="width: 7%">[ obj type ]</th>
+								<th style="width: 7%">[ obj sub ]</th>
+								<th style="width: 7%">[ version ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 7%">[ context ]</th>
+								<th style="width: 5%">[ get ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

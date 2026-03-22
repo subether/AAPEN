@@ -1,0 +1,22 @@
+{
+
+   "object" : {
+      "type" : "node"
+   },
+
+   "id" : {
+      "cluster" : "example_cluster",
+      "id" : "1",
+      "group" : "example_group",
+      "desc" : "example desc",
+      "name" : "example_node"
+   },
+
+   "agent" : {
+      "address" : "10.100.0.10"
+   },
+   
+   "host" : {
+      "address" : "10.100.0.10"
+   }
+}

@@ -1,0 +1,89 @@
+{
+   "object" : {
+      "type" : "system",
+      "init" : 0
+   },
+
+   "id" : {
+      "group" : "example_group",
+      "id" : "100",
+      "os" : "linux",
+      "name" : "ubuntu-uefi",
+      "desc" : "example system",
+      "cfg" : "example.sys.json"
+   },
+
+   "meta" : {
+      "status" : "offline",
+      "state" : 0
+   },
+
+   "hw" : {
+      "bios" : {
+         "model" : "",
+         "mode" : "uefi"
+      },
+      "mem" : {
+         "mb" : 2048,
+         "numa" : 0
+      },
+      "cpu" : {
+         "arch" : "x86_64",
+         "model" : "IvyBridge",
+         "type" : "kvm",
+         "sock" : 1,
+         "core" : 2,
+         "nest" : 0
+      }
+   },
+
+   "net" : {
+      "dev" : "eth0",
+      "eth0" : {
+         "mac" : "52:54:13:AA:BB:CC",
+         "desc" : "example system eth0",
+         "type" : "bridge",
+         "net" : {
+            "name" : "example_network",
+            "type" : "bri-tap",
+            "id" : "10"
+         },
+         "ip" : "192.168.10.20",
+         "driver" : "virtio-net-pci"
+      }
+   },
+
+   "stor" : {
+      "boot" : "sda",
+      "disk" : "sda",
+      "sda" : {
+         "cache" : "writeback",
+         "size" : "80",
+         "dev" : "/example_storage/sys/example_group/example_system/",
+         "backing" : "pool",
+         "driver" : "virtio",
+         "pool" : {
+            "id" : "10",
+            "type" : "nfs",
+            "name" : "example-pool"
+         },
+         "media" : "disk",
+         "type" : "qcow2",
+         "image" : "example_system.sda.qcow2"
+      },
+      
+      "iso" : "dvd",
+
+      "dvd" : {
+         "dev" : "/example_storage/iso/example_linux/",
+         "desc" : "Example Linux 15.0 (64bit)",
+         "pool" : {
+            "id" : "10",
+            "type" : "nfs",
+            "name" : "example-pool"
+         },
+         "name" : "example-linux-15.0",
+         "image" : "example-linux64-15.0-install-dvd.iso"
+      }
+   }
+}

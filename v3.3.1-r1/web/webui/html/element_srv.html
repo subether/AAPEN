@@ -1,0 +1,281 @@
+<!--
+ * ETHER|AAPEN|WEB - HTML|ELEMENT|SYS
+ * Licensed under AGPLv3+
+ * (c) 2010-2025 | ETHER.NO
+ * Author: Frode Moseng Monsson
+ * Contact: aapen@ether.no
+ * Version: 3.3.1
+ -->
+
+
+<!-- Service Management Dashboard -->
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+	<h1 class="h2" id="main-element-service-header">[ service ]</h1>
+	<div class="btn-toolbar mb-2 mb-md-0">
+		<div class="btn-group me-2">
+			<button type="button" id="main-element-service-btn-config" class="btn btn-sm btn-outline-secondary disabled">Config</button>
+			<button type="button" id="main-element-service-btn-json" class="btn btn-sm btn-outline-secondary">JSON</button>
+		</div>
+	</div>
+</div>
+
+<!-- Service Control Panel - Contains action buttons and tools -->
+<div class="row row-space g-1 border-bottom mb-3">
+	<!-- NETWORK ELEMENTS -->
+	<div class="col-lg-3 rounded-3 col-md-offset-2 mb-2">
+		<div class="row row-space pb-2 d-flex align-items-center">
+			<div class="btn-toolbar mb-md-0">
+				<div class="btn-group me-2">
+					<button id="main-element-service-btn-web" type="button" class="btn btn-sm btn-outline-secondary">
+						<i class="bi bi-window" style="font-size: 1.25rem"></i>
+						<div class="ms-1">
+							<div>Web</div>
+						</div>
+					</button>
+				</div>
+			</div>
+		</div>	
+	</div>
+		
+	<div class="col-lg-2 rounded-3 col-md-offset-2 mb-2">
+		<div class="row row-space pb-2 d-flex align-items-center">
+			<div class="btn-toolbar mb-md-0"></div>
+		</div>        
+	</div>
+		
+	<div class="col-lg-2 rounded-3 col-md-offset-2">
+		<div class="row row-space pb-2 d-flex align-items-center">
+			<div class="btn-toolbar mb-md-0">
+				<div class="btn-group me-2"></div>
+			</div>
+		</div>	
+	</div>
+		
+	<div class="col-lg-3 rounded-3 col-md-offset-2">
+		<div class="row row-space pb-2 d-flex align-items-center">
+			<div class="btn-toolbar mb-md-0">
+				<div class="btn-group me-2">
+					<button id="main-element-device-btn-save" type="button" class="btn btn-sm btn-outline-secondary">
+						<i class="bi bi-save" style="font-size: 1.25rem"></i>
+						<div class="ms-1">
+							<div>Save Config</div>
+						</div>
+					</button>	
+					
+					<button id="main-element-device-btn-copycfg" type="button" class="btn btn-sm btn-outline-secondary">
+						<i class="bi bi-files" style="font-size: 1.25rem"></i>
+						<div class="ms-1">
+							<div>Clone Config</div>
+						</div>
+					</button>
+				</div>
+			</div>
+		</div>	
+	</div>
+		
+	<div class="col-lg-2 rounded-3 col-md-offset-2">
+		<div class="row row-space pb-2 d-flex align-items-center float-end">
+			<div class="btn-toolbar mb-md-0">
+				<div class="btn-group me-2">
+					<button type="button" id="main-element-service-btn-refresh" class="btn btn-sm btn-outline-secondary">
+						<i class="bi bi-arrow-repeat" style="font-size: 1.25rem"></i>
+						<div class="ms-1">
+							<div>Refresh</div>
+						</div>
+					</button>	
+				</div>
+			</div>
+		</div>
+	</div>			
+</div>
+
+<!-- Service Status Section - Shows current state and health -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<!-- Service Configuration Section - Identity and group management -->
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-activity" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Status</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>        
+
+	<!-- NETWORK ELEMENTS -->	
+	<div class="accordion mt-1" id="accordionStorisoState">
+		<!-- NETWORK ELEMENTS -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-stor-iso-state">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStorisoState">
+					<i class="bi bi-activity" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-element-service-state">State [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseStorisoState" class="accordion-collapse collapse" data-bs-parent="#accordionStorisoState">
+				<div class="accordion-body">
+					<h6>Cluster Services</h6>
+				
+					<table id="serviceStatusServiceTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>                                    
+								<th style="width: 10%">[ service ]</th>
+								<th style="width: 10%">[ version ]</th>
+								<th style="width: 10%">[ owner ]</th>
+								<th style="width: 10%">[ owner id ]</th>
+								<th style="width: 10%">[ updated ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- NETWORKING -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<!-- NETWORK ELEMENTS -->
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-pencil-square" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Configuration</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>        
+
+	<!-- NETWORK ELEMENTS -->	
+	<div class="accordion mt-1" id="accordionStorisoConfig">
+		<!-- NETWORK ELEMENTS -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-element-service-node">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStorisoNode">
+					<i class="bi bi-view-window" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-element-service-id-header">Service [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseStorisoNode" class="accordion-collapse collapse" data-bs-parent="#accordionStorisoConfig">
+				<div class="accordion-body">
+					<div class="row row-space g-1 mt-1 pt-1 ms-1">
+						<div class="col-lg-3 border rounded-3 p-2 bg-light col-md-offset-2">
+							<div class="row row-space pb-1">
+								<div class="col-lg-11 d-flex align-items-center">
+									<i class="bi bi-pencil-square" style="font-size: 1.25rem"></i>
+									<div class="ms-2 mt-1">
+										<div><h5>Identity</h5></div>
+									</div>
+								</div>
+							</div>	
+							
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Service UID</span>
+									<input id="main-element-service-uid" type="text" class="form-control" placeholder="">
+								</div>
+							</div>	
+							
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Service Name</span>
+									<input id="main-element-service-name" type="text" class="form-control" placeholder="">
+								</div>
+							</div>	
+						</div>
+
+						<!-- SECOND ROW -->
+						<div class="col-lg-3 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+							<div class="row row-space pb-2">
+								<div class="col-lg-11 d-flex align-items-center">
+									<i class="bi bi-link" style="font-size: 1.25rem"></i>
+									<div class="ms-2 mt-1">
+										<div><h5>Group</h5></div>
+									</div>
+								</div>
+							</div>	
+
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Group</span>
+									<input id="main-element-service-group" type="text" class="form-control" placeholder="">
+								</div>
+							</div>	
+								
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Description</span>
+									<input id="main-element-service-desc" type="text" class="form-control" placeholder="">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Service Access Section - URL and endpoint configuration -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<!-- NETWORKING -->        
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-window" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Access</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>        
+
+	<!-- NETWORK ELEMENTS -->    
+	<div class="accordion mt-1" id="accordionStoriso">
+		<!-- NETWORKING -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-element-service-type">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStorisoType">
+					<i class="bi bi-window" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-element-service-web-header">Service URL [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseStorisoType" class="accordion-collapse collapse" data-bs-parent="#accordionStoriso">
+				<div class="accordion-body">
+					<div class="row row-space g-1 mt-1 pt-1 ms-1">
+						<div class="col-lg-5 border rounded-3 p-2 bg-light col-md-offset-2">
+							<div class="row row-space pb-1">
+								<div class="col-lg-11 d-flex align-items-center">
+									<i class="bi bi-pencil-square" style="font-size: 1.25rem"></i>
+									<div class="ms-2 mt-1">
+										<div><h5>Service URL</h5></div>
+									</div>
+								</div>
+							</div>	
+							
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">URL</span>
+									<input id="main-element-service-web-url" type="text" class="form-control" placeholder="">
+								</div>
+							</div>    
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>    
+</div>

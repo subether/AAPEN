@@ -1,0 +1,61 @@
+{
+	"object":{
+		"type":"element",
+		"class":"network",
+		"model":"device"
+	},
+
+	"id":{
+		"name":"example_switch",
+		"id":"10",
+		"desc":"exampmle switch",
+		"group":"switch",
+		"icon":"bi-diagram3"
+	},
+
+	"api" : {
+		"enabled" : 0,
+		"type" : "mikrotik",
+		"user" : "api",
+		"pass" : "api_password",
+		"address" : "10.100.100.10"
+	},
+
+	"device":{
+		"model":{
+			"make":"Mikrotik",
+			"name":"CRS317",
+			"serial":"N/A"
+		},
+
+		"asset":{
+			"date":"01-01-2020",
+			"warranty":"01-01-2025",
+			"vendor":"Shop123",
+			"receipt":"N/A"
+		},
+
+		"access":{
+			"addr":"10.100.100.10",
+			"index":"web;ssh",
+
+			"web":{
+				"url":"https://example_switch.local"
+			},
+
+			"ssh":{
+				"addr":"10.100.100.10",
+				"port":"22",
+				"user":"admin",
+				"opts":"",
+				
+				"publickey": 0,
+
+				"key":{
+					"file":"keyfile.key",
+					"dir":"keys/"
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,399 @@
+<!--
+ * ETHER|AAPEN|WEB - HTML|STORAGE|DEV
+ * Licensed under AGPLv3+
+ * (c) 2010-2025 | ETHER.NO
+ * Author: Frode Moseng Monsson
+ * Contact: aapen@ether.no
+ * Version: 3.3.1
+ -->
+ 
+<!-- Storage device header with title and buttons (Config, JSON) -->
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+	<h1 class="h3" id="main-stordev-header">[ stordev ]</h1>
+	<div class="btn-toolbar mb-2 mb-md-0">
+		<div class="btn-group me-2">
+			<button type="button" id="main-stordev-btn-config" class="btn btn-sm btn-outline-secondary disabled">Config</button>
+			<button type="button" id="main-stordev-btn-json" class="btn btn-sm btn-outline-secondary">JSON</button>
+		</div>
+	</div>
+</div>
+
+<!-- Status monitoring section with expandable panels -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-activity" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Status</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- State/Status/Size accordion panels -->
+	<div class="accordion mt-1" id="accordionStordevState">
+		<!-- Device state panel -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-stor-dev-state">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStordevState">
+					<i class="bi bi-activity" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-stordev-state">State [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseStordevState" class="accordion-collapse collapse" data-bs-parent="#accordionStordevState">
+				<div class="accordion-body">
+					<h6>Cluster Object</h6>
+					<table id="stordevStatusObjTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 10%">[ model ]</th>
+								<th style="width: 10%">[ type ]</th>
+								<th style="width: 10%">[ class ]</th>
+								<th style="width: 10%">[ owner name ]</th>
+								<th style="width: 10%">[ owner id ]</th>
+								<th style="width: 10%">[ version ]</th>
+								<th style="width: 10%">[ updated ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- Device status panel -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-stor-dev-status">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStordevStatus">
+					<i class="bi bi-heart-pulse" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-stordev-status">Status [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseStordevStatus" class="accordion-collapse collapse" data-bs-parent="#accordionStordevStatus">
+				<div class="accordion-body">
+					<h6>Device Status</h6>
+					<table id="stordevStatusTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 10%">[ state ]</th>
+								<th style="width: 10%">[ status ]</th>
+								<th style="width: 10%">[ smart ]</th>
+								<th style="width: 10%">[ iostat ]</th>
+								<th style="width: 10%">[ size ]</th>
+								<th style="width: 10%">[ updated ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+
+					<h6>Device Health</h6>
+					<table id="stordevStatusHealthTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 10%">[ status ]</th>
+								<th style="width: 10%">[ health ]</th>
+								<th style="width: 10%">[ smart ]</th>
+								<th style="width: 10%">[ device ]</th>
+								<th style="width: 10%">[ temperature ]</th>
+								<th style="width: 30%">[ warnings ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+
+					<h6>IO Stats</h6>
+					<table id="stordevStatusIOTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 10%">[ device ]</th>
+								<th style="width: 10%">[ kb write total ]</th>
+								<th style="width: 10%">[ kb read total ]</th>
+								<th style="width: 10%">[ kb write / sec ]</th>
+								<th style="width: 10%">[ kb read / sec ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+
+					<h6>Device SMART</h6>
+					<table id="stordevStatusSmartTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 20%">[ model ]</th>
+								<th style="width: 10%">[ firmware ]</th>
+								<th style="width: 8%">[ form factor ]</th>
+								<th style="width: 10%">[ smart passed ]</th>
+								<th style="width: 10%">[ self passed ]</th>
+								<th style="width: 8%">[ cycles ]</th>
+								<th style="width: 8%">[ on hrs ]</th>
+								<th style="width: 8%">[ temp ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- Storage size panel -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-stor-dev-size">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStordevSize">
+					<i class="bi bi-graph-up" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-stordev-size">Size [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseStordevSize" class="accordion-collapse collapse" data-bs-parent="#accordionStordevStatus">
+				<div class="accordion-body">
+					<h6>Storage consumed</h6>
+					<div class="progress">
+						<div id="stordevSizeProgress" class="progress-bar" role="progressbar" style="width:0%">
+							0 %
+						</div>
+					</div>
+					<table id="stordevStatusSizeTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 10%">[ configured ]</th>
+								<th style="width: 10%">[ total ]</th>
+								<th style="width: 10%">[ used ]</th>
+								<th style="width: 10%">[ avail ]</th>
+								<th style="width: 10%">[ free ]</th>
+								<th style="width: 10%">[ consumed ]</th>
+								<th style="width: 10%">[ inode total ]</th>
+								<th style="width: 10%">[ inode free ]</th>
+								<th style="width: 10%">[ consumed ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Configuration section with node/name panels -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-pencil-square" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Configuration</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Node/Name configuration accordion -->
+	<div class="accordion mt-1" id="accordionStordevConfig">
+		<!-- Node configuration panel -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-stordev-node">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStordevNode">
+					<i class="bi bi-view-stacked" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-stordev-node">Node [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseStordevNode" class="accordion-collapse collapse" data-bs-parent="#accordionStordevConfig">
+				<div class="accordion-body">
+					<h6>Cluster Services</h6>
+					<table id="stordevStatusServiceTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 10%">[ service ]</th>
+								<th style="width: 10%">[ version ]</th>
+								<th style="width: 10%">[ owner ]</th>
+								<th style="width: 10%">[ owner id ]</th>
+								<th style="width: 10%">[ updated ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- Device name panel -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-stordev-xx">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeState">
+					<i class="bi bi-hash" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-stordev-name">Name [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseNodeState" class="accordion-collapse collapse" data-bs-parent="#accordionStordevConfig">
+				<div class="accordion-body">
+					<h6>Cluster Services</h6>
+					<table id="stordevStatusServiceTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 10%">[ service ]</th>
+								<th style="width: 10%">[ version ]</th>
+								<th style="width: 10%">[ owner ]</th>
+								<th style="width: 10%">[ owner id ]</th>
+								<th style="width: 10%">[ updated ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Physical device details with type/RAID/NVME -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-hdd" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Device</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Device type/RAID/NVME accordion -->
+	<div class="accordion mt-1" id="accordionStordev">
+		<!-- Device type panel -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-stordev-type">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStordevType">
+					<i class="bi bi-device-hdd" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-stordev-type">Type [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseStordevType" class="accordion-collapse collapse" data-bs-parent="#accordionStordev">
+				<div class="accordion-body">
+					<h6>Device Status</h6>
+					<table id="stordevDevTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 10%">[ device ]</th>
+								<th style="width: 10%">[ partition ]</th>
+								<th style="width: 10%">[ mount ]</th>
+								<th style="width: 10%">[ type ]</th>
+								<th style="width: 10%">[ size ]</th>
+								<th style="width: 10%">[ smart ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- RAID configuration panel -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-stordev-raid">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStordevRaid">
+					<i class="bi bi-hdd-stack" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-stordev-raid">RAID [<b>n/a</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseStordevRaid" class="accordion-collapse collapse" data-bs-parent="#accordionStordev">
+				<div class="accordion-body">
+					<h6>MDRAID Status</h6>
+					<table id="stordevRaidTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 10%">[ mddev ]</th>
+								<th style="width: 10%">[ raid ]</th>
+								<th style="width: 10%">[ state ]</th>
+								<th style="width: 10%">[ online ]</th>
+								<th style="width: 10%">[ status ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+
+					<h6>Device Status</h6>
+					<table id="stordevRaidDevsTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 10%">[ node ]</th>
+								<th style="width: 10%">[ device ]</th>
+								<th style="width: 10%">[ parition ]</th>
+								<th style="width: 10%">[ member id ]</th>
+								<th style="width: 10%">[ status ]</th>
+								<th style="width: 10%">[ warnings ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- NVME device panel -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-stordev-nvme">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStordevNvme">
+					<i class="bi bi-device-ssd" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-stordev-nvme">NVME [<b>n/a</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseStordevNvme" class="accordion-collapse collapse" data-bs-parent="#accordionStordev">
+				<div class="accordion-body">
+					<h6>NVME Status</h6>
+					<table id="stordevNvmeStatusTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 10%">[ model ]</th>
+								<th style="width: 10%">[ path ]</th>
+								<th style="width: 10%">[ firmware ]</th>
+								<th style="width: 10%">[ sector ]</th>
+								<th style="width: 10%">[ size ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+
+					<h6>NVME Health</h6>
+					<table id="stordevNvmeHealthTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 10%">[ health ]</th>
+								<th style="width: 10%">[ spare ]</th>
+								<th style="width: 10%">[ media errors ]</th>
+								<th style="width: 10%">[ power cycles ]</th>
+								<th style="width: 10%">[ error logs ]</th>
+								<th style="width: 10%">[ critical ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

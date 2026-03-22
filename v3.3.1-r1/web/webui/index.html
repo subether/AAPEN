@@ -1,0 +1,983 @@
+<!--
+ * ETHER|AAPEN|WEB - HTML|MAIN
+ * Licensed under AGPLv3+
+ * (c) 2010-2025 | ETHER.NO
+ * Author: Frode Moseng Monsson
+ * Contact: aapen@ether.no
+ * Version: 3.3.1
+ -->
+
+<!doctype html>
+<html lang="en">
+<head>
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>AAPEN | cluster</title>
+    
+    <!-- Bootstrap core CSS -->
+    <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/trumbowyg.min.css" rel="stylesheet">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+    <!-- Custom styles for this template -->
+    <link href="css/aapen.css" rel="stylesheet">
+    <link href="css/jquery.json-viewer.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">AAPEN | Cluster</a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" 
+                data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" 
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <input class="form-control form-control-dark w-100" type="text" id="main-search-bar" 
+               placeholder="Search" aria-label="Search">
+        <div class="navbar-nav">
+            <div class="nav-item text-nowrap">
+                <a class="nav-link px-3" href="#" onclick='api_login()' id="main_api_node">[ API ]</a>
+            </div>
+        </div>
+        <div class="navbar-nav">
+            <div class="nav-item text-nowrap">
+                <a class="nav-link px-3" href="#" onclick='mainRefreshAllViews()'>Refresh</a>
+            </div>
+        </div>
+        <div class="navbar-nav">
+            <div class="nav-item text-nowrap">
+                <a class="nav-link px-3" href="#">Log Out</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- SIDEBAR -->
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block text-white bg-black sidebar collapse overflow-auto">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        
+                        <!-- HOME -->
+                        <li class="nav-item">
+                            <button class="nav-link btn btn-toggle collapsed" onclick='main_init_show()' aria-expanded="false">
+                                <i class="bs-icon feather bi bi-house-door"></i>
+                                Home
+                            </button>
+                        </li>
+                        
+                        <!-- CLUSTER MENU -->
+                        <li class="nav-item">
+                            <button class="nav-link btn btn-toggle collapsed" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapse-cluster" aria-expanded="false">
+                                <i class="bs-icon feather bi bi-grid"></i>
+                                Cluster
+                            </button>
+                            
+                            <div class="collapse" id="collapse-cluster">
+                                <ul class="nav flex-column mb-2 nav-link-menu">
+                                    <li class="nav-item">
+                                        <button class="btn btn-sm btn-toggle collapsed nav-link" onclick='cluster_health_show()' 
+                                                aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-heart-pulse"></i>
+                                            Health
+                                        </button>
+                                    </li>
+                                    
+                                    <li class="nav-item">
+                                        <button class="btn btn-sm btn-toggle collapsed nav-link" onclick='cluster_health_ov_show()' 
+                                                aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-heart-pulse"></i>
+                                            Overview
+                                        </button>
+                                    </li>
+                                    
+                                    <li class="nav-item">
+                                        <button class="nav-link btn btn-sm btn-toggle collapsed" data-bs-toggle="collapse" 
+                                                data-bs-target="#collapse-cluster-monitor" aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-heart-pulse"></i>
+                                            <span id="menu-cluster-monitor">Monitors</span>
+                                        </button>
+                                        
+                                        <div class="collapse" id="collapse-cluster-monitor">
+                                            <ul class="nav flex-column mb-2 nav-link-menu"></ul>
+                                        </div>
+                                    </li>
+                                    
+                                    <!-- NODE ONLINE -->
+                                    <li class="nav-item">
+                                        <button class="nav-link btn btn-sm btn-toggle collapsed" data-bs-toggle="collapse" 
+                                                data-bs-target="#collapse-cluster-online" aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-grid"></i>
+                                            <span id="menu-cluster-online">Nodes</span>
+                                        </button>
+                                        
+                                        <div class="collapse" id="collapse-cluster-online">
+                                            <ul class="nav flex-column mb-2 nav-link-menu"></ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!-- NODE MENU -->
+                        <li class="nav-item">
+                            <button class="nav-link btn btn-toggle collapsed" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapse-node" aria-expanded="false">
+                                <i class="bs-icon feather bi bi-view-stacked"></i>
+                                Nodes
+                            </button>
+                            
+                            <div class="collapse" id="collapse-node">
+                                <ul class="nav flex-column mb-2 nav-link-menu">
+                                    <li class="nav-item" id="system-test">
+                                        <button class="btn btn-sm btn-toggle collapsed nav-link" onclick='main_node_overview_show()' 
+                                                aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-list-ul"></i>
+                                            Overview
+                                        </button>
+                                    </li>
+
+                                    <li class="nav-item" id="system-test">
+                                        <button class="btn btn-sm btn-toggle collapsed nav-link" onclick='main_node_resources_show()' 
+                                                aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-graph-up"></i>
+                                            Resources
+                                        </button>
+                                    </li>
+                                    
+                                    <!-- NODE ONLINE -->
+                                    <li class="nav-item">
+                                        <button class="nav-link btn btn-sm btn-toggle collapsed" data-bs-toggle="collapse" 
+                                                data-bs-target="#collapse-node-online" aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-view-stacked"></i>
+                                            <span id="menu-node-online">Online</span>
+                                        </button>
+                                        
+                                        <div class="collapse" id="collapse-node-online">
+                                            <ul class="nav flex-column mb-2 nav-link-menu"></ul>
+                                        </div>
+                                    </li>
+
+                                    <!-- NODE OFFLINE -->
+                                    <li class="nav-item">
+                                        <button class="nav-link btn btn-sm btn-toggle collapsed nav-link" data-bs-toggle="collapse" 
+                                                data-bs-target="#collapse-node-offline" aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-view-stacked"></i>
+                                            <span id="menu-node-offline">Offline</span>
+                                        </button>
+                                        
+                                        <div class="collapse" id="collapse-node-offline">
+                                            <ul class="nav flex-column mb-2 nav-link-menu"></ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        
+                        <!-- SYSTEM MENU -->
+                        <li class="nav-item">
+                            <button class="nav-link btn btn-toggle collapsed" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapse-system" aria-expanded="false">
+                                <i class="bs-icon feather bi bi-display"></i>
+                                Systems
+                            </button>
+                            
+                            <div class="collapse" id="collapse-system">
+                                <ul class="nav flex-column mb-2 nav-link-menu">
+                                    <li class="nav-item" id="system-test">
+                                        <button class="btn btn-sm btn-toggle collapsed nav-link" onclick='main_system_overview_show()' 
+                                                aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-list-ul"></i>
+                                            Overview
+                                        </button>
+                                    </li>
+
+                                    <li class="nav-item" id="system-test">
+                                        <button class="btn btn-sm btn-toggle collapsed nav-link" onclick='main_system_overview_res_show()' 
+                                                aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-graph-up"></i>
+                                            Resources
+                                        </button>
+                                    </li>
+                                    
+                                    <!-- SYSTEM ONLINE -->
+                                    <li class="nav-item">
+                                        <button class="nav-link btn btn-sm btn-toggle collapsed" data-bs-toggle="collapse" 
+                                                data-bs-target="#collapse-system-online" aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-display"></i>
+                                            <span id="menu-system-online">Online</span>
+                                        </button>
+                                        
+                                        <div class="collapse" id="collapse-system-online">
+                                            <ul class="nav flex-column mb-2 nav-link-menu"></ul>
+                                        </div>
+                                    </li>
+
+                                    <!-- SYSTEM OFFLINE -->
+                                    <li class="nav-item">
+                                        <button class="nav-link btn btn-sm btn-toggle collapsed nav-link" data-bs-toggle="collapse" 
+                                                data-bs-target="#collapse-system-offline" aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-display"></i>
+                                            <span id="menu-system-offline">Offline</span>
+                                        </button>
+                                        
+                                        <div class="collapse" id="collapse-system-offline">
+                                            <ul class="nav flex-column mb-2 nav-link-menu"></ul>
+                                        </div>
+                                    </li>
+                                    
+                                    <!-- SYSTEM TEMPLATES -->
+                                    <li class="nav-item">
+                                        <button class="nav-link btn btn-sm btn-toggle collapsed nav-link" data-bs-toggle="collapse" 
+                                                data-bs-target="#collapse-system-template" aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-display"></i>
+                                            <span id="menu-system-template">Templates</span>
+                                        </button>
+                                        
+                                        <div class="collapse" id="collapse-system-template">
+                                            <ul class="nav flex-column mb-2 nav-link-menu"></ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        
+                        <!-- CONTAINER MENU -->
+                        <li class="nav-item">
+                            <button class="nav-link btn btn-toggle collapsed" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapse-container" aria-expanded="false">
+                                <i class="bs-icon feather bi bi-layers"></i>
+                                Containers
+                            </button>
+                            
+                            <div class="collapse" id="collapse-container">
+                                <ul class="nav flex-column mb-2 nav-link-menu">
+                                    <li class="nav-item" id="system-sdftest">
+                                        <button class="btn btn-sm btn-toggle collapsed nav-link" onclick='' aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-list-ul"></i>
+                                            Overview
+                                        </button>
+                                    </li>
+                                    
+                                    <li class="nav-item">
+                                        <button class="btn btn-sm btn-toggle collapsed nav-link" onclick='hide_main()' aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-layers"></i>
+                                            Online (0)
+                                        </button>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <button class="btn btn-sm btn-toggle collapsed nav-link" onclick='show_cluster()' aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-layers"></i>
+                                            Offline (0)
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        
+                        <!-- NETWORK MENU -->
+                        <li class="nav-item">
+                            <button class="nav-link btn btn-toggle collapsed" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapse-network" aria-expanded="false">
+                                <i class="bs-icon feather bi bi-diagram-3"></i>
+                                Networks
+                            </button>
+                            
+                            <div class="collapse" id="collapse-network">
+                                <ul class="nav flex-column mb-2 nav-link-menu">
+                                    <li class="nav-item" id="system-test">
+                                        <button class="btn btn-sm btn-toggle collapsed nav-link" onclick='main_net_overview_show()' 
+                                                aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-list-ul"></i>
+                                            Overview
+                                        </button>
+                                    </li>
+
+                                    <li class="nav-item" id="system-test">
+                                        <button class="btn btn-sm btn-toggle collapsed nav-link" onclick='main_net_sys_overview_show()' 
+                                                aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-list-ul"></i>
+                                            System View
+                                        </button>
+                                    </li>
+                                    
+                                    <!-- NETWORK BRIDGE -->
+                                    <li class="nav-item">
+                                        <button class="nav-link btn btn-sm btn-toggle collapsed nav-link" data-bs-toggle="collapse" 
+                                                data-bs-target="#collapse-net-bridge" aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-diagram-3"></i>
+                                            <span id="menu-net-vlan">Vlan</span>
+                                        </button>
+                                        
+                                        <div class="collapse" id="collapse-net-bridge">
+                                            <ul class="nav flex-column mb-2 nav-link-menu"></ul>
+                                        </div>
+                                    </li>
+
+                                    <!-- NETWORK TRUNK -->
+                                    <li class="nav-item">
+                                        <button class="nav-link btn btn-sm btn-toggle collapsed nav-link" data-bs-toggle="collapse" 
+                                                data-bs-target="#collapse-net-trunk" aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-diagram-3"></i>
+                                            <span id="menu-net-trunk">Trunk</span>
+                                        </button>
+                                        
+                                        <div class="collapse" id="collapse-net-trunk">
+                                            <ul class="nav flex-column mb-2 nav-link-menu"></ul>
+                                        </div>
+                                    </li>
+
+                                    <!-- NETWORK VPP -->
+                                    <li class="nav-item">
+                                        <button class="nav-link btn btn-sm btn-toggle collapsed nav-link" data-bs-toggle="collapse" 
+                                                data-bs-target="#collapse-net-vpp" aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-diagram-3"></i>
+                                            <span id="menu-net-vpp">VPP</span>
+                                        </button>
+                                        
+                                        <div class="collapse" id="collapse-net-vpp">
+                                            <ul class="nav flex-column mb-2 nav-link-menu"></ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        
+                        <!-- STORAGE MENU -->
+                        <li class="nav-item">
+                            <button class="nav-link btn btn-toggle collapsed" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapse-storage" aria-expanded="false">
+                                <i class="bs-icon feather bi bi-server"></i>
+                                Storage
+                            </button>
+                            
+                            <div class="collapse" id="collapse-storage">
+                                <ul class="nav flex-column mb-2 nav-link-menu">
+                                    <li class="nav-item">
+                                        <button class="btn btn-sm btn-toggle collapsed nav-link" onclick='stor_overview_show()' 
+                                                aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-list-ul"></i>
+                                            Overview
+                                        </button>
+                                    </li>
+                                    
+                                    <!-- STORAGE DEVICES -->
+                                    <li class="nav-item">
+                                        <button class="nav-link btn btn-sm btn-toggle collapsed nav-link" data-bs-toggle="collapse" 
+                                                data-bs-target="#collapse-storage-device" aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-hdd"></i>
+                                            <span id="menu-storage-device">Devices</span>
+                                        </button>
+                                        
+                                        <div class="collapse" id="collapse-storage-device">
+                                            <ul class="nav flex-column mb-2 nav-link-menu"></ul>
+                                        </div>
+                                    </li>
+                                    
+                                    <!-- STORAGE POOLS -->
+                                    <li class="nav-item">
+                                        <button class="nav-link btn btn-sm btn-toggle collapsed nav-link" data-bs-toggle="collapse" 
+                                                data-bs-target="#collapse-storage-pool" aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-hdd"></i>
+                                            <span id="menu-storage-pool">Pools</span>
+                                        </button>
+                                        
+                                        <div class="collapse" id="collapse-storage-pool">
+                                            <ul class="nav flex-column mb-2 nav-link-menu"></ul>
+                                        </div>
+                                    </li>
+                                    
+                                    <li class="nav-item">
+                                        <button class="btn btn-sm btn-toggle collapsed nav-link" onclick='hide_cluster()' aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-hdd-network"></i>
+                                            Shares
+                                        </button>
+                                    </li>
+                                    
+                                    <!-- STORAGE ISOS -->
+                                    <li class="nav-item">
+                                        <button class="nav-link btn btn-sm btn-toggle collapsed nav-link" data-bs-toggle="collapse" 
+                                                data-bs-target="#collapse-storage-iso" aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-vinyl"></i>
+                                            <span id="menu-storage-iso">ISOs</span>
+                                        </button>
+                                        
+                                        <div class="collapse" id="collapse-storage-iso">
+                                            <ul class="nav flex-column mb-2 nav-link-menu"></ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        
+                        <!-- ELEMENTS MENU -->
+                        <li class="nav-item">
+                            <button class="nav-link btn btn-toggle collapsed" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapse-element-dev" aria-expanded="false">
+                                <i class="bs-icon feather bi bi-layout-wtf"></i>
+                                Elements
+                            </button>
+                            
+                            <div class="collapse" id="collapse-element-dev">
+                                <ul class="nav flex-column mb-2 nav-link-menu">
+                                    <!-- DEVICE AGGREGATE -->
+                                    <li class="nav-item">
+                                        <button class="btn btn-sm btn-toggle collapsed nav-link" onclick='element_device_ov_show()' 
+                                                aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-router"></i>
+                                            <span id="menu-element-device">Devices</span>
+                                        </button>
+                                    </li>
+
+                                    <!-- SERVICE AGGREGATE -->
+                                    <li class="nav-item">
+                                        <button class="btn btn-sm btn-toggle collapsed nav-link" onclick='element_service_ov_show()' 
+                                                aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-window"></i>
+                                            <span id="menu-element-service">Services</span>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        
+                        <!-- DEBUG MENU -->
+                        <li class="nav-item">
+                            <button class="nav-link btn btn-toggle collapsed" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapse-devel" aria-expanded="false">
+                                <i class="bs-icon feather bi bi-activity"></i>
+                                API
+                            </button>
+                            
+                            <div class="collapse" id="collapse-devel">
+                                <ul class="nav flex-column mb-2 nav-link-menu">
+									<li class="nav-item">
+                                        <button class="btn btn-sm btn-toggle collapsed nav-link" onclick='api_ping()' 
+                                                aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-gear"></i>
+                                            Ping API
+                                        </button>
+                                    </li>
+									
+                                    <li class="nav-item">
+                                        <button class="btn btn-sm btn-toggle collapsed nav-link" onclick='api_regenerate_id()' 
+                                                aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-gear"></i>
+                                            Regen AID
+                                        </button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <button class="btn btn-sm btn-toggle collapsed nav-link" onclick='api_rest_new()' 
+                                                aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-gear"></i>
+                                            Refresh All
+                                        </button>
+                                    </li>
+                                    
+                                    <li class="nav-item">
+                                        <button class="btn btn-sm btn-toggle collapsed nav-link" onclick='api_show_newdb()' 
+                                                aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-gear"></i>
+                                            Show Database
+                                        </button>
+                                    </li>
+                                    
+                                    <li class="nav-item">
+                                        <button class="btn btn-sm btn-toggle collapsed nav-link" onclick='api_rest_file_get("banana")' 
+                                                aria-expanded="false">
+                                            <i class="bs-icon feather bi bi-gear"></i>
+                                            REST FILE TEST
+                                        </button>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <!-- ADDITIONALS -->
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>AAPEN</span>
+                        <a class="link-secondary" href="#" aria-label="Add a new report">
+                            <span data-feather="plus-circle"></span>
+                        </a>
+                    </h6>
+                    
+                    <ul class="nav flex-column mb-2">
+                        <li class="nav-item">
+                            <button class="btn btn-sm btn-toggle collapsed nav-link" onclick='main_api_show()' aria-expanded="false">
+                                <i class="bs-icon feather bi bi-activity"></i>
+                                API
+                            </button>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <button class="btn btn-sm btn-toggle collapsed nav-link" onclick='cli_spawn()' aria-expanded="false">
+                                <i class="bs-icon feather bi bi-terminal"></i>
+                                CLI
+                            </button>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <button class="btn btn-sm btn-toggle collapsed nav-link" onclick='log_show()' aria-expanded="false">
+                                <i class="bs-icon feather bi bi-activity"></i>
+                                LOG
+                            </button>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <button class="btn btn-sm btn-toggle collapsed nav-link" onclick='main_about_show()' aria-expanded="false">
+                                <i class="bs-icon feather bi bi-info-square"></i>
+                                About
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- MAIN CONTENT -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <!-- WELCOME VIEW -->
+                <div class="collapse" id="main_init">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h2 class="h2"><b>AAPEN</b> | Adaptive Array of Power Efficient Nodes</h2>
+                    </div>
+                
+                    <div class="row">
+                        <!-- Health Card -->
+                        <div class="col-sm-3">
+                            <div class="card" style="width: 18rem;">
+                                <i class="card-img-top text-center bi bi-heart-pulse" style="font-size: 3.5rem"></i>
+                                <div class="card-body">
+                                    <h5 class="card-title"><b style="color:#0040ff">Health</b></h5>
+                                    <p class="card-text" id="main-card-health">
+                                        Cluster Status [<b>n/a</b>]<br>
+                                        Health Events [<b>0</b>]
+                                    </p>
+                                    <a href="#" class="btn btn-primary" onclick='cluster_health_show()'>Show Health</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Clusters Card -->
+                        <div class="col-sm-3">
+                            <div class="card" style="width: 18rem;">
+                                <i class="card-img-top text-center bi bi-grid" style="font-size: 3.5rem"></i>
+                                <div class="card-body">
+                                    <h5 class="card-title"><b style="color:#0040ff">Clusters</b></h5>
+                                    <p class="card-text" id="main-card-cluster">
+                                        Online Clusters [<b>1</b>]<br>
+                                        Offline Clusters [<b>0</b>]
+                                    </p>
+                                    <a href="#" class="btn btn-primary" onclick='cluster_show()'>Show Clusters</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Nodes Card -->
+                        <div class="col-sm-3">
+                            <div class="card" style="width: 18rem;">
+                                <i class="card-img-top text-center bi bi-view-stacked" style="font-size: 3.5rem"></i>
+                                <div class="card-body">
+                                    <h5 class="card-title"><b style="color:#0040ff">Nodes</b></h5>
+                                    <p class="card-text" id="main-card-node">
+                                        Online Nodes [<b>0</b>]<br>
+                                        Offline Nodes [<b>0</b>]
+                                    </p>
+                                    <a href="#" class="btn btn-primary" onclick='main_node_overview_show()'>Show Nodes</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Networks Card -->
+                        <div class="col-sm-3">
+                            <div class="card" style="width: 18rem;">
+                                <i class="card-img-top text-center bi bi-diagram-3" style="font-size: 3.5rem"></i>
+                                <div class="card-body">
+                                    <h5 class="card-title"><b style="color:#0040ff">Networks</b></h5>
+                                    <p class="card-text" id="main-card-network">
+                                        Network Bridges [<b>0</b>]<br>
+                                        VPP Networks [<b>0</b>]
+                                    </p>
+                                    <a href="#" class="btn btn-primary" onclick='main_net_overview_show()'>Show Networks</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row">
+                        <!-- Groups Card -->
+                        <div class="col-sm-3">
+                            <div class="card" style="width: 18rem;">
+                                <i class="card-img-top text-center bi bi-bounding-box" style="font-size: 3.5rem"></i>
+                                <div class="card-body">
+                                    <h5 class="card-title"><b style="color:#0040ff">Groups</b></h5>
+                                    <p class="card-text" id="main-card-group">
+                                        Availability Groups [<b>0</b>]<br>
+                                        Failover Groups [<b>0</b>]
+                                    </p>
+                                    <a href="#" class="btn btn-primary" onclick='cluster_show()'>Show Groups</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Systems Card -->
+                        <div class="col-sm-3">
+                            <div class="card" style="width: 18rem;">
+                                <i class="card-img-top text-center bi bi-display" style="font-size: 3.5rem"></i>
+                                <div class="card-body">
+                                    <h5 class="card-title"><b style="color:#0040ff">Systems</b></h5>
+                                    <p class="card-text" id="main-card-system">
+                                        Systems Online [<b>0</b>]<br>
+                                        Systems Offline [<b>0</b>]
+                                    </p>
+                                    <a href="#" class="btn btn-primary" onclick='main_system_overview_show()'>Show Systems</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Containers Card -->
+                        <div class="col-sm-3">
+                            <div class="card" style="width: 18rem;">
+                                <i class="card-img-top text-center bi bi-layers" style="font-size: 3.5rem"></i>
+                                <div class="card-body">
+                                    <h5 class="card-title"><b style="color:#0040ff">Containers</b></h5>
+                                    <p class="card-text" id="main-card-node">
+                                        Online Containers [<b>0</b>]<br>
+                                        Offline Containers [<b>0</b>]
+                                    </p>
+                                    <a href="#" class="btn btn-primary">Show Containers</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Storage Card -->
+                        <div class="col-sm-3">
+                            <div class="card" style="width: 18rem;">
+                                <i class="card-img-top text-center bi bi-server" style="font-size: 3.5rem"></i>
+                                <div class="card-body">
+                                    <h5 class="card-title"><b style="color:#0040ff">Storage</b></h5>
+                                    <p class="card-text" id="main-card-storage">
+                                        Online Storage [<b>0</b>]<br>
+                                        Offline Storage [<b>0</b>]
+                                    </p>
+                                    <a href="#" class="btn btn-primary" onclick="stor_overview_show()">Show Storage</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row">
+                        <!-- Elements Card -->
+                        <div class="col-sm-3">
+                            <div class="card" style="width: 18rem;">
+                                <i class="card-img-top text-center bi bi-layout-wtf" style="font-size: 3.5rem"></i>
+                                <div class="card-body">
+                                    <h5 class="card-title"><b style="color:#0040ff">Elements</b></h5>
+                                    <p class="card-text" id="main-card-elements">
+                                        Devices [<b>0</b>] Groups [<b>0</b>]<br>
+                                        Services [<b>0</b>] Groups [<b>0</b>]
+                                    </p>
+                                    <a href="#" class="btn btn-primary" onclick="element_ov_show()">Show Elements</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- API Card -->
+                        <div class="col-sm-3">
+                            <div class="card" style="width: 18rem;">
+                                <i class="card-img-top text-center bi bi-terminal" style="font-size: 3.5rem"></i>
+                                <div class="card-body">
+                                    <h5 class="card-title"><b style="color:#0040ff">AAPEN API</b></h5>
+                                    <p class="card-text" id="main-card-api">
+                                        Show framework API actions<br>
+                                        AAPEN API version [<b>n/a</b>]
+                                    </p>
+                                    <a href="#" class="btn btn-primary" onclick='main_api_show()'>Show API</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- REST Card -->
+                        <div class="col-sm-3">
+                            <div class="card" style="width: 18rem;">
+                                <i class="card-img-top text-center bi bi-cloud-check" style="font-size: 3.5rem"></i>
+                                <div class="card-body">
+                                    <h5 class="card-title"><b style="color:#0040ff">AAPEN REST</b></h5>
+                                    <p class="card-text" id="main-card-rest">
+                                        AAPEN REST API<br>
+                                        Last updated [n/a]
+                                    </p>
+                                    <a href="#" class="btn btn-primary" onclick='mainRefreshAllViews()'>Refresh</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- LOG Card -->
+                        <div class="col-sm-3">
+                            <div class="card" style="width: 18rem;">
+                                <i class="card-img-top text-center bi bi-activity" style="font-size: 3.5rem"></i>
+                                <div class="card-body">
+                                    <h5 class="card-title"><b style="color:#0040ff">LOG</b></h5>
+                                    <p class="card-text" id="main-card-log">
+                                        Show framework log events<br>
+                                        Events logged [<b>0</b>]
+                                    </p>
+                                    <a href="#" class="btn btn-primary" onclick='log_show()'>Show Logs</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- LOG VIEW -->
+                <div class="collapse table-responsive" id="main_log">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-3">
+                        <h1 class="h2">[ Log ]</h1>
+                    </div>
+                    
+                    <table id="logTable" class="table table-outline table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%">[ fid ]</th>
+                                <th style="width: 10%">[ result ]</th>
+                                <th style="width: 80%">[ message ]</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                
+                <!-- VARIOUS COLLAPSIBLE VIEWS -->
+                <div class="collapse" id="main_cluster"></div>
+                <div class="collapse" id="main_node"></div>
+                <div class="collapse" id="main_node_overview"></div>
+                <div class="collapse" id="main_node_resources"></div>
+                <div class="collapse" id="main_net"></div>
+                <div class="collapse" id="main_net_overview"></div>
+                <div class="collapse" id="main_net_sys_overview"></div>
+                <div class="collapse" id="main_system"></div>
+                <div class="collapse" id="main_system_overview"></div>
+                <div class="collapse" id="main_system_res_overview"></div>
+                <div class="collapse" id="main_system_config"></div>
+                <div class="collapse" id="main_storage_view"></div>
+                <div class="collapse" id="main_storage_overview"></div>
+                <div class="collapse" id="main_storage_dev_view"></div>
+                <div class="collapse" id="main_storage_iso_view"></div>
+                <div class="collapse" id="main_storage_pool_view"></div>
+                <div class="collapse" id="main_json_view"></div>
+                <div class="collapse" id="main_text_view"></div>
+                <div class="collapse" id="main_cluster_health_view"></div>
+                <div class="collapse" id="main_search_view"></div>
+                <div class="collapse" id="main_api_view"></div>
+                <div class="collapse" id="main_about_view"></div>
+                <div class="collapse" id="main_element_service_view"></div>
+                <div class="collapse" id="main_element_device_view"></div>
+                <div class="collapse" id="main_element_device_mt_view"></div>
+                <div class="collapse" id="main_element_overview"></div>
+                <div class="collapse" id="main_health_overview"></div>
+
+                <!-- MODAL DIALOG -->
+                <div class="modal fade" id="mainModal" tabindex="-1" aria-labelledby="mainModalLabel" aria-hidden="true" 
+                     data-bs-backdrop='static'>
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <i id="mainModalIcon" class="system-load-btn bi bi-power" style="font-size: 1.25rem"></i>
+                                <h5 class="modal-title" id="mainModalLabel">Main Label</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div id="mainModalBody" class="modal-body">
+                                <b>Modal Body</b> placeholder text
+                            </div>
+                            <div class="modal-footer">
+                                <button id="mainModalBtnCancel" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button id="mainModalBtnAccept" type="button" class="btn btn-primary">Accept</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TOAST NOTIFICATION -->
+                <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                    <div id="main-toast-container" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header">
+                            <i id="toast-container-icon" class="rounded me-2 bi bi-exclamation-diamond" style="font-size: 1.25rem"></i>
+                            <strong id="toast-container-header" class="me-auto">ERROR</strong>
+                            <small id="toast-container-caller">FAILED</small>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div id="toast-container-body" class="toast-body">
+                            FAILED TO GENERATE ERROR MESSAGE!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LOADING SPINNER -->
+                <div class="modal fade" id="mainSpinner" tabindex="-1" aria-labelledby="mainSpinnerLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <i id="mainModalIcon" class="system-load-btn bi bi-cloud-lightning" style="font-size: 3.0rem"></i>
+                                <h5 class="modal-title" style="font-size: 1.5rem" id="mainSpinnerLabel"><b>Loading Cluster Components</b></h5>
+                            </div>
+                            
+                            <div id="mainModalBody" class="modal-body">
+                                <div class="text-center">
+                                    <div class="spinner-border m-5" style="width: 5rem; height: 5rem;" role="status">
+                                        <span class="sr-only"><br><b>AAPEN<br>CLUSTER</b></span>
+                                    </div>
+                                </div>
+                                
+                                <div class="modal-footer">
+                                    <b>AAPEN Cluster Configuration Initializing...</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODAL WINDOW -->
+                <div class="modal fade" id="mainModalWindow" tabindex="-1" aria-labelledby="mainModalWindowLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" style="max-width: 80%; max-height: 80%;" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <i id="mainModalWindowIcon" class="system-load-btn bi bi-power" style="font-size: 1.25rem"></i>
+                                <h5 class="modal-title" id="mainModalWindowLabel">Main Label</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div id="mainModalBody" class="modal-body">
+                                <b>Modal Body</b> placeholder text
+                                <div id="main_window_novnc">
+                                    <div id="top_bar">
+                                        <div id="status">Loading</div>
+                                        <div id="sendCtrlAltDelButton">Send CtrlAltDel</div>
+                                    </div>
+                                    <div id="screen">
+                                        <!-- This is where the remote screen will appear -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="mainModalWindowBtnCancel" type="button" class="btn btn-secondary" 
+                                        data-bs-dismiss="modal">Cancel</button>
+                                <button id="mainModalWindowBtnAccept" type="button" class="btn btn-primary">Accept</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- JavaScript Assets -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js.map"></script>
+    <script src="js/jquery-1.11.1.js"></script>
+    <script src="js/socket.io-1.2.0.js"></script>
+    <script src="js/jquery-ui-min.js"></script>
+    <script src="js/jquery.json-viewer.js"></script>
+    <script src="js/trumbowyg.min.js"></script>
+    
+    <!-- JavaScript Libraries -->
+    <script src="lib/main.js"></script>
+    <script src="lib/helpers.js"></script>
+    <script src="lib/api.js"></script>
+    <script src="lib/api_new.js"></script>
+    <script src="lib/log.js"></script>
+    <script src="lib/db.js"></script>
+    <script src="lib/node.js"></script>
+    <script src="lib/node_helpers.js"></script>
+    <script src="lib/system.js"></script>
+    <script src="lib/system_helpers.js"></script>
+    <script src="lib/system_overview.js"></script>
+    <script src="lib/network.js"></script>
+    <script src="lib/cluster.js"></script>
+    <script src="lib/search.js"></script>
+    <script src="lib/storage.js"></script>
+    <script src="lib/element.js"></script>
+    
+    <!-- Initialize Views -->
+    <script type="text/javascript">
+        $(function(){ $("#main_cluster").load("html/cluster.html"); });
+        $(function(){ $("#main_node").load("html/node.html"); });
+        $(function(){ $("#main_node_overview").load("html/node_ov.html"); });
+        $(function(){ $("#main_node_resources").load("html/node_ov_res.html"); });
+        $(function(){ $("#main_system").load("html/system.html"); });
+        $(function(){ $("#main_system_overview").load("html/system_ov.html"); });
+        $(function(){ $("#main_system_res_overview").load("html/system_ov_res.html"); });
+        $(function(){ $("#main_storage").load("html/storage.html"); });
+        $(function(){ $("#main_storage_overview").load("html/storage_ov.html"); });
+        $(function(){ $("#main_storage_dev_view").load("html/storage_dev.html"); });
+        $(function(){ $("#main_storage_iso_view").load("html/storage_iso.html"); });
+        $(function(){ $("#main_storage_pool_view").load("html/storage_pool.html"); });
+        $(function(){ $("#main_net").load("html/network.html"); });
+        $(function(){ $("#main_net_overview").load("html/network_ov.html"); });
+        $(function(){ $("#main_net_sys_overview").load("html/network_sys_ov.html"); });
+        $(function(){ $("#main_json_view").load("html/json_view.html"); });
+        $(function(){ $("#main_text_view").load("html/text_view.html"); });
+        $(function(){ $("#main_cluster_health_view").load("html/cluster_health.html"); });
+        $(function(){ $("#main_search_view").load("html/search.html"); });
+        $(function(){ $("#main_api_view").load("html/api.html"); });
+        $(function(){ $("#main_about_view").load("html/about.html"); });
+        $(function(){ $("#main_element_service_view").load("html/element_srv.html"); });
+        $(function(){ $("#main_element_device_view").load("html/element_dev.html"); });
+        $(function(){ $("#main_element_device_mt_view").load("html/element_dev_mt.html"); });
+        $(function(){ $("#main_element_overview").load("html/element_ov.html"); });
+        $(function(){ $("#main_health_overview").load("html/health_ov.html"); });
+    </script>
+
+    <!-- Initialization Script -->
+    <script>
+        window.onload = () => {
+            log_write_json("INIT", "[INITIALIZING]", "starting API metadata collection");
+            
+            //spinner_show();
+            api_login();
+            
+            // init collapse
+            var myCollapse = document.getElementById('main_init')
+            var bsCollapse = new bootstrap.Collapse(myCollapse, {
+                toggle: false
+            })
+
+            bsCollapse.show();
+
+            // init search box
+            var searchbox = document.getElementById("main-search-bar");
+            searchbox.addEventListener("keypress", function(event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    log_write_json("search_bar", "[main-search-bar]", "query [" + searchbox.value + "]");
+                    search_show(searchbox.value);
+                }
+            }); 
+            
+            //log_write_json("INIT", "[COMPLETED]", "metadata API request completed");
+        }    
+    </script>
+</body>
+</html>

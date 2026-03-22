@@ -1,0 +1,136 @@
+<!--
+ * ETHER|AAPEN|WEB - HTML|NODE|OV
+ * Licensed under AGPLv3+
+ * (c) 2010-2025 | ETHER.NO
+ * Author: Frode Moseng Monsson
+ * Contact: aapen@ether.no
+ * Version: 3.3.1
+ -->
+ 
+<!-- Node monitoring dashboard with status and resource metrics -->
+<div class="row row-space g-1 mt-1 pt-2 ms-0">
+	<!-- Node overview header section -->
+	<div class="col-lg-3 rounded-3 p-2 col-md-offset-2">    
+		<div class="row row-space pb-2 mt-3">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-view-stacked" style="font-size: 3rem"></i>
+				<div class="ms-3">
+					<div class="mt-2"><h3>[ Nodes ]</h3></div>
+				</div>
+			</div>
+		</div>    
+	</div>
+    
+	<div class="col-lg-1 rounded-3 p-2 col-md-offset-2 me-auto"></div>
+	
+	<!-- Node status counters section -->
+	<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-activity" style="font-size: 1.5rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Status</h5></div>
+				</div>
+			</div>
+		</div>    
+			
+		<div class="row row-space mt-0">
+			<div class="col-lg-6 d-flex align-items-center ms-3">
+				<div>Online Nodes</div>
+			</div>
+			<div class="col-lg-4 d-flex align-items-center">
+				<div id="main-node-overview-online"><b>n/a</b></div>
+			</div>
+		</div>
+
+		<div class="row row-space mt-1 mb-1">
+			<div class="col-lg-6 d-flex align-items-center ms-3">
+				<div>Offline Nodes</div>
+			</div>
+			<div class="col-lg-4 d-flex align-items-center">
+				<div id="main-node-overview-offline"><b>n/a</b></div>
+			</div>
+		</div>                    
+	</div>
+
+	<!-- CPU utilization metrics section -->
+	<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-cpu" style="font-size: 1.5rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Cluster Processing</h5></div>
+				</div>
+			</div>
+		</div>    
+			
+		<div class="row row-space mt-0">
+			<div class="col-lg-4 d-flex align-items-center ms-3">
+				<div>Cores</div>
+			</div>
+			<div class="col-lg-6 d-flex align-items-center">
+				<div id="main-node-overview-cores"><b>n/a</b></div>
+			</div>
+		</div>
+
+		<div class="row row-space mt-1 mb-1">
+			<div class="col-lg-4 d-flex align-items-center ms-3">
+				<div>Load</div>
+			</div>
+			<div class="col-lg-6 d-flex align-items-center">
+				<div id="main-node-overview-load"><b>n/a</b></div>
+			</div>
+		</div>                    
+	</div>
+        
+	<!-- Memory utilization metrics section -->
+	<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-memory" style="font-size: 1.5rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Cluster Memory</h5></div>
+				</div>
+			</div>
+		</div>    
+			
+		<div class="row row-space mt-0">
+			<div class="col-lg-4 d-flex align-items-center ms-3">
+				<div>Total</div>
+			</div>
+			<div class="col-lg-7 d-flex align-items-center">
+				<div id="main-node-overview-mem-tot"><b>n/a</b></div>
+			</div>
+		</div>
+
+		<div class="row row-space mt-1 mb-1">
+			<div class="col-lg-4 d-flex align-items-center ms-3">
+				<div>Used</div>
+			</div>
+			<div class="col-lg-7 d-flex align-items-center">
+				<div id="main-node-overview-mem-used"><b>n/a</b></div>
+			</div>
+		</div>                    
+	</div>
+</div>
+
+<!-- Node status and resource utilization table -->
+<table id="nodeTable" class="table table-outline table-striped table-hover mb-5">
+	<thead>
+		<tr>
+			<th style="width: 4%">[ id ]</th>
+			<th style="width: 6%">[ name ]</th>
+			<th style="width: 5%">[ state ]</th>
+			<th style="width: 4%">[ ver ]</th>
+			<th style="width: 4%">[ delta ]</th>
+			<th style="width: 10%">[ uptime ]</th>
+			<th style="width: 10%">[ cpu ]</th>
+			<th style="width: 5%">[ cores ]</th>
+			<th style="width: 9%">[ load ]</th>
+			<th style="width: 5%">[ ram ]</th>
+			<th style="width: 5%">[ used ]</th>
+			<th style="width: 5%">[ free ]</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>

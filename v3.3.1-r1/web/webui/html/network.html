@@ -1,0 +1,460 @@
+<!--
+ * ETHER|AAPEN|WEB - HTML|NETWORK
+ * Licensed under AGPLv3+
+ * (c) 2010-2025 | ETHER.NO
+ * Author: Frode Moseng Monsson
+ * Contact: aapen@ether.no
+ * Version: 3.3.1
+ -->
+
+<!-- Network configuration and monitoring dashboard -->
+		
+	<!-- Main network header with title and JSON/config buttons -->
+	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+		<h1 class="h3" id="main-net-header">[ network ]</h3>
+		<div class="btn-toolbar mb-2 mb-md-0">
+			<div class="btn-group me-2">
+				<button type="button" id="main-net-btn-config" class="btn btn-sm btn-outline-secondary disabled">Config</button>
+				<button type="button" id="main-net-btn-json" class="btn btn-sm btn-outline-secondary">JSON</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Network status section with state accordion -->
+	<div class="row row-space g-1 mt-2 pt-2">
+		
+		<!-- NETWORK STATUS -->
+		<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+			<div class="row row-space pb-2">
+				<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+					<i class="bi bi-activity" style="font-size: 1.25rem"></i>
+					<div class="ms-2 mt-1">
+						<div><h5>Status</h5></div>
+					</div>
+				</div>
+			</div>
+		</div>		
+
+		<!-- NETWORK STATE -->			
+		<div class="accordion mt-1" id="accordionNodeState">
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="headingOne">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeState">
+						<i class="bi bi-activity" style="font-size: 1.25rem"></i>
+						<div class="ms-3">
+							<div id="main-net-state">State [<b>UNKNOWN</b>]</div>
+						</div>
+					</button>
+				</h2>
+	
+				<div id="collapseNodeState" class="accordion-collapse collapse" data-bs-parent="#accordionNodeState">
+					<div class="accordion-body">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Network configuration section with multiple accordions -->
+	<div class="row row-space g-1 mt-2 pt-2">
+		
+		<!-- Configuration section header -->
+		<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+			<div class="row row-space pb-2">
+				<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+					<i class="bi bi-pencil-square" style="font-size: 1.25rem"></i>
+					<div class="ms-2 mt-1">
+						<div><h5>Configuration</h5></div>
+					</div>
+				</div>
+			</div>
+		</div>		
+
+		<!-- NETWORK CONFIG -->
+		<div class="accordion mt-1" id="accordionNetConfig">
+			
+			<!-- Network identity configuration panel -->
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="headingOne">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNetIdentity">
+						<i class="bi bi-hash" style="font-size: 1.25rem"></i>
+						<div class="ms-3">
+							<div id="main-net-identity">Name [<b>n/a</b>] id [<b>n/a</b>]</div>
+						</div>
+					</button>
+				</h2>
+	
+				<div id="collapseNetIdentity" class="accordion-collapse collapse" data-bs-parent="#accordionNetConfig">
+					<div class="accordion-body">
+						
+						<!-- NETWORK IDENTITY -->
+						<div class="row row-space g-1 mt-1 pt-1 ms-1">
+							<div class="col-lg-3 border rounded-3 p-2 bg-light col-md-offset-2">
+								
+								<div class="row row-space pb-1">
+									<div class="col-lg-11 d-flex align-items-center">
+										<i class="bi bi-pencil-square" style="font-size: 1.25rem"></i>
+										<div class="ms-2 mt-1">
+											<div><h5>Identity</h5></div>
+										</div>
+									</div>
+								</div>	
+								
+								<div class="row row-space mt-1">
+									<div class="input-group input-group-sm mb-2">
+										<span class="input-group-text" id="basic-addon3">Network UID</span>
+										<input id="main-network-uid" type="text" class="form-control" id="main-system-cpu-sosdfck" placeholder="">
+									</div>
+								</div>	
+								
+								<div class="row row-space mt-1">
+									<div class="input-group input-group-sm mb-2">
+										<span class="input-group-text" id="basic-addon3">Network Name</span>
+										<input id="main-network-name" type="text" class="form-control" id="main-system-cpu-sosdfck" placeholder="">
+									</div>
+								</div>	
+								
+								<div class="row row-space mt-1">
+									<div class="input-group input-group-sm mb-2">
+										<span class="input-group-text" id="basic-addon3">Description</span>
+										<input id="main-network-desc" type="text" class="form-control" id="main-system-cpu-sosdfck" placeholder="">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+			<!-- Network type configuration panel -->
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="headingNetType">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNetType">
+						<i class="bi bi-hash" style="font-size: 1.25rem"></i>
+						<div class="ms-3">
+							<div id="net-type-header">Type [<b>n/a</b>] model [<b>n/a</b>] class [<b>n/a</b>]</div>
+						</div>
+					</button>
+				</h2>
+	
+				<!-- NETWORK STATUS -->
+				<div id="collapseNetType" class="accordion-collapse collapse" data-bs-parent="#accordionNetConfig">
+					<div class="accordion-body">
+						
+						<!-- SECOND ROW -->
+						<div class="row row-space g-1 mt-1 pt-1 ms-1">
+							
+							<!-- NETWORK TYPE -->
+							<div class="col-lg-3 border rounded-3 p-2 bg-light col-md-offset-2">
+								<div class="row row-space pb-1">
+									<div class="col-lg-11 d-flex align-items-center">
+										<i class="bi bi-pencil-square" style="font-size: 1.25rem"></i>
+										<div class="ms-2 mt-1">
+											<div><h5>Type</h5></div>
+										</div>
+									</div>
+								</div>	
+								
+								<div class="row row-space mt-1">
+									<div class="input-group input-group-sm mb-2">
+										<span class="input-group-text" id="basic-addon3">Network Type</span>
+										<input id="main-network-type" type="text" class="form-control" placeholder="" disabled>
+									</div>
+								</div>	
+								
+								<div class="row row-space mt-1">
+									<div class="input-group input-group-sm mb-2">
+										<span class="input-group-text" id="basic-addon3">Network Model</span>
+										<input id="main-network-model" type="text" class="form-control" placeholder="">
+									</div>
+								</div>	
+								
+								<div class="row row-space mt-1">
+									<div class="input-group input-group-sm mb-2">
+										<span class="input-group-text" id="basic-addon3">Network Class</span>
+										<input id="main-network-class" type="text" class="form-control" placeholder="">
+									</div>
+								</div>
+							</div>
+							
+							<!-- NETWORK SDF -->
+							<div class="col-lg-3 border rounded-3 p-2 bg-light col-md-offset-2 ms-2">
+								
+								<div class="row row-space pb-1">
+									<div class="col-lg-11 d-flex align-items-center">
+										<i class="bi bi-pencil-square" style="font-size: 1.25rem"></i>
+										<div class="ms-2 mt-1">
+											<div><h5>Network</h5></div>
+										</div>
+									</div>
+								</div>	
+								
+								<div class="row row-space mt-1">
+									<div class="input-group input-group-sm mb-2">
+										<span id="main-network-opt0-label" class="input-group-text" id="basic-addon3">TEMP</span>
+										<input id="main-network-opt0-input" type="text" class="form-control" placeholder="">
+									</div>
+								</div>	
+								
+								<div class="row row-space mt-1">
+									<div class="input-group input-group-sm mb-2">
+										<span id="main-network-opt1-label" class="input-group-text" id="basic-addon3">TEMP</span>
+										<input id="main-network-opt1-input" type="text" class="form-control" placeholder="" disabled>
+									</div>
+								</div>	
+								
+								<div class="row row-space mt-1">
+									<div class="input-group input-group-sm mb-2">
+										<span id="main-network-opt2-label" class="input-group-text" id="basic-addon3">TEMP</span>
+										<input id="main-network-opt2-input" type="text" class="form-control" placeholder="" disabled>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Network addressing configuration panel -->
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="headingNetAddress">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNetAddress">
+						<i class="bi bi-hash" style="font-size: 1.25rem"></i>
+						<div class="ms-3">
+							<div id="main-net-address">Address [<b>n/a</b>] mask [<b>n/a</b>]</div>
+						</div>
+					</button>
+				</h2>
+	
+				<!-- NETWORK ADDRESS CONFIG -->
+				<div id="collapseNetAddress" class="accordion-collapse collapse" data-bs-parent="#accordionNetConfig">
+					<div class="accordion-body">
+					
+						<div class="row row-space g-1 mt-1 pt-1 ms-1">
+							<div class="col-lg-3 border rounded-3 p-2 bg-light col-md-offset-2">
+								
+								<div class="row row-space pb-1">
+									<div class="col-lg-11 d-flex align-items-center">
+										<i class="bi bi-pencil-square" style="font-size: 1.25rem"></i>
+										<div class="ms-2 mt-1">
+											<div><h5>Network Address</h5></div>
+										</div>
+									</div>
+								</div>	
+								
+								<div class="row row-space mt-1">
+									<div class="input-group input-group-sm mb-2">
+										<span class="input-group-text" id="basic-addon3">Network Address</span>
+										<input id="main-network-addr" type="text" class="form-control" id="main-system-cpu-sosdfck" placeholder="">
+									</div>
+								</div>	
+								
+								<div class="row row-space mt-1">
+									<div class="input-group input-group-sm mb-2">
+										<span class="input-group-text" id="basic-addon3">Network Mask</span>
+										<input id="main-network-mask" type="text" class="form-control" id="main-system-cpu-sosdfck" placeholder="">
+									</div>
+								</div>	
+								
+								<div class="row row-space mt-1">
+									<div class="input-group input-group-sm mb-2">
+										<span class="input-group-text" id="basic-addon3">Network DHCP</span>
+										<input id="main-network-dhcp" type="text" class="form-control" id="main-system-cpu-sosdfck" placeholder="false">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Node network status section -->
+	<div class="row row-space g-1 mt-2 pt-2">
+		
+		<!-- Node network configuration and statistics -->
+		<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+			<div class="row row-space pb-2">
+				<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+					<i class="bi bi-view-stacked" style="font-size: 1.25rem"></i>
+					<div class="ms-2 mt-1">
+						<div><h5>Nodes</h5></div>
+					</div>
+				</div>
+			</div>
+		</div>		
+
+		<!-- NETWORK NODE OBJECTS -->
+		<div class="accordion mt-1" id="accordionNodeNetwork">
+			
+			<!-- Node network configuration table -->
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="headingNetworkNodeConfig">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNetworkNodeConfig">
+						<i class="bi bi-pencil-square" style="font-size: 1.25rem"></i>
+						<div class="ms-3">
+							<div id="main-network-node-config-header">Config</div>
+						</div>
+					</button>
+				</h2>
+			
+				<div id="collapseNetworkNodeConfig" class="accordion-collapse collapse" data-bs-parent="#accordionNodeNetwork">
+					<div class="accordion-body">
+						<table id="netNodeTable" class="table table-outline table-striped table-hover">
+							<thead>
+								<tr>
+									<th style="width: 5%">[ id ]</th>
+									<th style="width: 10%">[ name ]</th>
+									<th style="width: 10%">[ netdev ]</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Node network statistics table -->
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="headingNetworkNodeStats">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNetworkNodeStats">
+						<i class="bi bi-activity" style="font-size: 1.25rem"></i>
+						<div class="ms-3">
+							<div id="main-network-node-stats-header">Statistics</div>
+						</div>
+					</button>
+				</h2>
+			
+				<div id="collapseNetworkNodeStats" class="accordion-collapse collapse" data-bs-parent="#accordionNodeNetwork">
+					<div class="accordion-body">
+						<table id="netNodeStatsTable" class="table table-outline table-striped table-hover">
+							<thead>
+								<tr>
+									<th style="width: 10%">[ node ]</th>
+									<th style="width: 8%">[ type ]</th>
+									<th style="width: 10%">[ netdev ]</th>
+									<th style="width: 7%">[ bridge ]</th>
+									<th style="width: 30%">[ systems ]</th>
+									<th style="width: 7%">[ tx data ]</th>
+									<th style="width: 7%">[ rx data ]</th>
+									<th style="width: 15%">[ updated ]</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- System network statistics section -->
+	<div class="row row-space g-1 mt-2 pt-2">
+		
+		<!-- System network statistics header -->
+		<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+			<div class="row row-space pb-2">
+				<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+					<i class="bi bi-display" style="font-size: 1.25rem"></i>
+					<div class="ms-2 mt-1">
+						<div><h5>Systems</h5></div>
+					</div>
+				</div>
+			</div>
+		</div>		
+
+		<!-- NETWORK SYSTEM ACCORDION -->
+		<div class="accordion mt-1" id="accordionNetworkSystems">
+			
+			<!-- System network statistics table -->
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="headingNetworkSystems">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNetworkSystems">
+						<i class="bi bi-activity" style="font-size: 1.25rem"></i>
+						<div class="ms-3">
+							<div id="main-network-system-header">Statistics</div>
+						</div>
+					</button>
+				</h2>
+	
+				<div id="collapseNetworkSystems" class="accordion-collapse collapse" data-bs-parent="#accordionNodeSystems">
+					<div class="accordion-body">
+						<table id="netSystemTable" class="table table-outline table-striped table-hover">
+							<thead>
+								<tr>
+									<th style="width: 15%">[ name ]</th>
+									<th style="width: 7%">[ netdev ]</th>
+									<th style="width: 7%">[ state ]</th>
+									<th style="width: 7%">[ rx data ]</th>
+									<th style="width: 10%">[ rx packets ]</th>
+									<th style="width: 7%">[ rx err ]</th>
+									<th style="width: 7%">[ rx drop ]</th>
+									<th style="width: 7%">[ tx data ]</th>
+									<th style="width: 10%">[ tx packets ]</th>
+									<th style="width: 7%">[ tx err ]</th>
+									<th style="width: 7%">[ tx drop ]</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+		
+	<!-- Container network statistics section -->
+	<div class="row row-space g-1 mt-2 pt-2 mb-5">
+		
+		<!-- Container network statistics header -->
+		<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+			<div class="row row-space pb-2">
+				<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+					<i class="bi bi-layers" style="font-size: 1.25rem"></i>
+					<div class="ms-2 mt-1">
+						<div><h5>Containers</h5></div>
+					</div>
+				</div>
+			</div>
+		</div>		
+
+		<!-- NETWORK CONTAINER ACCORDION -->
+		<div class="accordion mt-1" id="accordionExampleNetwork">
+			
+			<!-- Container network statistics table -->
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="headingOneNet">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneNet">
+						<i class="bi bi-layers" style="font-size: 1.25rem"></i>
+						<div class="ms-3">
+							<div id="node-netwosdrk-header">Containers</div>
+						</div>
+					</button>
+				</h2>
+	
+				<div id="collapseOneNet" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+					<div class="accordion-body">
+						<table id="nodeNetwoddrkTable" class="table table-outline table-striped table-hover">
+							<thead>
+								<tr>
+									<th style="width: 5%">[ id ]</th>
+									<th style="width: 10%">[ name ]</th>
+									<th style="width: 5%">[ type ]</th>
+									<th style="width: 10%">[ model ]</th>
+									<th style="width: 40%">[ systems ]</th>
+									<th style="width: 10%">[ rx data ]</th>
+									<th style="width: 10%">[ tx data ]</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

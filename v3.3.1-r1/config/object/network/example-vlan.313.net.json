@@ -1,0 +1,37 @@
+{
+	"object":{
+		"type":"network",
+		"class":"vlan",
+		"model":"tap"
+	},
+	
+	"meta":{
+		"type":"vlan"
+	},
+	
+	"id":{
+		"name":"example-vlan",
+		"desc":"example vlan",
+		"id":"313"		
+	},
+
+	"addr":{
+		"ip":"10.113.0.0",
+		"mask":"255.255.255.0",
+		"dhcp":"0"
+	},	
+
+	"vlan":{
+		"driver":"8021q",
+		"bridge":"br313",
+		"tag":"313"
+	},
+	
+	"node":{
+		"index":"19;20;21",
+		"19":"bond1",
+		"20":"bond1",
+		"21":"bond1"
+	}
+	
+}

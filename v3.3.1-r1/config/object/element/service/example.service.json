@@ -1,0 +1,28 @@
+{
+	"object":{
+		"type":"element",
+		"class":"service",
+		"model":"service"
+	},
+
+	"id":{
+		"name":"example_service",
+		"id":"4",
+		"desc":"example external monitoring service",
+		"group":"monitor"
+	},
+
+	"service":{
+		"index":"web",
+
+		"web":{
+			"url":"http://example_service_url.local:3000"
+		},
+
+		"system":{
+			"id":"10",
+			"name":"example_system"
+		}
+		
+	}
+}

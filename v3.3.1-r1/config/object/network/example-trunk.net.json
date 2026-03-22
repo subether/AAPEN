@@ -1,0 +1,30 @@
+{
+	"object":{
+		"type":"network",
+		"class":"trunk",
+		"model":"tap"
+	},
+	
+	"meta":{
+		"type":"trunk"
+	},
+	
+	"id":{
+		"name":"example-trunk",
+		"desc":"example-trunk",
+		"id":"1000"			
+	},
+
+	"trunk":{
+		"driver":"brctl",
+		"bridge":"trunkbr"
+	},
+	
+	"node":{
+		"index":"19;20;21",
+		"19":"eth2",
+		"20":"eth3",
+		"21":"eth3"
+	}
+	
+}

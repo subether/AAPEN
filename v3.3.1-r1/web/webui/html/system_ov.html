@@ -1,0 +1,207 @@
+<!--
+ * ETHER|AAPEN|WEB - HTML|SYSTEM|OV
+ * Licensed under AGPLv3+
+ * (c) 2010-2025 | ETHER.NO
+ * Author: Frode Moseng Monsson
+ * Contact: aapen@ether.no
+ * Version: 3.3.1
+ -->
+
+<!-- MAIN SECTION: System overview dashboard -->
+
+<!-- HEADER SECTION: Title and controls -->
+<div class="row row-space g-1 mt-1 pt-2 ms-2">
+	<div class="col-lg-2 rounded-3 p-2 col-md-offset-2">
+		<div class="row row-space pb-2 mt-3">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bs-icon-ov bi bi-display" style="font-size: 3rem"></i>
+				<div class="ms-3">
+					<div class="mt-2"><h3>[ Systems ]</h3></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-lg-1 rounded-3 p-2 col-md-offset-2 me-auto"></div>
+
+	<!-- SEARCH SECTION: System filtering -->
+	<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-search" style="font-size: 1.5rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Search</h5></div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row row-space mt-0">
+			<div class="col-lg-11 d-flex align-items-center ms-2 mt-2">
+				<input type="text" class="form-control form-control-sm" id="system-ov-search-bar" placeholder="Search">
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-1 border rounded-3 p-2 bg-light col-md-offset-2 ms-4">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-sort-down" style="font-size: 1.5rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Group</h5></div>
+				</div>
+			</div>
+		</div>
+				
+		<div class="ms-1 mt-2">
+			<select id="systemOvGroupSelect" class="form-select form-select-sm">
+				<option value="group-all">All</option>
+			</select>
+		</div>
+	</div>
+
+	<!-- FILTER SECTION: System visibility toggles -->
+	<div class="col-lg-1 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-funnel" style="font-size: 1.5rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Sorting</h5></div>
+				</div>
+			</div>
+		</div>
+	
+		<!-- ONLINE SYSTEMS -->
+		<div class="row row-space mt-0">
+			<div class="col-lg-11 d-flex align-items-center ms-2">
+				<div class="form-check form-switch">
+					<input class="form-check-input" type="checkbox" id="switchSysSortId" onchange="system_overview_id()" checked>
+					<label class="form-check-label" for="switchSysid">Identity</label>
+				</div>
+			</div>
+		</div>
+
+		<!-- OFFLINE SYSTEMS -->
+		<div class="row row-space mt-0">
+			<div class="col-lg-11 d-flex align-items-center ms-2">
+				<div class="form-check form-switch">
+					<input class="form-check-input" type="checkbox" id="switchSysSortName" onchange="system_overview_name()" checked>
+					<label class="form-check-label" for="switchSysName">Name</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- FILTER SECTION: System visibility toggles -->
+	<div class="col-lg-1 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-funnel" style="font-size: 1.5rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>State</h5></div>
+				</div>
+			</div>
+		</div>
+	
+		<!-- ONLINE SYSTEMS -->
+		<div class="row row-space mt-0">
+			<div class="col-lg-11 d-flex align-items-center ms-2">
+				<div class="form-check form-switch">
+					<input class="form-check-input" type="checkbox" id="switchSysShowOnline" onchange="system_overview_show()" checked>
+					<label class="form-check-label" for="switchSysOnline">Online</label>
+				</div>
+			</div>
+		</div>
+
+		<!-- OFFLINE SYSTEMS -->
+		<div class="row row-space mt-0">
+			<div class="col-lg-11 d-flex align-items-center ms-2">
+				<div class="form-check form-switch">
+					<input class="form-check-input" type="checkbox" id="switchSysShowOffline" onchange="system_overview_show()" checked>
+					<label class="form-check-label" for="switchSysShowOffline">Offline</label>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+	<!-- STATE SECTION: System status summary -->
+	<div class="col-lg-1 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-activity" style="font-size: 1.5rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>State</h5></div>
+				</div>
+			</div>
+		</div>
+			
+		<div class="row row-space mt-0">
+			<div class="col-lg-6 d-flex align-items-center ms-3">
+				<div>Online</div>
+			</div>
+			<div class="col-lg-4 d-flex align-items-center">
+				<div id="main-system-overview-sys-online"><b>n/a</b></div>
+			</div>
+		</div>
+
+		<div class="row row-space mt-1 mb-1">
+			<div class="col-lg-6 d-flex align-items-center ms-3">
+				<div>Offline</div>
+			</div>
+			<div class="col-lg-4 d-flex align-items-center">
+				<div id="main-system-overview-sys-offline"><b>n/a</b></div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- RESOURCES SECTION: Aggregate resource metrics -->
+	<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-cpu" style="font-size: 1.5rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Cluster Resources</h5></div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row row-space mt-0">
+			<div class="col-lg-6 d-flex align-items-center ms-3">
+				<div>Cores Online</div>
+			</div>
+			<div class="col-lg-5 d-flex align-items-center">
+				<div id="main-system-overview-core-online"><b>n/a</b></div>
+			</div>
+		</div>
+
+		<div class="row row-space mt-1 mb-1">
+			<div class="col-lg-6 d-flex align-items-center ms-3">
+				<div>Memory Online</div>
+			</div>
+			<div class="col-lg-5 d-flex align-items-center">
+				<div id="main-system-overview-mem-online"><b>n/a</b></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- TABLE SECTION: System details listing -->
+<table id="sysTable" class="table table-outline table-striped table-hover mb-5">
+	<thead>
+		<tr>
+			<th style="width: 4%">[ id ]</th>
+			<th style="width: 10%">[ name ]</th>
+			<th style="width: 7%">[ group ]</th>
+			<th style="width: 7%">[ state ]</th>
+			<th style="width: 5%">[ core ]</th>
+			<th style="width: 7%">[ ram ]</th>
+			<th style="width: 7%">[ node ]</th>
+			<th style="width: 5%">[ ver ]</th>
+			<th style="width: 6%">[ delta ]</th>
+			<th style="width: 10%">[ uptime ]</th>
+			<th style="width: 6%">[ cpu % ]</th>
+			<th style="width: 6%">[ mem % ]</th>
+			<th style="width: 6%">[ mem ]</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>

@@ -1,0 +1,43 @@
+{
+	"object":{
+		"type":"network",
+		"class":"vlan",
+		"model":"vpp"
+	},
+	
+	"meta":{
+		"type":"vpp"
+	},
+	
+	"id":{
+		"name":"example-vpp",
+		"desc":"example vpp vlan",
+		"id":"0313"	
+	},
+
+	"addr":{
+		"ip":"10.113.0.0",
+		"mask":"255.255.255.0",
+		"dhcp":"0"
+	},	
+
+	"compat":{
+		"name":"core-link",
+		"id":"313"
+	},	
+
+	"node":{
+		"index":"20,21",
+		"20":"TenGigabitEthernet10/0/0",
+		"21":"TenGigabitEthernet10/0/0"
+	},
+	
+	"vpp":{
+		"bridge":"313",
+		"bridge-type":"l2",
+		"tag":"313",
+		"tag-type":"dot1q",
+		"mtu":"1500"
+	}
+	
+}

@@ -1,0 +1,319 @@
+<!--
+ * ETHER|AAPEN|WEB - HTML|CLUSTER|HEALTH
+ * Licensed under AGPLv3+
+ * (c) 2010-2025 | ETHER.NO
+ * Author: Frode Moseng Monsson
+ * Contact: aapen@ether.no
+ * Version: 3.3.1
+ -->
+
+<!-- Cluster Health Monitoring Interface -->
+
+<!-- Cluster Health Page Header - Contains title and action buttons -->
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+	<h1 class="h3" id="main-health-header">[ Cluster Health ]</h1>
+	<div class="btn-toolbar mb-2 mb-md-0">
+		<div class="btn-group me-2">
+			<button type="button" id="main-cluster-health-btn-config" class="btn btn-sm btn-outline-secondary disabled">Config</button>
+			<button type="button" id="main-cluster-health-btn-json" class="btn btn-sm btn-outline-secondary">JSON</button>
+		</div>
+	</div>
+</div>
+
+<!-- Cluster Health Overview Section - Shows overall state and active alarms -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<!-- HEALTH -->
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center ms-2 mt-1">
+				<i class="bi bi-heart-pulse" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Health</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- HEALTH ACCORDION -->	
+	<div class="accordion mt-1" id="accordionHealthState">
+		<!-- CLUSTER STATE -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingHealthState">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHealthState">
+					<i class="bi bi-activity" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-cluster-health-state">State [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseHealthState" class="accordion-collapse collapse" data-bs-parent="#accordionHealthState">
+				<div class="accordion-body">
+					<h6 id="main-cluster-system-health">Cluster Health Overview</h6>
+				
+					<table id="healthStatusOverviewTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>                                    
+								<th style="width: 10%">[ monitor ]</th>
+								<th style="width: 10%">[ objects ]</th>
+								<th style="width: 10%">[ healthy ]</th>
+								<th style="width: 10%">[ warnings ]</th>
+								<th style="width: 10%">[ errors ]</th>
+								<th style="width: 10%">[ weight ]</th>
+								<th style="width: 10%">[ score ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- CLUSTER ALARMS -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingHealthAlarms">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHealthAlarms">
+					<i class="bi bi-exclamation-triangle" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-cluster-health-alarm">Alarms [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseHealthAlarms" class="accordion-collapse collapse" data-bs-parent="#accordionHealthAlarms">
+				<div class="accordion-body">
+					<h6 id="main-cluster-system-alarms">Active Alarms</h6>
+					<table id="healthAlarmActiveOverviewTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>                                    
+								<th style="width: 10%">[ object ]</th>
+								<th style="width: 10%">[ name ]</th>
+								<th style="width: 5%">[ id ]</th>
+								<th style="width: 7%">[ active ]</th>
+								<th style="width: 15%">[ date ]</th>
+								<th style="width: 10%">[ state ]</th>
+								<th style="width: 10%">[ status ]</th>
+								<th style="width: 7%">[ events ]</th>
+								<th style="width: 7%">[ timer ]</th>
+								<th style="width: 15%">[ triggered ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+					
+					<h6 id="main-cluster-system-alarms">Inactive Alarms</h6>
+					<table id="healthAlarmInactiveOverviewTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>                                    
+								<th style="width: 10%">[ object ]</th>
+								<th style="width: 10%">[ name ]</th>
+								<th style="width: 5%">[ id ]</th>
+								<th style="width: 7%">[ active ]</th>
+								<th style="width: 15%">[ date ]</th>
+								<th style="width: 10%">[ state ]</th>
+								<th style="width: 10%">[ status ]</th>
+								<th style="width: 7%">[ events ]</th>
+								<th style="width: 7%">[ timer ]</th>
+								<th style="width: 15%">[ triggered ]</th>
+								<th style="width: 15%">[ cleared ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Detailed Cluster Monitors Section - Shows health status by component type -->
+<div class="row row-space g-1 mt-2 pt-2 mb-5">
+	<!-- MONITOR ACCORDION -->	
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center ms-2 mt-1">
+				<i class="bi bi-heart-pulse" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Monitors</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- CLUSTER HEALTH ELEMENTS -->	
+	<div class="accordion mt-1" id="accordionHealthElements">
+		<!-- NODE MONITORS -->	
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingHealthNodes">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHealthNodes">
+					<i class="bi bi-view-stacked" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-health-node">Nodes [<b>n/a</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseHealthNodes" class="accordion-collapse collapse" data-bs-parent="#accordionHealthElements">
+				<div class="accordion-body">
+					<h6 id="main-cluster-node-health-state">Node Health</h6>
+				
+					<table id="healthStatusNodeTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>                                    
+								<th style="width: 10%">[ name ]</th>
+								<th style="width: 7%">[ ver ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 5%">[ delta ]</th>
+								<th style="width: 7%">[ status ]</th>
+								<th style="width: 7%">[ state ]</th>
+								<th style="width: 5%">[ get ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- SYSTEM MONITORS -->		
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingHealthSystem">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHealthSystem">
+					<i class="bi bi-display" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-health-system">Systems [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseHealthSystem" class="accordion-collapse collapse" data-bs-parent="#accordionHealthElements">
+				<div class="accordion-body">
+					<h6 id="main-cluster-system-health-state">System Health</h6>
+				
+					<table id="healthStatusSystemTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>                                    
+								<th style="width: 10%">[ name ]</th>
+								<th style="width: 7%">[ ver ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 5%">[ delta ]</th>
+								<th style="width: 7%">[ status ]</th>
+								<th style="width: 7%">[ state ]</th>
+								<th style="width: 5%">[ get ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- SERVICE MONITORS -->	
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingHealthFramework">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHealthFramework">
+					<i class="bi bi-box" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-health-service"><b>Services</b> [<b>n/a</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseHealthFramework" class="accordion-collapse collapse" data-bs-parent="#accordionHealthElements">
+				<div class="accordion-body">
+					<h6 id="main-cluster-service-health-state">Service Health</h6>
+				
+					<table id="healthStatusServiceTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>                                    
+								<th style="width: 10%">[ node ]</th>
+								<th style="width: 7%">[ service ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 5%">[ delta ]</th>
+								<th style="width: 7%">[ status ]</th>
+								<th style="width: 7%">[ state ]</th>
+								<th style="width: 5%">[ get ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- NETWORK MONITORS -->	
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingHealthNetwork">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHealthNetwork">
+					<i class="bi bi-diagram-3" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-health-network"><b>Network</b> [<b>n/a</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseHealthNetwork" class="accordion-collapse collapse" data-bs-parent="#accordionHealthElements">
+				<div class="accordion-body">
+					<h6 id="main-cluster-network-health-state">Network Health</h6>
+				
+					<table id="healthStatusNetworkTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>                                    
+								<th style="width: 10%">[ name ]</th>
+								<th style="width: 15%">[ node list ]</th>
+								<th style="width: 30%">[ vm list ]</th>
+								<th style="width: 5%">[ errors ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 10%">[ state ]</th>
+								<th style="width: 10%">[ status ]</th>
+								<th style="width: 5%">[ get ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- STORAGE MONITORS -->	
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingHealthNetwork">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHealthStorage">
+					<i class="bi bi-server" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-health-storage"><b>Storage</b> [<b>n/a</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseHealthStorage" class="accordion-collapse collapse" data-bs-parent="#accordionHealthElements">
+				<div class="accordion-body">
+					<h6 id="main-cluster-storage-health-state">Storage Health</h6>
+				
+					<table id="healthStatusStorageTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>                                    
+								<th style="width: 10%">[ name ]</th>
+								<th style="width: 7%">[ ver ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 5%">[ delta ]</th>
+								<th style="width: 7%">[ status ]</th>
+								<th style="width: 7%">[ state ]</th>
+								<th style="width: 5%">[ get ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,336 @@
+<!--
+ * ETHER|AAPEN|WEB - HTML|STORAGE|POOL
+ * Licensed under AGPLv3+
+ * (c) 2010-2025 | ETHER.NO
+ * Author: Frode Moseng Monsson
+ * Contact: aapen@ether.no
+ * Version: 3.3.1
+ -->
+
+<!-- Storage pool configuration dashboard with detailed metrics -->
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+	<h1 class="h3" id="main-storpool-header">[ pool ]</h1>
+	<div class="btn-toolbar mb-2 mb-md-0">
+		<div class="btn-group me-2">
+			<button type="button" id="main-storpool-btn-config" class="btn btn-sm btn-outline-secondary disabled">Config</button>
+			<button type="button" id="main-storpool-btn-json" class="btn btn-sm btn-outline-secondary">JSON</button>
+		</div>
+	</div>
+</div>
+
+<!-- STATUS SECTION: Pool state, size metrics and subscribers -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-activity" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Status</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="accordion mt-1" id="accordionStorpoolState">
+		<!-- POOL STATE ACCORDION -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-stor-pool-state">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStorpoolState">
+					<i class="bi bi-activity" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-storpool-state">State [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+			<div id="collapseStorpoolState" class="accordion-collapse collapse" data-bs-parent="#accordionStorpoolState">
+				<div class="accordion-body">
+					<h6>Pool State</h6>
+					<table id="storpoolStateTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>									
+								<th style="width: 10%">[ owner ]</th>
+								<th style="width: 10%">[ state ]</th>
+								<th style="width: 10%">[ init ]</th>
+								<th style="width: 10%">[ mounted ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 10%">[ delta ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- POOL SIZE ACCORDION -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-stor-pool-status">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStorpoolStatus">
+					<i class="bi bi-graph-up" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-storpool-size">Size [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+			<div id="collapseStorpoolStatus" class="accordion-collapse collapse" data-bs-parent="#accordionStorpoolStatus">
+				<div class="accordion-body">
+					<h6>Pool Consumption</h6>
+					<div class="progress">
+						<div id="storpoolSizeProgress" class="progress-bar" role="progressbar" style="width:0%">0 %</div>
+					</div>
+					<br/>
+
+					<h6>Pool Allocation</h6>
+					<div class="progress">
+						<div id="storpoolSizeAllocProgress" class="progress-bar" role="progressbar" style="width:0%">0 %</div>
+					</div>
+					<br/>
+				
+					<table id="storpoolSizeTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>									
+								<th style="width: 10%">[ size ]</th>
+								<th style="width: 10%">[ used ]</th>
+								<th style="width: 10%">[ avail ]</th>
+								<th style="width: 10%">[ free ]</th>
+								<th style="width: 10%">[ util ]</th>
+								<th style="width: 10%">[ alloc ]</th>
+								<th style="width: 10%">[ alloc % ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- POOL SUBSCRIBERS ACCORDION -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-stor-pool-subs">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStorpoolSubs">
+					<i class="bi bi-hdd-network" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-storpool-subs">Subscribers [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+			<div id="collapseStorpoolSubs" class="accordion-collapse collapse" data-bs-parent="#accordionStorpoolSubs">
+				<div class="accordion-body">
+					<h6>Pool Subscribers</h6>
+					<table id="storpoolSubsTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>									
+								<th style="width: 7%">[ node ]</th>
+								<th style="width: 7%">[ mounted ]</th>
+								<th style="width: 5%">[ init ]</th>
+								<th style="width: 5%">[ state ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 7%">[ size ]</th>
+								<th style="width: 7%">[ used ]</th>
+								<th style="width: 7%">[ free ]</th>
+								<th style="width: 7%">[ status ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- CONFIGURATION SECTION: Pool setup and naming -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-pencil-square" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Configuration</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="accordion mt-1" id="accordionStorpoolConfig">
+		<!-- NODE CONFIG ACCORDION -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-storpool-node">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStorpoolNode">
+					<i class="bi bi-view-stacked" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-pooldev-node">Node [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+			<div id="collapseStorpoolNode" class="accordion-collapse collapse" data-bs-parent="#accordionStorpoolConfig">
+				<div class="accordion-body">
+					<h6>Pool Provider</h6>
+					<table id="storpoolNodeInfoTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>									
+								<th style="width: 10%">[ node name ]</th>
+								<th style="width: 10%">[ node id ]</th>
+								<th style="width: 10%">[ pool name ]</th>
+								<th style="width: 10%">[ pool id ]</th>
+								<th style="width: 10%">[ mount_on_owner ]</th>
+								<th style="width: 10%">[ local mount ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- NAME CONFIG ACCORDION -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-storpool-xx">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeState">
+					<i class="bi bi-hash" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-pooldev-name">Name [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+			<div id="collapseNodeState" class="accordion-collapse collapse" data-bs-parent="#accordionStorpoolConfig">
+				<div class="accordion-body">
+					<h6>Pool Name</h6>
+					<table id="storpoolNameTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>									
+								<th style="width: 10%">[ name ]</th>
+								<th style="width: 5%">[ id ]</th>
+								<th style="width: 10%">[ group ]</th>
+								<th style="width: 20%">[ description ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- POOL SECTION: Core storage properties -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-server" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Pool</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="accordion mt-1" id="accordionStorpool">
+		<!-- POOL TYPE ACCORDION -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-storpool-type">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStorpoolType">
+					<i class="bi bi-server" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-pooldev-pool">Pool [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+			<div id="collapseStorpoolType" class="accordion-collapse collapse" data-bs-parent="#accordionStorpool">
+				<div class="accordion-body">
+					<h6>Pool Data</h6>
+					<table id="storpoolTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>									
+								<th style="width: 7%">[ pool ]</th>
+								<th style="width: 5%">[ shared ]</th>
+								<th style="width: 15%">[ path ]</th>
+								<th style="width: 7%">[ check ]</th>
+								<th style="width: 5%">[ backing ]</th>
+								<th style="width: 7%">[ name ]</th>
+								<th style="width: 5%">[ id ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- OBJECTS SECTION: Virtual resources in pool -->
+<div class="row row-space g-1 mt-2 pt-2 mb-5">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-file-code" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Objects</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="accordion mt-1" id="accordionStorpoolObj">
+		<!-- SYSTEMS ACCORDION -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-storpool-systems">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStorpoolObjSys">
+					<i class="bi bi-display" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-pooldev-obj-system">Systems [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+			<div id="collapseStorpoolObjSys" class="accordion-collapse collapse" data-bs-parent="#accordionStorpoolObj">
+				<div class="accordion-body">
+					<h6>Systems</h6>
+					<table id="storpoolSystemTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>									
+								<th style="width: 15%">[ name ]</th>
+								<th style="width: 10%">[ state ]</th>
+								<th style="width: 10%">[ device ]</th>
+								<th style="width: 10%">[ size ]</th>
+								<th style="width: 10%">[ virtual ]</th>
+								<th style="width: 10%">[ on disk ]</th>
+								<th style="width: 15%">[ image ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- ISOS ACCORDION -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading-storpool-obj-iso">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStorpoolObjIso">
+					<i class="bi bi-vinyl" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-pooldev-obj-iso">ISOs [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+			<div id="collapseStorpoolObjIso" class="accordion-collapse collapse" data-bs-parent="#accordionStorpoolObjIso">
+				<div class="accordion-body">
+					<h6>Images</h6>
+					<table id="storpoolTdable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>                                    
+								<th style="width: 10%">[ image ]</th>
+								<th style="width: 10%">[ source ]</th>
+								<th style="width: 10%">[ path ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

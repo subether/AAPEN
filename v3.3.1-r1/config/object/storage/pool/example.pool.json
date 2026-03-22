@@ -1,0 +1,49 @@
+{
+	"object" : {
+		"type" : "storage",
+		"model" : "pool",
+		"class" : "nfs"
+	},
+
+	"id" : {
+		"name" : "example-pool",
+		"id" : "10",
+		"group" : "pool",
+		"desc" : "example node example pool"
+	},
+
+	"owner" : {
+		"name" : "example_node",
+		"id" : "10",
+		"mount_on_owner" : 0
+	},
+
+	"pool" : {
+		"backing" : "device",
+		"shared" : 1,
+		"check" : 1,
+		"path" : "/example_storage/"
+   },   
+   
+	"check" : {
+		"file" : "/example_storage/check.txt"
+	},
+   
+	"device" : {
+		"id" : "41",
+		"name" : "lithium-md0"
+	},
+
+	"nfs" : {
+		"client" : {
+			"mount" : "/example_storage/",
+			"opts" : ""
+		},
+		
+		"server" : {
+			"path" : "/example_storage/",
+			"network" : "10.100.0.0/24",
+			"opts" : "sync,wdelay,hide,no_subtree_check,sec=sys,ro,secure,root_squash,no_all_squash"
+		}
+	}
+}

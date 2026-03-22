@@ -1,0 +1,91 @@
+<!--
+ * ETHER|AAPEN|WEB - HTML|ELEMENT|OV
+ * Licensed under AGPLv3+
+ * (c) 2010-2025 | ETHER.NO
+ * Author: Frode Moseng Monsson
+ * Contact: aapen@ether.no
+ * Version: 3.3.1
+ -->
+
+
+<!-- Element Overview Dashboard -->
+<div class="row row-space g-1 mt-1 pt-2 ms-0">
+	<div class="col-lg-3 rounded-3 p-2 col-md-offset-2">
+		<div class="row row-space pb-2 mt-3">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-layout-wtf" style="font-size: 3rem"></i>
+				<div class="ms-3">
+					<div class="mt-2"><h3>[ Elements ]</h3></div>
+				</div>
+			</div>
+		</div>	
+	</div>
+	
+	<div class="col-lg-1 rounded-3 p-2 col-md-offset-2 me-auto">				
+	</div>
+	
+	<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-search" style="font-size: 1.5rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Search</h5></div>
+				</div>
+			</div>
+		</div>	
+		
+		<div class="row row-space mt-0">
+			<div class="col-lg-11 d-flex align-items-center ms-2 mt-2">
+				<input type="text" class="form-control form-control-sm" id="element-ov-search" placeholder="Search">
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-layout-wtf" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Elements</h5></div>
+				</div>
+			</div>
+		</div>	
+		
+		<div class="row row-space mt-0">
+			<div class="col-lg-4 d-flex align-items-center ms-3">
+				<div>Total</div>
+			</div>
+			<div class="col-lg-7 d-flex align-items-center">
+				<div id="main-element-dev-total"><b>n/a</b></div>
+			</div>
+		</div>	
+
+		<div class="row row-space mt-1 mb-1">
+			<div class="col-lg-4 d-flex align-items-center ms-3">
+				<div>Shown</div>
+			</div>
+			<div class="col-lg-7 d-flex align-items-center">
+				<div id="main-element-dev-shown"><b>n/a</b></div>
+			</div>
+		</div>					
+	</div>
+</div>
+
+<hr/>
+
+<!-- Element Statistics Section - Shows total and filtered element counts -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-view-stacked" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div id="accordionElementHeader"><h5>Elements</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Element Listing Section - Displays all elements in an accordion view -->
+	<div class="accordion mt-1" id="accordionElementService"></div>
+</div>

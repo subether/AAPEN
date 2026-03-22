@@ -1,0 +1,1005 @@
+<!--
+ * ETHER|AAPEN|WEB - HTML|SYSTEM
+ * Licensed under AGPLv3+
+ * (c) 2010-2025 | ETHER.NO
+ * Author: Frode Moseng Monsson
+ * Contact: aapen@ether.no
+ * Version: 3.3.1
+ -->
+ 
+<!-- MAIN SECTION: System management dashboard -->
+
+<!-- HEADER SECTION: Title and action buttons -->
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+	<h1 class="h3" id="main-system-header">[ n/a ]</h1>
+	<div class="btn-toolbar mb-2 mb-md-0">
+		<div class="btn-group me-2">
+			<button type="button" id="main-system-refresh-time" class="btn btn-sm btn-outline-secondary disabled">Not Refreshing</button>
+			<button id="btnGroupDrop1" type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" data-toggle="tooltip" data-placement="bottom" title="Sys">
+				<i class="bi bi-cloud-lightning" style="font-size: 1rem"></i>
+			</button>
+			<ul class="dropdown-menu">
+				<li><a class="dropdown-item" href="#" onclick='system_refresh_time("10")'>10 Seconds</a></li>
+				<li><a class="dropdown-item" href="#" onclick='system_refresh_time("5")'>5 Seconds</a></li>
+				<li><a class="dropdown-item" href="#" onclick='system_refresh_time("3")'>3 Seconds</a></li>
+				<li><a class="dropdown-item" href="#" onclick='system_refresh_time("disabled")'>Disable</a></li>
+			</ul>
+		</div>
+		<div class="btn-group me-2">
+			<button type="button" id="main-system-btn-config" class="btn btn-sm btn-outline-secondary disabled" data-placement="bottom" title="Show config">Config</button>
+			<button type="button" id="main-system-btn-json" class="btn btn-sm btn-outline-secondary" data-toggle="tooltip" data-placement="bottom" title="Show JSON">JSON</button>
+		</div>
+	</div>
+</div>
+
+<!-- ACTIONS SECTION: Power and management controls -->
+<div class="row row-space g-1 border-bottom mb-3">
+	<!-- POWER SECTION: System power controls -->
+	<div class="col-lg-3 rounded-3 col-md-offset-2 mb-2">
+		<div class="row row-space pb-2 d-flex align-items-center">
+			<div class="btn-toolbar mb-md-0">
+				<div class="btn-group me-2">
+					<div class="dropdown">
+						<button id="main-system-btn-load" class="btn btn-sm btn-outline-secondary action-button" type="button" data-toggle="tooltip" data-placement="bottom" title="Power on system">
+							<div class="ms-1">
+								<i class="bi bi-play" style="font-size: 1.25rem"></i>
+								<div>Power-On</div>
+							</div>
+						</button>
+						<ul id="main-system-btn-load-dropdown" class="dropdown-menu"></ul>
+					</div>
+					<button id="main-system-btn-reset" type="button" class="btn btn-sm btn-outline-secondary action-button" data-toggle="tooltip" data-placement="bottom" title="Power reset system">
+						<i class="bi bi-arrow-counterclockwise" style="font-size: 1.25rem"></i>
+						<div class="ms-1">
+							<div>Power-Reset</div>
+						</div>
+					</button>
+					<button id="main-system-btn-shutdown" type="button" class="btn btn-sm btn-outline-secondary action-button" data-toggle="tooltip" data-placement="bottom" title="Shut down system">
+						<i class="bi bi-power" style="font-size: 1.25rem"></i>
+						<div class="ms-1">
+							<div>Shut-Down</div>
+						</div>
+					</button>
+					<button id="main-system-btn-unload" type="button" class="btn btn-sm btn-outline-secondary action-button"data-toggle="tooltip" data-placement="bottom" title="Power off system">
+						<i class="bi bi-stop" style="font-size: 1.25rem"></i>
+						<div class="ms-1">
+							<div>Power-Off</div>
+						</div>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- MIGRATION SECTION: System migration controls -->
+	<div class="col-lg-1 rounded-3 col-md-offset-2 mb-2">
+		<div class="row row-space pb-2 d-flex align-items-center">
+			<div class="btn-toolbar mb-md-0">
+				<div class="btn-group me-2">
+					<button id="main-system-btn-migrate" type="button" class="btn btn-sm btn-outline-secondary action-button" data-toggle="tooltip" data-placement="bottom" title="Live migrate system">
+						<i class="bi bi-chevron-double-right" style="font-size: 1.25rem"></i>
+						<div class="ms-1">
+							<div>Migrate</div>
+						</div>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- CONNECT SECTION: Connection options -->
+	<div class="col-lg-2 rounded-3 col-md-offset-2">
+		<div class="row row-space pb-2 d-flex align-items-center">
+			<div class="btn-toolbar mb-md-0">
+				<div class="btn-group me-2">
+					<button id="main-system-btn-console" type="button" class="btn btn-sm btn-outline-secondary action-button" data-toggle="tooltip" data-placement="bottom" title="VNC console">
+						<i class="bi bi-display" style="font-size: 1.25rem"></i>
+						<div class="ms-1">
+							<div>Console</div>
+						</div>
+					</button>
+					<button id="main-system-btn-webconsole" type="button" class="btn btn-sm btn-outline-secondary action-button" data-toggle="tooltip" data-placement="bottom" title="Web console">
+						<i class="bi bi-display" style="font-size: 1.25rem"></i>
+						<div class="ms-1">
+							<div>Web</div>
+						</div>
+					</button>
+					<button id="main-system-btn-ssh" type="button" class="btn btn-sm btn-outline-secondary action-button" data-toggle="tooltip" data-placement="bottom" title="SSH console">
+						<i class="bi bi-terminal" style="font-size: 1.25rem"></i>
+						<div class="ms-1">
+							<div>SSH</div>
+						</div>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- CONFIG SECTION: Configuration management -->
+	<div class="col-lg-5 rounded-3 col-md-offset-2">
+		<div class="row row-space pb-2 d-flex align-items-center">
+			<div class="btn-toolbar mb-md-0">
+				<div class="btn-group me-2">
+					<button id="main-system-btn-save" type="button" class="btn btn-sm btn-outline-secondary action-button" data-toggle="tooltip" data-placement="bottom" title="Save system config">
+						<i class="bi bi-save" style="font-size: 1.25rem"></i>
+						<div class="ms-1">
+							<div>Save cfg.</div>
+						</div>
+					</button>
+					<button id="main-system-btn-clone" type="button" class="btn btn-sm btn-outline-secondary action-button" data-toggle="tooltip" data-placement="bottom" title="Clone system">
+						<i class="bi bi-plus-square" style="font-size: 1.25rem"></i>
+						<div class="ms-1">
+							<div>Clone full</div>
+						</div>
+					</button>
+					<button id="main-system-btn-copycfg" type="button" class="btn btn-sm btn-outline-secondary action-button" data-toggle="tooltip" data-placement="bottom" title="Clone system config">
+						<i class="bi bi-files" style="font-size: 1.25rem"></i>
+						<div class="ms-1">
+							<div>Clone cfg.</div>
+						</div>
+					</button>
+					<button id="main-system-btn-create" type="button" class="btn btn-sm btn-outline-secondary action-button"data-toggle="tooltip" data-placement="bottom" title="Create system">
+						<i class="bi bi-check-square" style="font-size: 1.25rem"></i>
+						<div class="ms-1">
+							<div>Create</div>
+						</div>
+					</button>
+					<button id="main-system-btn-move" type="button" class="btn btn-sm btn-outline-secondary action-button" data-toggle="tooltip" data-placement="bottom" title="Move system">
+						<i class="bi bi-box-arrow-in-right" style="font-size: 1.25rem"></i>
+						<div class="ms-1">
+							<div>Move</div>
+						</div>
+					</button>
+					<button id="main-system-btn-validate" type="button" class="btn btn-sm btn-outline-secondary action-button" data-toggle="tooltip" data-placement="bottom" title="Validate system">
+						<i class="bi bi-file-earmark-check" style="font-size: 1.25rem"></i>
+						<div class="ms-1">
+							<div>Validate</div>
+						</div>
+					</button>
+					<button id="main-system-btn-delete" type="button" class="btn btn-sm btn-outline-secondary action-button" data-toggle="tooltip" data-placement="bottom" title="Delete system">
+						<i class="bi bi-file-x" style="font-size: 1.25rem"></i>
+						<div class="ms-1">
+							<div>Delete</div>
+						</div>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- REFRESH SECTION: Data refresh controls -->
+	<div class="col-lg-1 rounded-3 col-md-offset-2">
+		<div class="row row-space pb-2 d-flex align-items-center float-end">
+			<div class="btn-toolbar mb-md-0">
+				<div class="btn-group me-2">
+					<button id="main-system-btn-refresh" type="button" class="btn btn-sm btn-outline-secondary action-button" data-toggle="tooltip" data-placement="bottom" title="Refresh system">
+						<i class="bi bi-arrow-repeat" style="font-size: 1.25rem"></i>
+						<div class="ms-1">
+							<div>Refresh</div>
+						</div>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- STATUS SECTION: System state monitoring -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<!-- STATUS DRAWER: Detailed state information -->
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-activity" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Status</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="accordion mt-1" id="accordionSystemStatus">
+		<!-- STATE SECTION: Hypervisor and VM state -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingStatus">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSystemStatus">
+					<i class="bi bi-activity" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-system-state-header">State [<b>N/A</b>]</div>
+					</div>
+				</button>
+			</h2>
+			<div id="collapseSystemStatus" class="accordion-collapse collapse" data-bs-parent="#accordionSystemStatus">
+				<div class="accordion-body">
+					<h6>Hypervisor</h6>
+					<table id="sysStatusHyper" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 5%">[ vm pid ]</th>
+								<th style="width: 10%">[ boot ]</th>
+								<th style="width: 10%">[ uptime ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 8%">[ cpu % ]</th>
+								<th style="width: 8%">[ host mem % ]</th>
+								<th style="width: 8%">[ sys mem % ]</th>
+								<th style="width: 8%">[ sys mem use ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+
+					<hr/>
+					<h6>VMM</h6>
+					<table id="sysStatusVMM" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 8%">[ sys id ]</th>
+								<th style="width: 8%">[ sys name ]</th>
+								<th style="width: 8%">[ node id ]</th>
+								<th style="width: 8%">[ node name ]</th>
+								<th style="width: 8%">[ vmm pid ]</th>
+								<th style="width: 15%">[ vmm init ]</th>
+								<th style="width: 15%">[ vmm socket ]</th>
+								<th style="width: 15%">[ vmm log ]</th>
+								<th style="width: 8%">[ vmm state ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+
+					<hr/>
+					<h6>VM</h6>
+					<table id="sysStatusState" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 8%">[ vm pid ]</th>
+								<th style="width: 8%">[ vmm proc ]</th>
+								<th style="width: 8%">[ vmm error ]</th>
+								<th style="width: 8%">[ vmm state ]</th>
+								<th style="width: 8%">[ vmm status ]</th>
+								<th style="width: 8%">[ vm lock ]</th>
+								<th style="width: 8%">[ vm state ]</th>
+								<th style="width: 8%">[ vm running ]</th>
+								<th style="width: 10%">[ vm status ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+					
+					<h6>Messages</h6>
+					<table id="sysStatusMessage" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 100%">[ message ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+					
+					<div class="row row-space g-1 mt-2 ms-2"></div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- RESOURCES SECTION: CPU/Memory/Storage metrics -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingResources">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSystemResources">
+					<i class="bi bi-graph-up" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-system-resource-header">Resources [<b>N/A</b>]</div>
+					</div>
+				</button>
+			</h2>
+			<div id="collapseSystemResources" class="accordion-collapse collapse" data-bs-parent="#accordionSystemStatus">
+				<div class="accordion-body">
+					<h6 id="systemCpuUsage">CPU Usage</h6>
+					<div class="progress">
+						<div id="systemCpuProgress" class="progress-bar" role="progressbar" style="width:0%">0 %</div>
+					</div>
+					
+					<br/>
+					<h6 id="systemCpuConsumed">CPU Usage vs. Cores</h6>
+					<div class="progress">
+						<div id="systemCpuTotProgress" class="progress-bar" role="progressbar" style="width:0%">0 %</div>
+					</div>
+					
+					<br/>
+					<h6 id="systemRamConsumed">Memory Consumption</h6>
+					<div class="progress">
+						<div id="systemRamProgress" class="progress-bar" role="progressbar" style="width:0%">0 %</div>
+					</div>
+
+					<br/>
+					<h6>Host Memory Consumed</h6>
+					<div class="progress">
+						<div id="systemRamTotProgress" class="progress-bar" role="progressbar" style="width:0%">0 %</div>
+					</div>
+
+					<br/>
+					<hr/>
+					
+					<h6>Resources</h6>
+					<table id="sysResourceTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 5%">[ vm pid ]</th>
+								<th style="width: 10%">[ boot ]</th>
+								<th style="width: 10%">[ uptime ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 8%">[ cpu % ]</th>
+								<th style="width: 8%">[ host mem % ]</th>
+								<th style="width: 8%">[ mem % ]</th>
+								<th style="width: 8%">[ mem use ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+
+					<hr/>
+					<h6>Storage</h6>
+					<div id="sysResourceStorDiv"></div>
+					
+					<hr/>
+					<table id="sysResourceStorTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 5%">[ dev ]</th>
+								<th style="width: 5%">[ driver ]</th>
+								<th style="width: 10%">[ cache ]</th>
+								<th style="width: 7%">[ type ]</th>
+								<th style="width: 8%">[ size ]</th>
+								<th style="width: 8%">[ on disk ]</th>
+								<th style="width: 8%">[ virt size ]</th>
+								<th style="width: 8%">[ virt use ]</th>
+								<th style="width: 8%">[ format ]</th>
+								<th style="width: 8%">[ corrupt ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+
+					<hr/>
+					<h6>Network</h6>
+					<table id="sysResourceNetTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 5%">[ dev ]</th>
+								<th style="width: 10%">[ type ]</th>
+								<th style="width: 10%">[ network ]</th>
+								<th style="width: 10%">[ tx data ]</th>
+								<th style="width: 8%">[ tx pkts ]</th>
+								<th style="width: 8%">[ tx drop ]</th>
+								<th style="width: 8%">[ tx error ]</th>
+								<th style="width: 8%">[ rx data ]</th>
+								<th style="width: 8%">[ rx pkts ]</th>
+								<th style="width: 8%">[ rx error ]</th>
+								<th style="width: 8%">[ rx drop ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+											
+					<div class="row row-space g-1 mt-2 ms-2"></div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- ASYNC SECTION: Background job status -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingSystemAsync">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSystemAsync">
+					<i class="bi bi-asterisk" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-system-async-header">Async Jobs [<b>N/A</b>]</div>
+					</div>
+				</button>
+			</h2>
+			<div id="collapseSystemAsync" class="accordion-collapse collapse" data-bs-parent="#accordionSystemStatus">
+				<div class="accordion-body">
+					<h6>Async Jobs</h6>
+					<table id="systemAsyncTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 5%">[ id ]</th>
+								<th style="width: 5%">[ request ]</th>
+								<th style="width: 5%">[ on_timeout ]</th>
+								<th style="width: 5%">[ timeout ]</th>
+								<th style="width: 5%">[ active ]</th>
+								<th style="width: 10%">[ date ]</th>
+								<th style="width: 15%">[ status ]</th>
+								<th style="width: 15%">[ result ]</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- CONFIG SECTION: System configuration -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-pencil-square" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Configuration</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- IDENTITY SECTION: System identification -->
+	<div class="accordion mt-1" id="accordionSystemConfig">
+		<div class="accordion-item">
+			<!-- IDENTITY HEADER -->
+			<h2 class="accordion-header" id="headingSystemIdentity">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSystemIdentity">
+					<i class="bi bi-hash" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-system-id-header">Name [<b>n/a</b>] id [<b>n/a</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<!-- IDENTITY DRAWER -->
+			<div id="collapseSystemIdentity" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+					<div class="row row-space g-1 mt-1 pt-1 ms-1">
+						<!-- IDENTITY ELEMENTS -->
+						<div class="col-lg-3 border rounded-3 p-2 bg-light col-md-offset-2">
+							<div class="row row-space pb-1">
+								<div class="col-lg-11 d-flex align-items-center">
+									<i class="bi bi-pencil-square" style="font-size: 1.25rem"></i>
+									<div class="ms-2 mt-1">
+										<div><h5>Identity</h5></div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">System UID</span>
+									<input id="main-system-uid" type="text" class="form-control" placeholder="pc,accel=kvm">
+								</div>
+							</div>
+							
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">System Name</span>
+									<input id="main-system-name" type="text" class="form-control" placeholder="default">
+								</div>
+							</div>
+							
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Description</span>
+									<input id="main-system-desc" type="text" class="form-control" placeholder="x86_64">
+								</div>
+							</div>
+						</div>
+						
+						<!-- IDENTITY GROUP -->
+						<div class="col-lg-3 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+							<div class="row row-space pb-2">
+								<div class="col-lg-11 d-flex align-items-center">
+									<i class="bi bi-link" style="font-size: 1.25rem"></i>
+									<div class="ms-2 mt-1">
+										<div><h5>Group</h5></div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Group</span>
+									<input id="main-system-group" type="text" class="form-control">
+								</div>
+							</div>
+							
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Tags</span>
+									<input id="main-system-tags" type="text" class="form-control">
+								</div>
+							</div>
+							
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Custom</span>
+									<input id="main-system-mem-nqumas" type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+						
+						<!-- NODE CONFIG -->
+						<div class="col-lg-3 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+							<div class="row row-space pb-2">
+								<div class="col-lg-11 d-flex align-items-center">
+									<i class="bi bi-view-stacked" style="font-size: 1.25rem"></i>
+									<div class="ms-2 mt-1">
+										<div><h5>Node</h5></div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Node Name</span>
+									<input id="main-system-mem-nsumas" type="text" class="form-control">
+								</div>
+							</div>
+							
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Node UID</span>
+									<input id="main-system-mem-fnumas" type="text" class="form-control">
+								</div>
+							</div>
+							
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Node Pinned</span>
+									<input id="main-system-mem-nqumas" type="text" class="form-control" placeholder="false">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- HARDWARE SECTION: CPU/Memory/BIOS config -->
+		<div class="accordion-item">
+			<!-- SYSTEM HARDWARE HEADER -->
+			<h2 class="accordion-header" id="headingSystemHardware">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSystemHardware">
+					<i class="bi bi-cpu" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-system-hw-header"><b>[Hardware]</b> - Sockets [<b>1</b>] Cores [<b>4</b>]</div>
+					</div>
+				</button>
+			</h2>
+		
+			<!-- SYSTEM HARDWARE DRAWER -->
+			<div id="collapseSystemHardware" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+					<div class="row row-space g-1 mt-1 pt-1 ms-1">
+						<!-- Machine -->
+						<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2">
+							<div class="row row-space pb-1">
+								<div class="col-lg-11 d-flex align-items-center">
+									<i class="bi bi-cpu" style="font-size: 1.25rem"></i>
+									<div class="ms-2 mt-1">
+										<div><h5>Machine</h5></div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Model</span>
+									<input id="main-system-machine" type="text" class="form-control" placeholder="pc,accel=kvm">
+								</div>
+							</div>
+							
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Arch</span>
+									<input id="main-system-cpu-arch" type="text" class="form-control" placeholder="x86_64">
+								</div>
+							</div>
+						</div>
+
+						<!-- ARCH -->
+						<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+							<div class="row row-space pb-2">
+								<div class="col-lg-11 d-flex align-items-center">
+									<i class="bi bi-cpu" style="font-size: 1.25rem"></i>
+									<div class="ms-2 mt-1">
+										<div><h5>Processor</h5></div>
+									</div>
+								</div>
+							</div>
+														
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Model</span>
+									<input id="main-system-cpu-model" type="text" class="form-control" placeholder="default">
+								</div>
+							</div>
+														
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Host</span>
+									<select class="form-select" id="main-system-cpu-nest">
+										<option value="0">disabled</option>
+										<option value="1">enabled</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<!-- CPU -->
+						<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+							<div class="row row-space pb-2">
+								<div class="col-lg-11 d-flex align-items-center">
+									<i class="bi bi-cpu" style="font-size: 1.25rem"></i>
+									<div class="ms-2 mt-1">
+										<div><h5>Processing</h5></div>
+									</div>
+								</div>
+							</div>
+														
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Sockets</span>
+									<select class="form-select" id="main-system-cpu-sock">
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="2">3</option>
+										<option value="4">4</option>
+									</select>
+								</div>
+							</div>
+							
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Cores</span>
+									<select class="form-select" id="main-system-cpu-core">
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="4">4</option>
+										<option value="6">6</option>
+										<option value="8">8</option>
+										<option value="10">10</option>
+										<option value="12">12</option>
+										<option value="14">14</option>
+										<option value="16">16</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<!-- MEMORY -->
+						<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+							<div class="row row-space pb-2">
+								<div class="col-lg-11 d-flex align-items-center">
+									<i class="bi bi-memory" style="font-size: 1.25rem"></i>
+									<div class="ms-2 mt-1">
+										<div><h5>Memory</h5></div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">RAM</span>
+									<input id="main-system-mem-mb" type="text" class="form-control">
+									<span class="input-group-text" id="basic-addon3">MB</span>
+									<button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
+										<span class="visually-hidden">Toggle Dropdown</span>
+									</button>
+									<ul class="dropdown-menu dropdown-menu-end">
+										<li><a class="dropdown-item" href="#">MB</a></li>
+										<li><a class="dropdown-item" href="#">GB</a></li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Burst</span>
+									<input id="main-system-mem-numa" type="text" class="form-control" placeholder="false">
+								</div>
+							</div>
+						</div>
+
+						<!-- BIOS -->
+						<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+							<div class="row row-space pb-2">
+								<div class="col-lg-11 d-flex align-items-center">
+									<i class="bi bi-cpu" style="font-size: 1.25rem"></i>
+									<div class="ms-2 mt-1">
+										<div><h5>BIOS</h5></div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Mode</span>
+									<select class="form-select" id="main-system-bios-sel">
+										<option value="legacy">legacy</option>
+										<option value="uefi">UEFI</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Model</span>
+									<input id="main-system-bios-model" type="text" class="form-control" placeholder="default">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- ADVANCED SECTION: Specialized settings -->
+		<div class="accordion-item">
+			<!-- ADVANCED CONFIG HEADER -->
+			<h2 class="accordion-header" id="headingSystemAdvanced">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSystemAdvanced">
+					<i class="bi bi-gear" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div>Advanced Configuration</div>
+					</div>
+				</button>
+			</h2>
+
+			<!-- ADVANCED CONFIG DRAWER -->
+			<div id="collapseSystemAdvanced" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+					<!-- MULTIMEDIA -->
+					<div class="row row-space g-1 mt-1 pt-1 ms-1">
+						<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2">
+							<!-- MULTIMEDIA -->
+							<div class="row row-space pb-2">
+								<div class="col-lg-11 d-flex align-items-center">
+									<i class="bi bi-gpu-card" style="font-size: 1.25rem"></i>
+									<div class="ms-2 mt-1">
+										<div><h5>Multimedia</h5></div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">GPU Model</span>
+									<select class="form-select">
+										<option value="1">virtio</option>
+										<option value="2">disabled</option>
+									</select>
+								</div>
+							</div>
+							
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Soundcard</span>
+									<select class="form-select">
+										<option value="1">disabled</option>
+										<option value="2">hda</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<!-- ADVANCED -->
+						<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+							<div class="row row-space pb-2">
+								<div class="col-lg-11 d-flex align-items-center">
+									<i class="bi bi-gear" style="font-size: 1.25rem"></i>
+									<div class="ms-2 mt-1">
+										<div><h5>Advanced</h5></div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Virtio RNG</span>
+									<select class="form-select">
+										<option value="1">disabled</option>
+										<option value="2">enabled</option>
+									</select>
+								</div>
+							</div>
+							
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">HPET</span>
+									<select class="form-select">
+										<option value="1">disabled</option>
+										<option value="2">enabled</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<!-- HW PASSTHROUGH -->
+						<div class="col-lg-3 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+							<!-- HW PASSTHROUGH HEADER -->
+							<div class="row row-space pb-2">
+								<div class="col-lg-11 d-flex align-items-center">
+									<i class="bi bi-gpu-card" style="font-size: 1.25rem"></i>
+									<div class="ms-2 mt-1">
+										<div><h5>Pass-Through</h5></div>
+									</div>
+								</div>
+							</div>
+
+							<!-- HW PASSTHROUGH OPTIONS -->
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Model</span>
+									<select class="form-select">
+										<option value="0">disabled</option>
+										<option value="1">USB EHCI</option>
+										<option value="2">USB XHCI</option>
+										<option value="3">PCI / PCIe</option>
+									</select>
+								</div>
+							</div>
+							
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm">
+									<span class="input-group-text" id="basic-addon3">Bus</span>
+									<input id="main-system-mem-fnumas" type="text" class="form-control">
+									<span class="input-group-text" id="basic-addon3" mb-2>Dev</span>
+									<input id="main-system-mem-fnumas" type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+						
+						<!-- EXTRA ADVANCED OPTIONS -->
+						<div class="col-lg-3 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+							<div class="row row-space pb-2">
+								<div class="col-lg-11 d-flex align-items-center">
+									<i class="bi bi-pencil-square" style="font-size: 1.25rem"></i>
+									<div class="ms-2 mt-1">
+										<div><h5>Extra</h5></div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Opt #1</span>
+									<input id="main-system-extra" type="text" class="form-control">
+								</div>
+							</div>
+							
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Opt #2</span>
+									<input id="main-system-mem-fnusmas" type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- CLUSTER SECTION: HA and failover config -->
+		<div class="accordion-item">
+			<!-- CLUSTER MODE HEADER -->
+			<h2 class="accordion-header" id="headingSystemCluster">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSystemCluster">
+					<i class="bi bi-grid" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div>Cluster mode [<b>stand-alone</b>] high-availability [<b>not configured</b>] node-pinning [<b>not configured</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<!-- CLUSTER MODE DRAWER -->
+			<div id="collapseSystemCluster" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+					<div class="row row-space g-1 mt-1 pt-1 ms-1">
+						<div class="col-lg-3 border rounded-3 p-2 bg-light col-md-offset-2">
+							<!-- HIGH AVAILABILITY HEADER -->
+							<div class="row row-space pb-2">
+								<div class="col-lg-11 d-flex align-items-center">
+									<i class="bi bi-grid" style="font-size: 1.25rem"></i>
+									<div class="ms-2 mt-1">
+										<div><h5>High Availability</h5></div>
+									</div>
+								</div>
+							</div>
+							
+							<!-- HIGH AVAILABILITY HEADER -->
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Cluster Mode</span>
+									<select class="form-select">
+										<option value="1">stand-alone</option>
+										<option value="2">high-availability</option>
+										<option value="3">fail-over</option>
+									</select>
+								</div>
+							</div>
+							
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">xx</span>
+									<select class="form-select">
+										<option value="1">disabled</option>
+										<option value="2">enabled</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<!-- NODE PINNING -->
+						<div class="col-lg-3 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+							<!-- NODE PINNING HEADER HEADER -->
+							<div class="row row-space pb-2">
+								<div class="col-lg-11 d-flex align-items-center">
+									<i class="bi bi-lock" style="font-size: 1.25rem"></i>
+									<div class="ms-2 mt-1">
+										<div><h5>Node Pinning</h5></div>
+									</div>
+								</div>
+							</div>
+
+							<!-- HIGH AVAILABILITY HEADER -->
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Pinning</span>
+									<select class="form-select">
+										<option value="1">disabled</option>
+										<option value="2">enabled</option>
+									</select>
+								</div>
+							</div>
+							
+							<div class="row row-space mt-1">
+								<div class="input-group input-group-sm mb-2">
+									<span class="input-group-text" id="basic-addon3">Node</span>
+									<select class="form-select">
+										<option value="1">node 1</option>
+										<option value="2">node 2</option>
+										<option value="3">node 3</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- STORAGE SECTION: Disk and volume config -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-hdd" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Storage</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- STORAGE ELEMENTS -->
+	<div class="accordion mt-1" id="accordionSystemStorage"></div>
+</div>
+
+<!-- NETWORK SECTION: Network interface config -->
+<div class="row row-space g-1 mt-2 pt-2 mb-5">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-diagram-3" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Network</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- NETWORK ELEMENTS -->
+	<div class="accordion mt-1" id="accordionSystemNetwork">
+		<div class="accordion-item"></div>
+	</div>
+</div>

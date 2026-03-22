@@ -1,0 +1,1083 @@
+<!--
+ * ETHER|AAPEN|WEB - HTML|NODE
+ * Licensed under AGPLv3+
+ * (c) 2010-2025 | ETHER.NO
+ * Author: Frode Moseng Monsson
+ * Contact: aapen@ether.no
+ * Version: 3.3.1
+ -->
+
+<!-- Node configuration and monitoring dashboard with status and metrics -->
+	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+		<h1 class="h3" id="main-node-header">[ node ]</h1>
+			<div class="btn-toolbar mb-2 mb-md-0">
+			<div class="btn-group me-2">
+				<button type="button" id="main-node-btn-config" class="btn btn-sm btn-outline-secondary disabled">Config</button>
+				<button type="button" id="main-node-btn-json" class="btn btn-sm btn-outline-secondary">JSON</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Node action controls section -->
+	<div class="row row-space g-1 border-bottom mb-3">
+		<div class="col-lg-3 rounded-3 col-md-offset-2 mb-2">
+			<div class="row row-space pb-2 d-flex align-items-center">
+				<div class="btn-toolbar mb-md-0">
+					<div class="btn-group me-2">
+						<button type="button" class="btn btn-sm btn-outline-secondary" disabled>
+							<i class="bi bi-backspace-reverse" style="font-size: 1.25rem"></i>
+							<div class="ms-1">
+								<div>Migrate</div>
+							</div>
+						</button>
+						<button type="button" class="btn btn-sm btn-outline-secondary" disabled>
+							<i class="bi bi-slash-square" style="font-size: 1.25rem"></i>
+							<div class="ms-1">
+								<div>Maintenance</div>
+							</div>
+						</button>
+						<button type="button" class="btn btn-sm btn-outline-secondary" disabled>
+							<i class="bi bi-x-square" style="font-size: 1.25rem"></i>
+							<div class="ms-1">
+								<div>Power Down</div>
+							</div>
+						</button>
+					</div>
+				</div>
+			</div>    
+		</div>
+	
+	<div class="col-lg-2 rounded-3 col-md-offset-2 mb-2">
+		<div class="row row-space pb-2 d-flex align-items-center">
+			<div class="btn-toolbar mb-md-0"></div>
+		</div>
+	</div>
+	
+	<div class="col-lg-2 rounded-3 col-md-offset-2">
+		<div class="row row-space pb-2 d-flex align-items-center">
+			<div class="btn-toolbar mb-md-0">
+				<div class="btn-group me-2">
+					<button type="button" class="btn btn-sm btn-outline-secondary" disabled>
+						<i class="bi bi-display" style="font-size: 1.25rem"></i>
+						<div class="ms-1">
+							<div>Console</div>
+						</div>
+					</button>
+					<button type="button" class="btn btn-sm btn-outline-secondary" disabled>
+						<i class="bi bi-terminal" style="font-size: 1.25rem"></i>
+						<div class="ms-1">
+							<div>SSH</div>
+						</div>
+					</button>
+					<button type="button" id="main-node-btn-ipmi" class="btn btn-sm btn-outline-secondary" disabled>
+						<i class="bi bi-gear" style="font-size: 1.25rem"></i>
+						<div class="ms-1">
+							<div>IPMI</div>
+						</div>
+					</button>
+				</div>
+			</div>
+		</div>    
+	</div>
+	
+	<div class="col-lg-3 rounded-3 col-md-offset-2">
+		<div class="row row-space pb-2 d-flex align-items-center">
+			<div class="btn-toolbar mb-md-0">
+				<div class="btn-group me-2"></div>
+			</div>
+		</div>    
+	</div>
+	
+	<div class="col-lg-2 rounded-3 col-md-offset-2">
+		<div class="row row-space pb-2 d-flex align-items-center float-end">
+			<div class="btn-toolbar mb-md-0">
+				<div class="btn-group me-2">
+					<button type="button" id="main-node-btn-refresh" class="btn btn-sm btn-outline-secondary">
+						<i class="bi bi-arrow-repeat" style="font-size: 1.25rem"></i>
+						<div class="ms-1">
+							<div>Refresh</div>
+						</div>
+					</button>    
+				</div>
+			</div>
+		</div>                
+	</div>            
+</div>
+
+<!-- Node status and health monitoring section -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-activity" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Status</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>        
+	
+	<!-- Node status details accordion -->
+	<div class="accordion mt-1" id="accordionNodeState">
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingOne">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeState">
+					<i class="bi bi-activity" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-node-state">State [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseNodeState" class="accordion-collapse collapse" data-bs-parent="#accordionNodeState">
+				<div class="accordion-body">
+					<h6>Node Services</h6>
+				
+					<table id="nodeStatusServiceTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>                                    
+								<th style="width: 10%">[ service ]</th>
+								<th style="width: 10%">[ version ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 10%">[ delta ]</th>
+							</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingNodeHealth">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeHealth">
+					<i class="bi bi-activity" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-node-health">Health [<b>UNKNOWN</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseNodeHealth" class="accordion-collapse collapse" data-bs-parent="#accordionNodeHealth">
+				<div class="accordion-body">
+					<h6>Node Health</h6>
+				
+					<table id="nodeStatusHealthTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>                                    
+								<th style="width: 10%">[ service ]</th>
+								<th style="width: 10%">[ date ]</th>
+								<th style="width: 10%">[ delta ]</th>
+								<th style="width: 10%">[ state ]</th>
+								<th style="width: 10%">[ status ]</th>
+							</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>        
+</div>
+
+<!-- Node identity and configuration section -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-pencil-square" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Configuration</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>        
+
+	<!-- Node configuration details accordion -->
+	<div class="accordion mt-1" id="accordionNodeConfig">
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingOne">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeIdentity">
+					<i class="bi bi-hash" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-node-identity">Name [<b>n/a</b>] id [<b>n/a</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseNodeIdentity" class="accordion-collapse collapse" data-bs-parent="#accordionNodeConfig">
+				<div class="accordion-body">
+					<table id="nodeConfigTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>                                    
+								<th style="width: 10%">[ node ]</th>
+								<th style="width: 10%">[ id ]</th>
+								<th style="width: 10%">[ group ]</th>
+								<th style="width: 10%">[ cluster ]</th>
+								<th style="width: 10%">[ description ]</th>
+								<th style="width: 10%">[ agent ip ]</th>
+								<th style="width: 10%">[ agent port ]</th>
+							</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Node hardware monitoring section -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-view-stacked" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Hardware</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>        
+
+	<!-- Hardware monitoring accordion -->
+	<div class="accordion mt-1" id="accordionNodeHardware">
+		<!-- CPU monitoring panel -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingNodeProcessor">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeProcessor">
+					<i class="bi bi-cpu" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="node-hardware-header">Processing</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseNodeProcessor" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+					<h6>Processor Utilization</h6>
+					<div class="progress">
+						<div id="nodeCpuProgress" class="progress-bar" role="progressbar" style="width:0%">
+							0 %
+						</div>
+					</div>
+					<hr/>
+					
+					<table id="nodeCpuTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>                                    
+								<th style="width: 20%">[ cpu ]</th>
+								<th style="width: 10%">[ cores ]</th>
+								<th style="width: 10%">[ cpu wait ]</th>
+								<th style="width: 10%">[ cpu idle ]</th>
+								<th style="width: 10%">[ load ]</th>
+								<th style="width: 20%">[ uptime ]</th>
+							</thead>
+						<tbody>
+						</tbody>
+					</table>
+					
+					<hr/>
+					<h6>Type</h6>
+					<table id="nodeCpuExtendedTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>                                    
+								<th style="width: 20%">[ cpu ]</th>
+								<th style="width: 10%">[ arch ]</th>
+								<th style="width: 10%">[ socket ]</th>
+								<th style="width: 10%">[ cores ]</th>
+								<th style="width: 10%">[ MHz ]</th>
+								<th style="width: 10%">[ kvm type ]</th>
+								<th style="width: 10%">[ kvm state ]</th>
+							</thead>
+						<tbody>
+						</tbody>
+					</table>    
+					
+					<hr/>    
+					<h6>NUMA</h6>
+					<table id="nodeNumaTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 5%">[ node ]</th>
+								<th style="width: 5%">[ cores ]</th>
+								<th style="width: 30%">[ core index ]</th>
+								<th style="width: 10%">[ memory total ]</th>
+								<th style="width: 10%">[ memory free ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>        
+					
+					<hr/>
+					<h6>Load</h6>
+					<table id="nodeCpuLoadTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>                                    
+								<th style="width: 5%">[ user ]</th>
+								<th style="width: 5%">[ system ]</th>
+								<th style="width: 5%">[ nice ]</th>
+								<th style="width: 5%">[ idle  ]</th>
+								<th style="width: 5%">[ wait ]</th>
+								<th style="width: 5%">[ steal ]</th>
+								<th style="width: 5%">[ tasks ]</th>
+								<th style="width: 5%">[ running ]</th>
+								<th style="width: 5%">[ sleeping ]</th>
+								<th style="width: 5%">[ stopped  ]</th>
+								<th style="width: 5%">[ zombie ]</th>
+							</thead>
+						<tbody>
+						</tbody>
+					</table>
+					
+					<h6>Sensors</h6>
+					<table id="nodeCpuSensorTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>                                    
+								<th style="width: 5%">[ socket ]</th>
+								<th style="width: 25%">[ cores ]</th>
+								<th style="width: 25%">[ temperature ]</th>
+								<th style="width: 5%">[ min  ]</th>
+								<th style="width: 5%">[ max ]</th>
+							</thead>
+						<tbody>
+						</tbody>
+					</table>                                                
+				</div>
+			</div>
+		</div>
+		
+		<!-- Memory monitoring panel -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingNodeMemory">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeMemory">
+					<i class="bi bi-memory" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="node-hardware-stats">Memory</div>
+					</div>
+				</button>
+			</h2>
+		
+			<div id="collapseNodeMemory" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+					<h6>Memory Utilization</h6>
+					<div class="progress">
+						<div id="nodeMemProgress" class="progress-bar" role="progressbar" style="width:0%">
+							0 %
+						</div>
+					</div>
+					<br/>
+					
+					<table id="nodeMemTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 10%">[ memory total ]</th>
+								<th style="width: 10%">[ memory avail ]</th>
+								<th style="width: 10%">[ memory used ]</th>
+								<th style="width: 10%">[ memory cached ]</th>
+								<th style="width: 10%">[ memory free ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>    
+					
+					<hr/>
+					<h6>Swap Utilization</h6>
+					<div class="progress">
+						<div id="nodeSwapProgress" class="progress-bar" role="progressbar" style="width:0%">
+							0 %
+						</div>
+					</div>
+					<br/>
+					
+					<table id="nodeSwapTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 10%">[ swap avail ]</th>
+								<th style="width: 10%">[ swap used ]</th>
+								<th style="width: 10%">[ swap free ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>    
+				</div>
+			</div>
+		</div>
+		
+		<!-- Accelerator monitoring panel -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingNodeAccelerators">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeAccelerators">
+					<i class="bi bi-gpu-card" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="node-hardware-acc-stats">Accelerators [<b>none</b>]</div>
+					</div>
+				</button>
+			</h2>
+		
+			<div id="collapseNodeAccelerators" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+					<table id="nodeAccTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 10%">[ accelerator ]</th>
+								<th style="width: 10%">[ type ]</th>
+								<th style="width: 10%">[ pci-id ]</th>
+								<th style="width: 10%">[ vt-d ]</th>
+								<th style="width: 10%">[ vfio ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>    
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Hypervisor management section -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-display" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Hypervisor</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>        
+
+	<!-- Hypervisor details accordion -->
+	<div class="accordion mt-1" id="accordionNodeHypervisor">
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingNodeHypervisor">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeHypervisor">
+					<i class="bi bi-code" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="node-hyper-header">Hypervisor [<b>Offline</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+
+
+			<div id="collapseNodeHypervisor" class="accordion-collapse collapse" data-bs-parent="#accordionNodeHypervisor">
+				<div class="accordion-body">
+					
+					<table id="nodeHyperTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 5%">[ id ]</th>
+								<th style="width: 7%">[ name ]</th>
+								<th style="width: 7%">[ address ]</th>
+								<th style="width: 7%">[ cpu alloc ]</th>
+								<th style="width: 7%">[ mem alloc ]</th>
+								<th style="width: 5%">[ systems ]</th>
+								<th style="width: 15%">[ systems locked ]</th>
+								<th style="width: 5%">[ show ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>    
+					
+					<h6>Host CPU Load</h6>
+					<div class="progress">
+						<div id="nodeHyperCpuLoadProgress" class="progress-bar" role="progressbar" style="width:0%">
+							0 %
+						</div>
+					</div>
+					<br/>
+					
+					<h6>Cores Provisioned</h6>
+					<div class="progress">
+						<div id="nodeHyperCoreProgress" class="progress-bar" role="progressbar" style="width:0%">
+							0 %
+						</div>
+					</div>
+					
+					<hr/>
+					
+					<h6>Host Memory Load</h6>
+					<div class="progress">
+						<div id="nodeHyperMemLoadProgress" class="progress-bar" role="progressbar" style="width:0%">
+							0 %
+						</div>
+					</div>
+					
+					<br/>
+					<h6>Memory Reserved</h6>
+					<div class="progress">
+						<div id="nodeHyperMemProgress" class="progress-bar" role="progressbar" style="width:0%">
+							0 %
+						</div>
+					</div>
+					<hr/>
+					
+				</div>
+			</div>
+		</div>
+		
+		<!-- Async jobs panel -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingNodeSystemAsync">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeSystemAsync">
+					<i class="bi bi-asterisk" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="node-hypervisor-async-header">System Async Jobs [<b>Inactive</b>]</div>
+					</div>
+				</button>
+			</h2>
+		
+			<div id="collapseNodeSystemAsync" class="accordion-collapse collapse" data-bs-parent="#accordionNodeAsync">
+				<div class="accordion-body">
+					<table id="nodeAsyncTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 5%">[ id ]</th>
+								<th style="width: 5%">[ vm ]</th>
+								<th style="width: 5%">[ request ]</th>
+								<th style="width: 7%">[ on_timeout ]</th>
+								<th style="width: 5%">[ timeout ]</th>
+								<th style="width: 5%">[ active ]</th>
+								<th style="width: 10%">[ date ]</th>
+								<th style="width: 15%">[ status ]</th>
+								<th style="width: 15%">[ result ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Systems panel -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingNodeSystems">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeSystems">
+					<i class="bi bi-display" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="node-hypervisor-system-header">Systems [<b>Inactive</b>]</div>
+					</div>
+				</button>
+			</h2>
+		
+			<div id="collapseNodeSystems" class="accordion-collapse collapse" data-bs-parent="#accordionNodeHypervisor">
+				<div class="accordion-body">
+					<table id="nodeSystemTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 4%">[ id ]</th>
+								<th style="width: 10%">[ name ]</th>
+								<th style="width: 5%">[ group ]</th>
+								<th style="width: 5%">[ pid ]</th>
+								<th style="width: 8%">[ uptime ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 5%">[ delta ]</th>
+								<th style="width: 5%">[ cpu % ]</th>
+								<th style="width: 5%">[ mem % ]</th>
+								<th style="width: 5%">[ mem ]</th>
+								<th style="width: 5%">[ reset ]</th>
+								<th style="width: 6%">[ shutdown ]</th>
+								<th style="width: 5%">[ unload ]</th>
+								<th style="width: 5%">[ console ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>    
+					</table>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Containers panel -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingNodeContainers">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeContainers">
+					<i class="bi bi-layers" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div>Containers [<b>Inactive</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseNodeContainers" class="accordion-collapse collapse" data-bs-parent="#accordionNodeHypervisor">
+				<div class="accordion-body"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Network interfaces and configuration section -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-diagram-3" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Network</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>        
+
+	<!-- Network monitoring accordion -->
+	<div class="accordion mt-1" id="accordionNodeNetwork">
+		<!-- Network status panel -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingNodeNetworkStatus">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeNetworkStatus">
+					<i class="bi bi-code" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="node-network-status-header">Network [<b>Inactive</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseNodeNetworkStatus" class="accordion-collapse collapse" data-bs-parent="#accordionNodeNetworkStatus">
+				<div class="accordion-body">
+					<table id="nodeNetStatsTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 5%">[ id ]</th>
+								<th style="width: 8%">[ name ]</th>
+								<th style="width: 8%">[ bri status ]</th>
+								<th style="width: 5%">[ bridges ]</th>
+								<th style="width: 5%">[ trunks ]</th>
+								<th style="width: 8%">[ vpp status ]</th>
+								<th style="width: 5%">[ vpp state ]</th>
+								<th style="width: 5%">[ vpp nets ]</th>
+								<th style="width: 5%">[ ver ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 5%">[ show ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>            
+
+		<!-- InfiniBand panel -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingNodeNetworkIB">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeNetworkIB">
+					<i class="bi bi-pci-card" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="node-network-infiniband-header">InfiniBand [<b>Inactive</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseNodeNetworkIB" class="accordion-collapse collapse" data-bs-parent="#accordionNodeNetworkIB">
+				<div class="accordion-body">
+					<h6>HBA</h6>
+					<table id="nodeNetworkIbHcaTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 5%">[ id ]</th>
+								<th style="width: 10%">[ name ]</th>
+								<th style="width: 10%">[ dev ]</th>
+								<th style="width: 10%">[ device ]</th>
+								<th style="width: 10%">[ ports ]</th>
+								<th style="width: 10%">[ type ]</th>
+								<th style="width: 10%">[ hca ]</th>
+								<th style="width: 10%">[ fw ]</th>
+								<th style="width: 10%">[ guid ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+					
+					<h6>Ports</h6>
+					<table id="nodeNetworkIbPortTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 5%">[ id ]</th>
+								<th style="width: 10%">[ device ]</th>
+								<th style="width: 10%">[ transport ]</th>
+								<th style="width: 10%">[ link ]</th>
+								<th style="width: 10%">[ state ]</th>
+								<th style="width: 10%">[ speed ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Network interfaces panel -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingNodeNetworkDevs">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeNetworkDevs">
+					<i class="bi bi-pci-card" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="node-network-device-header">Devices [<b>Inactive</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseNodeNetworkDevs" class="accordion-collapse collapse" data-bs-parent="#accordionNodeNetworkDevs">
+				<div class="accordion-body">
+					<h6>Bonds</h6>
+					<table id="nodeNetworkBondTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 5%">[ id ]</th>
+								<th style="width: 10%">[ name ]</th>
+								<th style="width: 5%">[ dev ]</th>
+								<th style="width: 5%">[ type ]</th>
+								<th style="width: 5%">[ hash ]</th>
+								<th style="width: 5%">[ mtu ]</th>
+								<th style="width: 10%">[ mac ]</th>
+								<th style="width: 10%">[ members ]</th>
+								<th style="width: 10%">[ speed ]</th>
+								<th style="width: 5%">[ duplex ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+					
+					<h6>Interfaces</h6>
+					<table id="nodeNetworkDeviceTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 5%">[ id ]</th>
+								<th style="width: 10%">[ name ]</th>
+								<th style="width: 5%">[ dev ]</th>
+								<th style="width: 5%">[ type ]</th>
+								<th style="width: 5%">[ driver ]</th>
+								<th style="width: 5%">[ mtu ]</th>
+								<th style="width: 10%">[ mac ]</th>
+								<th style="width: 10%">[ port ]</th>
+								<th style="width: 10%">[ speed ]</th>
+								<th style="width: 5%">[ duplex ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Network configuration panel -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingNodeNetwork">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeNetwork">
+					<i class="bi bi-diagram-3" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="node-network-header">Networks [<b>Inactive</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseNodeNetwork" class="accordion-collapse collapse" data-bs-parent="#accordionNodeNetwork">
+				<div class="accordion-body">
+					<table id="nodeNetworkTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 5%">[ id ]</th>
+								<th style="width: 10%">[ name ]</th>
+								<th style="width: 7%">[ device ]</th>
+								<th style="width: 5%">[ type ]</th>
+								<th style="width: 10%">[ model ]</th>
+								<th style="width: 40%">[ systems ]</th>
+								<th style="width: 10%">[ rx data ]</th>
+								<th style="width: 10%">[ tx data ]</th>
+								<th style="width: 7%">[ cluster ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Storage devices and pools section -->
+<div class="row row-space g-1 mt-2 pt-2">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-server" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Storage</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>        
+
+	<!-- Storage monitoring accordion -->
+	<div class="accordion mt-1" id="accordionNodeStorage">
+		<!-- Storage service panel -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingNodeStorage">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeStorage">
+					<i class="bi bi-code" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="node-storage-header">Storage [<b>OFFLINE</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseNodeStorage" class="accordion-collapse collapse" data-bs-parent="#accordionNodeStorage">
+				<div class="accordion-body">
+					<h6>Storage Service</h6>
+					
+					<table id="nodeStorageServiceTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 5%">[ id ]</th>
+								<th style="width: 8%">[ name ]</th>
+								<th style="width: 5%">[ ver ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 5%">[ show ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>    
+				</div>
+			</div>
+		</div>
+		
+		<!-- Storage devices panel -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingNodeStorageDevs">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeStorageDevs">
+					<i class="bi bi-server" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="node-storage-device-header">Storage Devices [<b>Inactive</b>]</div>
+					</div>
+				</button>
+			</h2>
+		
+			<div id="collapseNodeStorageDevs" class="accordion-collapse collapse" data-bs-parent="#accordionNodeStorage">
+				<div class="accordion-body">
+					<h6>Storage Devices</h6>
+					
+					<table id="nodeStorageDeviceTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 5%">[ id ]</th>
+								<th style="width: 10%">[ name ]</th>
+								<th style="width: 7%">[ type ]</th>
+								<th style="width: 7%">[ device ]</th>
+								<th style="width: 14%">[ updated ]</th>
+								<th style="width: 7%">[ size ]</th>
+								<th style="width: 7%">[ used ]</th>
+								<th style="width: 7%">[ free ]</th>
+								<th style="width: 8%">[ state ]</th>
+								<th style="width: 8%">[ status ]</th>
+								<th style="width: 8%">[ cluster ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Storage pools panel -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingNodeStoragePool">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeStoragePool">
+					<i class="bi bi-server" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="node-storage-pool-header">Storage Pools [<b>Inactive</b>]</div>
+					</div>
+				</button>
+			</h2>
+		
+			<div id="collapseNodeStoragePool" class="accordion-collapse collapse" data-bs-parent="#accordionNodeStorage">
+				<div class="accordion-body">
+					<h6>Storage Pools</h6>
+					
+					<table id="nodeStoragePoolTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 5%">[ id ]</th>
+								<th style="width: 10%">[ name ]</th>
+								<th style="width: 7%">[ owner ]</th>
+								<th style="width: 7%">[ state ]</th>
+								<th style="width: 7%">[ mounted ]</th>
+								<th style="width: 14%">[ updated ]</th>
+								<th style="width: 7%">[ size ]</th>
+								<th style="width: 7%">[ used ]</th>
+								<th style="width: 7%">[ free ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>    
+				</div>
+			</div>
+		</div>    
+	</div>
+</div>
+
+<!-- Framework services section -->
+<div class="row row-space g-1 mt-2 pt-2 mb-5">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-box" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Framework</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>        
+
+	<!-- Framework details accordion -->
+	<div class="accordion mt-1" id="accordionNodeFramework">
+		<!-- Framework status panel -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingNodeFramework">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeFramework">
+					<i class="bi bi-code" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="node-framework-header">Framework [<b>OFFLINE</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseNodeFramework" class="accordion-collapse collapse" data-bs-parent="#accordionNodeFramework">
+				<div class="accordion-body">
+					<table id="nodeFrameworkTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 5%">[ id ]</th>
+								<th style="width: 7%">[ name ]</th>
+								<th style="width: 10%">[ services ]</th>
+								<th style="width: 35%">[ vmms ]</th>
+								<th style="width: 10%">[ workers ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 5%">[ show ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Services panel -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingNodeService">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeService">
+					<i class="bi bi-boxes" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="node-service-header">Services [<b>Inactive</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseNodeService" class="accordion-collapse collapse" data-bs-parent="#accordionNodeFramework">
+				<div class="accordion-body">
+					<table id="nodeFrameworkServiceTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 10%">[ service ]</th>
+								<th style="width: 5%">[ state ]</th>
+								<th style="width: 10%">[ status ]</th>
+								<th style="width: 7%">[ pid ]</th>
+								<th style="width: 10%">[ updated ]</th>
+								<th style="width: 5%">[ delta ]</th>
+								<th style="width: 5%">[ cpu ]</th>
+								<th style="width: 5%">[ mem ]</th>
+								<th style="width: 5%">[ start ]</th>
+								<th style="width: 5%">[ stop ]</th>
+								<th style="width: 5%">[ restart ]</th>
+								<th style="width: 5%">[ clear log ]</th>
+								<th style="width: 5%">[ show log ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		
+		<!-- VMM panel -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingNodeVMM">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeVMM">
+					<i class="bi bi-display" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="node-vmm-header">VMM [<b>Inactive</b>]</div>
+					</div>
+				</button>
+			</h2>
+		
+			<div id="collapseNodeVMM" class="accordion-collapse collapse" data-bs-parent="#accordionNodeFramework">
+				<div class="accordion-body">
+					<table id="nodeVMMTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 5%">[ id ]</th>
+								<th style="width: 10%">[ system ]</th>
+								<th style="width: 7%">[ state ]</th>
+								<th style="width: 5%">[ pid ]</th>
+								<th style="width: 10%">[ boot time ]</th>
+								<th style="width: 10%">[ socket ]</th>
+								<th style="width: 10%">[ log ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Workers panel -->
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingNodeWorker">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeWorker">
+					<i class="bi bi-asterisk" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div>Workers [<b>Inactive</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseNodeWorker" class="accordion-collapse collapse" data-bs-parent="#accordionNodeFramework">
+				<div class="accordion-body">
+					<table id="nodeWorkerTable" class="table table-outline table-striped table-hover">
+						<thead>
+							<tr>
+								<th style="width: 5%">[ id ]</th>
+								<th style="width: 10%">[ name ]</th>
+								<th style="width: 5%">[ type ]</th>
+								<th style="width: 10%">[ model ]</th>
+								<th style="width: 40%">[ systems ]</th>
+								<th style="width: 10%">[ rx data ]</th>
+								<th style="width: 10%">[ tx data ]</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

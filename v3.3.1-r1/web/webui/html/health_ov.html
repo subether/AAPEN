@@ -1,0 +1,234 @@
+<!--
+ * ETHER|AAPEN|WEB - HTML|HEALTH|OV
+ * Licensed under AGPLv3+
+ * (c) 2010-2025 | ETHER.NO
+ * Author: Frode Moseng Monsson
+ * Contact: aapen@ether.no
+ * Version: 3.3.1
+ -->
+
+
+<!-- Health Dashboard Overview -->
+<div class="row row-space g-1 mt-1 pt-2 ms-0">
+	<!-- Large Health Card -->
+	<div class="col-sm-6">
+		<div class="card" style="width: 45rem; height: 20rem">
+			<i class="card-img-top text-center bi bi-heart-pulse" style="font-size: 3.5rem"></i>
+			<div class="card-body">
+				<h5 class="card-title"><b style="color:#0040ff">Health XS</b></h5>
+				<p class="card-text" id="main-card-health">
+					Cluster Status [<b>n/a</b>]<br>
+					Health Events [<b>0</b>]
+				</p>
+				<a href="#" class="btn btn-primary" onclick='cluster_health_show()'>Show Health</a>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Large Cluster Card -->
+	<div class="col-sm-6">
+		<div class="card" style="width: 45rem; height: 20rem">
+			<i class="card-img-top text-center bi bi-grid" style="font-size: 3.5rem"></i>
+			<div class="card-body">
+				<h5 class="card-title"><b style="color:#0040ff">Clusters</b></h5>
+				<p class="card-text" id="main-card-cluster">
+					Online Clusters [<b>1</b>]<br>
+					Offline Clusters [<b>0</b>]
+				</p>
+				<a href="#" class="btn btn-primary" onclick='cluster_show()'>Show Clusters</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- First Row of Cards -->
+<div class="row row-space g-1 mt-1 pt-2 ms-0">
+	<!-- Health Card -->
+	<div class="col-sm-3">
+		<div class="card" style="width: 18rem;">
+			<i class="card-img-top text-center bi bi-heart-pulse" style="font-size: 3.5rem"></i>
+			<div class="card-body">
+				<h5 class="card-title"><b style="color:#0040ff">Health</b></h5>
+				<p class="card-text" id="main-card-health">
+					Cluster Status [<b>n/a</b>]<br>
+					Health Events [<b>0</b>]
+				</p>
+				<a href="#" class="btn btn-primary" onclick='cluster_health_show()'>Show Health</a>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Cluster Card -->
+	<div class="col-sm-3">
+		<div class="card" style="width: 18rem;">
+			<i class="card-img-top text-center bi bi-grid" style="font-size: 3.5rem"></i>
+			<div class="card-body">
+				<h5 class="card-title"><b style="color:#0040ff">Clusters</b></h5>
+				<p class="card-text" id="main-card-cluster">
+					Online Clusters [<b>1</b>]<br>
+					Offline Clusters [<b>0</b>]
+				</p>
+				<a href="#" class="btn btn-primary" onclick='cluster_show()'>Show Clusters</a>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Nodes Card -->
+	<div class="col-sm-3">
+		<div class="card" style="width: 18rem;">
+			<i class="card-img-top text-center bi bi-view-stacked" style="font-size: 3.5rem"></i>
+			<div class="card-body">
+				<h5 class="card-title"><b style="color:#0040ff">Nodes</b></h5>
+				<p class="card-text" id="main-card-node">
+					Online Nodes [<b>0</b>]<br>
+					Offline Nodes [<b>0</b>]
+				</p>
+				<a href="#" class="btn btn-primary" onclick='main_node_overview_show()'>Show Nodes</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- Networks Card -->
+	<div class="col-sm-3">
+		<div class="card" style="width: 18rem;">
+			<i class="card-img-top text-center bi bi-diagram-3" style="font-size: 3.5rem"></i>
+			<div class="card-body">
+				<h5 class="card-title"><b style="color:#0040ff">Networks</b></h5>
+				<p class="card-text" id="main-card-network">
+					Network Bridges [<b>0</b>]<br>
+					VPP Networks [<b>0</b>]
+				</p>
+				<a href="#" class="btn btn-primary" onclick='main_net_overview_show()'>Show Networks</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Health Monitoring Cards - Shows status of all components -->
+<br>
+<!-- Second Row of Cards -->
+<div class="row">
+	<!-- Groups Card -->
+	<div class="col-sm-3">
+		<div class="card" style="width: 18rem;">
+			<i class="card-img-top text-center bi bi-bounding-box" style="font-size: 3.5rem"></i>
+			<div class="card-body">
+				<h5 class="card-title"><b style="color:#0040ff">Groups</b></h5>
+				<p class="card-text" id="main-card-group">
+					Availability Groups [<b>0</b>]<br>
+					Failover Groups [<b>0</b>]
+				</p>
+				<a href="#" class="btn btn-primary" onclick='cluster_show()'>Show Groups</a>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Systems Card -->
+	<div class="col-sm-3">
+		<div class="card" style="width: 18rem;">
+			<i class="card-img-top text-center bi bi-display" style="font-size: 3.5rem"></i>
+			<div class="card-body">
+				<h5 class="card-title"><b style="color:#0040ff">Systems</b></h5>
+				<p class="card-text" id="main-card-system">
+					Systems Online [<b>0</b>]<br>
+					Systems Offline [<b>0</b>]
+				</p>
+				<a href="#" class="btn btn-primary" onclick='main_system_overview_show()'>Show Systems</a>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Containers Card -->
+	<div class="col-sm-3">
+		<div class="card" style="width: 18rem;">
+			<i class="card-img-top text-center bi bi-layers" style="font-size: 3.5rem"></i>
+			<div class="card-body">
+				<h5 class="card-title"><b style="color:#0040ff">Containers</b></h5>
+				<p class="card-text" id="main-card-node">
+					Online Containers [<b>0</b>]<br>
+					Offline Containers [<b>0</b>]
+				</p>
+				<a href="#" class="btn btn-primary">Show Containers</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- Storage Card -->
+	<div class="col-sm-3">
+		<div class="card" style="width: 18rem;">
+			<i class="card-img-top text-center bi bi-server" style="font-size: 3.5rem"></i>
+			<div class="card-body">
+				<h5 class="card-title"><b style="color:#0040ff">Storage</b></h5>
+				<p class="card-text" id="main-card-storage">
+					Online Storage [<b>0</b>]<br>
+					Offline Storage [<b>0</b>]
+				</p>
+				<a href="#" class="btn btn-primary" onclick="stor_overview_show()">Show Storage</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<br>
+<!-- Third Row of Cards -->
+<div class="row">
+	<!-- Elements Card -->
+	<div class="col-sm-3">
+		<div class="card" style="width: 18rem;">
+			<i class="card-img-top text-center bi bi-layout-wtf" style="font-size: 3.5rem"></i>
+			<div class="card-body">
+				<h5 class="card-title"><b style="color:#0040ff">Elements</b></h5>
+				<p class="card-text" id="main-card-elements">
+					Devices [<b>0</b>] Groups [<b>0</b>]<br>
+					Services [<b>0</b>] Groups [<b>0</b>]
+				</p>
+				<a href="#" class="btn btn-primary">Show Devices</a>
+			</div>
+		</div>
+	</div>
+	
+	<!-- API Card -->
+	<div class="col-sm-3">
+		<div class="card" style="width: 18rem;">
+			<i class="card-img-top text-center bi bi-terminal" style="font-size: 3.5rem"></i>
+			<div class="card-body">
+				<h5 class="card-title"><b style="color:#0040ff">AAPEN API</b></h5>
+				<p class="card-text" id="main-card-api">
+					Show framework API actions<br>
+					AAPEN API version [<b>v2.9.9</b>]
+				</p>
+				<a href="#" class="btn btn-primary" onclick='main_api_show()'>Show API</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- REST Card -->
+	<div class="col-sm-3">
+		<div class="card" style="width: 18rem;">
+			<i class="card-img-top text-center bi bi-cloud-check" style="font-size: 3.5rem"></i>
+			<div class="card-body">
+				<h5 class="card-title"><b style="color:#0040ff">AAPEN REST</b></h5>
+				<p class="card-text" id="main-card-rest">
+					AAPEN REST API<br>
+					Last updated [n/a]
+				</p>
+				<a href="#" class="btn btn-primary" onclick='mainRefreshAllViews()'>Refresh</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- LOG Card -->
+	<div class="col-sm-3">
+		<div class="card" style="width: 18rem;">
+			<i class="card-img-top text-center bi bi-activity" style="font-size: 3.5rem"></i>
+			<div class="card-body">
+				<h5 class="card-title"><b style="color:#0040ff">LOG</b></h5>
+				<p class="card-text" id="main-card-log">
+					Show framework log events<br>
+					Events logged [<b>0</b>]
+				</p>
+				<a href="#" class="btn btn-primary" onclick='log_show()'>Show Logs</a>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,124 @@
+<!--
+ * ETHER|AAPEN|WEB - HTML|SYSTEM|OV|RES
+ * Licensed under AGPLv3+
+ * (c) 2010-2025 | ETHER.NO
+ * Author: Frode Moseng Monsson
+ * Contact: aapen@ether.no
+ * Version: 3.3.1
+ -->
+
+<!-- MAIN SECTION: System resource overview dashboard -->
+
+<!-- HEADER SECTION: Title and sorting controls -->
+<div class="row row-space g-1 mt-1 pt-2 ms-0">
+	<div class="col-lg-6 rounded-3">
+		<div class="row row-space pb-2 mt-3">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-graph-up" style="font-size: 3rem"></i>
+				<div class="ms-3">
+					<div class="mt-2"><h3>[ System Resources ]</h3></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-lg-1 rounded-3 p-2 col-md-offset-2 me-auto"></div>
+	
+	<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2 ms-4">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-sort-down" style="font-size: 1.5rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h6>Select Sorting</h6></div>
+				</div>
+			</div>
+		</div>
+				
+		<div class="ms-1 mt-2">
+			<select id="systemResSortSelect" class="form-select form-select-sm">
+				<option value="cpu-util-abs">CPU Utilization (Absolute)</option>
+				<option value="cpu-util-rel">CPU Utilization (Relative)</option>
+				<option value="cpu-core-alloc">CPU Cores Allocated</option>
+				<option value="ram-util">Memory Utilization</option>
+				<option value="ram-alloc">Memory Allocated</option>
+				<option value="ram-used">Memory Used</option>
+				<option value="net-packets">Network Packets</option>
+				<option value="net-data">Network Data</option>
+				<option value="stor-alloc">Storage Allocatated</option>
+				<option value="stor-used">Storage Used</option>
+			</select>
+		</div>
+	</div>
+</div>
+
+<!-- OVERVIEW SECTION: Aggregated resource metrics -->
+<div class="row row-space g-1 mt-2 pt-2 mb-5">
+	<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+		<div class="row row-space pb-2">
+			<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+				<i class="bi bi-graph-up" style="font-size: 1.25rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Overview</h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- ACCORDION SECTION: Detailed resource breakdown -->
+	<div class="accordion mt-1" id="accordionSystemResourceOverview">
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingSystemResOverview">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSystemResOverview">
+					<i class="bi bi-hash" style="font-size: 1.25rem"></i>
+					<div class="ms-3">
+						<div id="main-system-resview-header">Systems [<b>n/a</b>]</div>
+					</div>
+				</button>
+			</h2>
+
+			<div id="collapseSystemResOverview" class="accordion-collapse collapse" data-bs-parent="#accordionSystemResourceOverview">
+				<div class="accordion-body">
+					<div class="row row-space g-1 mt-1 pt-1 ms-1">
+						<h6>Online System Resources</h6>
+						<table id="systemResOverviewTable" class="table table-outline table-striped table-hover">
+							<thead>
+								<tr>
+									<th style="width: 20%">[ systems ]</th>
+									<th style="width: 20%">[ cpus total ]</th>
+									<th style="width: 20%">[ memory total ]</th>
+									<th style="width: 20%">[ memory used ]</th>
+									<th style="width: 20%">[ storage total ]</th>
+									<th style="width: 20%">[ storage used ]</th>
+									<th style="width: 20%">[ network data ]</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- SYSTEMS SECTION: Individual system resources -->
+	<div class="row row-space g-1 mt-2 pt-2">
+		<div class="col-lg-12 border rounded-3 p-1 bg-light col-md-offset-2">
+			<div class="row row-space pb-2">
+				<div class="col-lg-11 d-flex align-items-center mt-1 ms-2">
+					<i class="bi bi-display" style="font-size: 1.25rem"></i>
+					<div class="ms-2 mt-1">
+						<div><h5>Systems</h5></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- TABLE SECTION: System resource data -->
+		<div class="accordion mt-1" id="accordionSystemResource"></div>
+		
+	</div>
+	
+	<div class="row row-space g-1 mt-2 pt-2 mb-5">
+	</divdiv>	
+		
+</div>

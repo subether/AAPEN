@@ -1,0 +1,142 @@
+{	
+	"node":{
+		"id":{
+			"id":"1",
+			"name":"example",
+			"group":"example",
+			"desc":"example desc",
+			"cluster":"example"
+		},
+
+		"access":{
+			"index":"ssh;ipmi;vnc",
+			
+			"ssh":{
+				"host":"10.100.10.10",
+				"port":"22",
+				"user":"admin"
+			},
+
+			"vnc":{
+				"access":"10.100.10.10:5901"
+			},
+			
+			"ipmi":{
+				"url":"https://example-ipmi.local"
+			}
+		},
+
+		"cluster":{
+			
+			"multicast":{
+				"enabled": 1
+			},
+			
+			"zmq":{
+				"enabled": 0,
+				"mode": "sync",
+
+				"server":"10.100.0.1",
+				"client":"10.100.0.10",
+				"sync":"10.100.0.1"
+			}
+		},
+
+		"network":{
+
+			"tap":{
+				"user": "aapen"
+			},
+						
+			"vpp":{
+				"enabled": 0,
+				"bin": "/opt/vpp/build-root/build-vpp-native/vpp/bin/vppctl"
+			},
+			
+			"interface":{
+				"index":"eth1;bond0;ib0",
+				
+				"eth1":{
+					"id":{
+						"name":"example-eth1",
+						"id":"1",
+						"desc":"eth1 vm trunk"
+					},
+					
+					"type":"interface"
+				},
+
+				"bond0":{
+					
+					"id":{
+						"name":"example-bond0",
+						"id":"1",
+						"desc":"bond0"
+					},
+					
+					"type":"bond",
+					
+					"bond":{
+						"member":"eth2;eth3",
+						"type":"lacp",
+						"hash":"layer2",
+						
+						"eth2":{
+							"name":"eth2",
+							"id":"1",
+							"desc":"eth2 bond0"
+						},			
+
+						"eth3":{
+							"name":"eth3",
+							"id":"2",
+							"desc":"eth3 bond0"
+						}
+
+					}				
+				},
+				
+				"ib0":{
+				
+					"id":{
+						"name":"example-ib0",
+						"id":"3",
+						"desc":"example infiniband"
+					},
+					
+					"type":"infiniband",
+					"dev":"ibp94s0",
+					"ports":"1;2"		
+				}
+			}
+
+		},
+
+		"hypervisor":{
+									
+			"migrate":{
+				"ip": "10.100.0.10",
+				"rate": "10000"
+			}
+		},
+
+		"framework":{
+			
+			"init":{
+				"index": "cdb;cluster;agent;storage;hypervisor;network;monitor"
+			}
+		},
+
+		"host":{
+			"address":"10.100.0.10"
+		},
+
+		"agent":{
+			"address":"10.100.0.10"
+		},
+		
+		"monitor":{
+			"prio": "1"
+		}		
+	}
+}

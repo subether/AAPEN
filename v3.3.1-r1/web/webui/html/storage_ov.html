@@ -1,0 +1,231 @@
+<!--
+ * ETHER|AAPEN|WEB - HTML|STORAGE|OV
+ * Licensed under AGPLv3+
+ * (c) 2010-2025 | ETHER.NO
+ * Author: Frode Moseng Monsson
+ * Contact: aapen@ether.no
+ * Version: 3.3.1
+ -->
+
+<!-- Storage overview dashboard showing devices, pools and statistics -->
+
+<!-- Header row with storage stats and filters -->
+<div class="row row-space g-1 mt-1 pt-2 ms-0">
+	<div class="col-lg-2 rounded-3 p-2 col-md-offset-2">
+		<div class="row row-space pb-2 mt-3">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-server" style="font-size: 3rem"></i>
+				<div class="ms-3">
+					<div class="mt-2"><h3>[ Storage ]</h3></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-lg-1 rounded-3 p-2 col-md-offset-2 me-auto"></div>
+	
+	<div class="col-lg-1 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-funnel" style="font-size: 1.5rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>State</h5></div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row row-space mt-0">
+			<div class="col-lg-11 d-flex align-items-center ms-2">
+				<div class="form-check form-switch">
+					<input class="form-check-input" type="checkbox" id="switchStorShowOnline" onchange="stor_overview_show()" checked>
+					<label class="form-check-label" for="switchSysOnline">Online</label>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row row-space mt-0">
+			<div class="col-lg-11 d-flex align-items-center ms-2">
+				<div class="form-check form-switch">
+					<input class="form-check-input" type="checkbox" id="switchStorShowOffline" onchange="stor_overview_show()" checked>
+					<label class="form-check-label" for="switchSysShowOffline">Offline</label>
+				</div>
+			</div>
+		</div>
+	</div>
+    
+	<div class="col-lg-1 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-activity" style="font-size: 1.5rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Status</h5></div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row row-space mt-0">
+			<div class="col-lg-6 d-flex align-items-center ms-3">
+				<div>Online</div>
+			</div>
+			<div class="col-lg-4 d-flex align-items-center">
+				<div id="main-storage-dev-online"><b>n/a</b></div>
+			</div>
+		</div>
+		
+		<div class="row row-space mt-1 mb-1">
+			<div class="col-lg-6 d-flex align-items-center ms-3">
+				<div>Offline</div>
+			</div>
+			<div class="col-lg-4 d-flex align-items-center">
+				<div id="main-storage-dev-offline"><b>n/a</b></div>
+			</div>
+		</div>
+	</div>
+    
+	<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-pie-chart" style="font-size: 1.5rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Storage</h5></div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row row-space mt-0">
+			<div class="col-lg-4 d-flex align-items-center ms-3">
+				<div>Total</div>
+			</div>
+			<div class="col-lg-6 d-flex align-items-center">
+				<div id="main-storage-size-total"><b>n/a</b></div>
+			</div>
+		</div>
+		
+		<div class="row row-space mt-1 mb-1">
+			<div class="col-lg-4 d-flex align-items-center ms-3">
+				<div>Used</div>
+			</div>
+			<div class="col-lg-6 d-flex align-items-center">
+				<div id="main-storage-size-used"><b>n/a</b></div>
+			</div>
+		</div>
+		
+		<div class="row row-space mt-1 mb-1">
+			<div class="col-lg-4 d-flex align-items-center ms-3">
+				<div>Available</div>
+			</div>
+			<div class="col-lg-6 d-flex align-items-center">
+				<div id="main-storage-size-avail"><b>n/a</b></div>
+			</div>
+		</div>
+	</div>
+    
+	<div class="col-lg-2 border rounded-3 p-2 bg-light col-md-offset-2 ms-3">
+		<div class="row row-space pb-1">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-device-hdd" style="font-size: 1.5rem"></i>
+				<div class="ms-2 mt-1">
+					<div><h5>Devices</h5></div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row row-space mt-0">
+			<div class="col-lg-4 d-flex align-items-center ms-3">
+				<div>Total</div>
+			</div>
+			<div class="col-lg-7 d-flex align-items-center">
+				<div id="main-storage-dev-tot"><b>n/a</b></div>
+			</div>
+		</div>
+		
+		<div class="row row-space mt-1 mb-1">
+			<div class="col-lg-4 d-flex align-items-center ms-3">
+				<div>HDD</div>
+			</div>
+			<div class="col-lg-7 d-flex align-items-center">
+				<div id="main-storage-dev-hdd"><b>n/a</b></div>
+			</div>
+		</div>
+		
+		<div class="row row-space mt-1 mb-1">
+			<div class="col-lg-4 d-flex align-items-center ms-3">
+				<div>SSD</div>
+			</div>
+			<div class="col-lg-7 d-flex align-items-center">
+				<div id="main-storage-dev-ssd"><b>n/a</b></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Devices table section -->
+
+<div class="row row-space g-1 ms-0">
+    <div class="col-lg-2 rounded-3 col-md-offset-2">
+        <div class="row row-space">
+            <div class="col-lg-11 d-flex align-items-center">
+                <i class="bi bi-hdd" style="font-size: 1rem"></i>
+                <div class="ms-3">
+                    <div class="mt-1"><h6>[ Devices ]</h6></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table id="storageDeviceTable" class="table table-outline table-striped table-hover">
+	<thead>
+		<tr>
+			<th style="width: 5%">[ id ]</th>
+			<th style="width: 10%">[ name ]</th>
+			<th style="width: 7%">[ type ]</th>
+			<th style="width: 7%">[ device ]</th>
+			<th style="width: 7%">[ node ]</th>
+			<th style="width: 5%">[ ver ]</th>
+			<th style="width: 6%">[ delta ]</th>
+			<th style="width: 7%">[ size ]</th>
+			<th style="width: 7%">[ used ]</th>
+			<th style="width: 7%">[ free ]</th>
+			<th style="width: 8%">[ state ]</th>
+			<th style="width: 8%">[ status ]</th>
+			<th style="width: 8%">[ cluster ]</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+
+<!-- Pools table section -->
+
+<div class="row row-space g-1 ms-0">
+	<div class="col-lg-2 rounded-3 col-md-offset-2">
+		<div class="row row-space">
+			<div class="col-lg-11 d-flex align-items-center">
+				<i class="bi bi-server" style="font-size: 1rem"></i>
+				<div class="ms-3">
+					<div class="mt-1"><h6>[ Pools ]</h6></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<table id="storagePoolTable" class="table table-outline table-striped table-hover mb-5">
+	<thead>
+		<tr>
+			<th style="width: 5%">[ id ]</th>
+			<th style="width: 10%">[ name ]</th>
+			<th style="width: 7%">[ type ]</th>
+			<th style="width: 7%">[ host ]</th>
+			<th style="width: 7%">[ shared ]</th>
+			<th style="width: 7%">[ backing ]</th>
+			<th style="width: 7%">[ device ]</th>
+			<th style="width: 5%">[ ver ]</th>
+			<th style="width: 6%">[ delta ]</th>
+			<th style="width: 8%">[ state ]</th>
+			<th style="width: 8%">[ status ]</th>
+			<th style="width: 8%">[ cluster ]</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>

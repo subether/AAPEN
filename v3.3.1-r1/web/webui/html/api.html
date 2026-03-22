@@ -1,0 +1,381 @@
+<!--
+ * ETHER|AAPEN|WEB - HTML|API
+ * Licensed under AGPLv3+
+ * (c) 2010-2025 | ETHER.NO
+ * Author: Frode Moseng Monsson
+ * Contact: aapen@ether.no
+ * Version: 3.3.1
+ -->
+
+<!-- API Management Interface -->
+
+	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+		<h3 class="h2"><b>AAPEN</b> | API</h3>
+	</div>
+
+	<div class="row">
+		<!-- Ping API -->
+		<div class="col-sm-2">
+			<div class="card" style="width: 14rem;">
+				<i class="card-img-top text-center bi bi-activity" style="font-size: 3rem"></i>
+				<div class="card-body">
+					<h5 class="card-title"><b style="color:#0040ff">Ping API</b></h5>
+					<p class="card-text" id="main-card-healths">
+						Check API back-end</br>
+						Status [<b>n/a</b>]
+					</p>
+					<a href="#" class="btn btn-primary" onclick='cluster_health_show()'>Ping API</a>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Regenerate ID -->
+		<div class="col-sm-2">
+			<div class="card" style="width: 14rem;">
+				<i class="card-img-top text-center bi bi-snow" style="font-size: 3rem"></i>
+				<div class="card-body">
+					<h5 class="card-title"><b style="color:#0040ff">Regenerate ID</b></h5>
+					<p class="card-text" id="main-card-api-uid">
+						Regenerate Client ID</br>
+						API ID [<b>n/a</b>]
+					</p>
+					<a href="#" class="btn btn-primary" onclick='api_regenerate_id()'>Regenerate ID</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Refresh Health -->
+		<div class="col-sm-2">
+			<div class="card" style="width: 14rem;">
+				<i class="card-img-top text-center bi bi-heart-pulse" style="font-size: 3rem"></i>
+				<div class="card-body">
+					<h5 class="card-title"><b style="color:#0040ff">Refresh Health</b></h5>
+					<p class="card-text" id="main-card-clusterx">
+						Refresh Cluster health status</br>
+						Last [<b>n/a</b>]
+					</p>
+					<a href="#" class="btn btn-primary" onclick='cluster_health_check_new()'>Refresh Health</a>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Initialize REST -->
+		<div class="col-sm-2">
+			<div class="card" style="width: 14rem;">
+				<i class="card-img-top text-center bi bi-asterisk" style="font-size: 3rem"></i>
+				<div class="card-body">
+					<h5 class="card-title"><b style="color:#0040ff">Initialize REST</b></h5>
+					<p class="card-text" id="main-card-healths">
+						Request API to build <b>REST</b></br>
+						Last [<b>n/a</b>]
+					</p>
+					<a href="#" class="btn btn-primary" onclick='api_rest_init()'>Initialize REST</a>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Refresh REST -->
+		<div class="col-sm-2">
+			<div class="card" style="width: 14rem;">
+				<i class="card-img-top text-center bi bi-cloud-check" style="font-size: 3rem"></i>
+				<div class="card-body">
+					<h5 class="card-title"><b style="color:#0040ff">Refresh REST</b></h5>
+					<p class="card-text" id="main-card-healths">
+						Pull config via <b>REST</b></br>
+						Last [<b>n/a</b>]
+					</p>
+					<a href="#" class="btn btn-primary" onclick='api_rest_db_get()'>Refresh REST</a>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Clear Database -->
+		<div class="col-sm-2">
+			<div class="card" style="width: 14rem;">
+				<i class="card-img-top text-center bi bi-x-octagon" style="font-size: 3rem"></i>
+				<div class="card-body">
+					<h5 class="card-title"><b style="color:#0040ff">Clear Database</b></h5>
+					<p class="card-text" id="main-card-clusterx">
+						Reset client database</br>
+						Last [<b>n/a</b>]
+					</p>
+					<a href="#" class="btn btn-primary" onclick='cluster_show()'>Clear Database</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<br/>
+	<div class="row">
+		<!-- Get Clusters (REST) -->
+		<div class="col-sm-2">
+			<div class="card" style="width: 14rem;">
+				<i class="card-img-top text-center bi bi-grid" style="font-size: 3rem"></i>
+				<div class="card-body">
+					<h5 class="card-title"><b style="color:#0040ff">Get Clusters</b></h5>
+					<p class="card-text" id="main-card-healths">
+						Get Clusters via <b>REST</b></br>
+						Last [<b>n/a</b>]
+					</p>
+					<a href="#" class="btn btn-primary" onclick='cluster_health_show()'>Get Clusters</a>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Get Nodes (REST) -->
+		<div class="col-sm-2">
+			<div class="card" style="width: 14rem;">
+				<i class="card-img-top text-center bi bi-view-stacked" style="font-size: 3rem"></i>
+				<div class="card-body">
+					<h5 class="card-title"><b style="color:#0040ff">Get Nodes</b></h5>
+					<p class="card-text" id="main-card-clusterx">
+						Get Nodes via <b>REST</b></br>
+						Last [<b>n/a</b>]
+					</p>
+					<a href="#" class="btn btn-primary" onclick='api_rest_init_node()'>Get Nodes</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Get Systems (REST) -->
+		<div class="col-sm-2">
+			<div class="card" style="width: 14rem;">
+				<i class="card-img-top text-center bi bi-display" style="font-size: 3rem"></i>
+				<div class="card-body">
+					<h5 class="card-title"><b style="color:#0040ff">Get Systems</b></h5>
+					<p class="card-text" id="main-card-clusterx">
+						Get Systems via <b>REST</b></br>
+						Last [<b>n/a</b>]
+					</p>
+					<a href="#" class="btn btn-primary" onclick='api_rest_init_system()'>Get Systems</a>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Get Networks (REST) -->
+		<div class="col-sm-2">
+			<div class="card" style="width: 14rem;">
+				<i class="card-img-top text-center bi bi-diagram-3" style="font-size: 3rem"></i>
+				<div class="card-body">
+					<h5 class="card-title"><b style="color:#0040ff">Get Networks</b></h5>
+					<p class="card-text" id="main-card-clusterx">
+						Get Networks via <b>REST</b></br>
+						Last [<b>n/a</b>]
+					</p>
+					<a href="#" class="btn btn-primary" onclick='api_rest_init_network()'>Get Networks</a>
+				</div>
+			</div>
+		</div>
+	
+		<!-- Get Storage (REST) -->
+		<div class="col-sm-2">
+			<div class="card" style="width: 14rem;">
+				<i class="card-img-top text-center bi bi-server" style="font-size: 3rem"></i>
+				<div class="card-body">
+					<h5 class="card-title"><b style="color:#0040ff">Get Storage</b></h5>
+					<p class="card-text" id="main-card-clusterx">
+						Get Storage via <b>REST</b></br>
+						Last [<b>n/a</b>]
+					</p>
+					<a href="#" class="btn btn-primary" onclick='api_rest_init_storage()'>Get Storage</a>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Get Objects (REST) -->
+		<div class="col-sm-2">
+			<div class="card" style="width: 14rem;">
+				<i class="card-img-top text-center bi bi-router" style="font-size: 3rem"></i>
+				<div class="card-body">
+					<h5 class="card-title"><b style="color:#0040ff">Get Objects</b></h5>
+					<p class="card-text" id="main-card-clusterx">
+						Get Objects via <b>REST</b></br>
+						Last [<b>n/a</b>]
+					</p>
+					<a href="#" class="btn btn-primary" onclick='cluster_show()'>Get Objects</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<br/>
+	<div class="row">
+		<!-- Get Clusters (API) -->
+		<div class="col-sm-2">
+			<div class="card" style="width: 14rem;">
+				<i class="card-img-top text-center bi bi-grid" style="font-size: 3rem"></i>
+				<div class="card-body">
+					<h5 class="card-title"><b style="color:#0040ff">Get Clusters</b></h5>
+					<p class="card-text" id="main-card-healths">
+						Get Clusters via <b>API</b></br>
+						Last [<b>n/a</b>]
+					</p>
+					<a href="#" class="btn btn-primary" onclick='cluster_health_show()'>Get Clusters</a>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Get Nodes (API) -->
+		<div class="col-sm-2">
+			<div class="card" style="width: 14rem;">
+				<i class="card-img-top text-center bi bi-view-stacked" style="font-size: 3rem"></i>
+				<div class="card-body">
+					<h5 class="card-title"><b style="color:#0040ff">Get Nodes</b></h5>
+					<p class="card-text" id="main-card-clusterx">
+						Get Nodes via <b>API</b></br>
+						Last [<b>n/a</b>]
+					</p>
+					<a href="#" class="btn btn-primary" onclick='cluster_show()'>Get Nodes</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Get Systems (API) -->
+		<div class="col-sm-2">
+			<div class="card" style="width: 14rem;">
+				<i class="card-img-top text-center bi bi-display" style="font-size: 3rem"></i>
+				<div class="card-body">
+					<h5 class="card-title"><b style="color:#0040ff">Get Systems</b></h5>
+					<p class="card-text" id="main-card-clusterx">
+						Get Systems via <b>API</b></br>
+						Last [<b>n/a</b>]
+					</p>
+					<a href="#" class="btn btn-primary" onclick='cluster_show()'>Get Systems</a>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Get Networks (API) -->
+		<div class="col-sm-2">
+			<div class="card" style="width: 14rem;">
+				<i class="card-img-top text-center bi bi-diagram-3" style="font-size: 3rem"></i>
+				<div class="card-body">
+					<h5 class="card-title"><b style="color:#0040ff">Get Networks</b></h5>
+					<p class="card-text" id="main-card-clusterx">
+						Get Networks via <b>API</b></br>
+						Last [<b>n/a</b>]
+					</p>
+					<a href="#" class="btn btn-primary" onclick='cluster_show()'>Get Networks</a>
+				</div>
+			</div>
+		</div>
+	
+		<!-- Get Storage (API) -->
+		<div class="col-sm-2">
+			<div class="card" style="width: 14rem;">
+				<i class="card-img-top text-center bi bi-server" style="font-size: 3rem"></i>
+				<div class="card-body">
+					<h5 class="card-title"><b style="color:#0040ff">Get Storage</b></h5>
+					<p class="card-text" id="main-card-clusterx">
+						Get Storage via <b>API</b></br>
+						Last [<b>n/a</b>]
+					</p>
+					<a href="#" class="btn btn-primary" onclick='cluster_show()'>Get Storage</a>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Get Objects (API) -->
+		<div class="col-sm-2">
+			<div class="card" style="width: 14rem;">
+				<i class="card-img-top text-center bi bi-router" style="font-size: 3rem"></i>
+				<div class="card-body">
+					<h5 class="card-title"><b style="color:#0040ff">Get Objects</b></h5>
+					<p class="card-text" id="main-card-clusterx">
+						Get Objects via <b>API</b></br>
+						Last [<b>n/a</b>]
+					</p>
+					<a href="#" class="btn btn-primary" onclick='cluster_show()'>Get Objects</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<br/>
+	<div class="row">
+		<!-- Show Cluster DB -->
+		<div class="col-sm-2">
+			<div class="card" style="width: 14rem;">
+				<i class="card-img-top text-center bi bi-grid" style="font-size: 3rem"></i>
+				<div class="card-body">
+					<h5 class="card-title"><b style="color:#0040ff">Show Cluster DB</b></h5>
+					<p class="card-text" id="main-card-healths">
+						Show Cluster data</br>
+					</p>
+					<a href="#" class="btn btn-primary" onclick='cluster_health_show()'>Dump Clusters</a>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Show Node DB -->
+		<div class="col-sm-2">
+			<div class="card" style="width: 14rem;">
+				<i class="card-img-top text-center bi bi-view-stacked" style="font-size: 3rem"></i>
+				<div class="card-body">
+					<h5 class="card-title"><b style="color:#0040ff">Show Node DB</b></h5>
+					<p class="card-text" id="main-card-clusterx">
+						Show Node data</br>
+					</p>
+					<a href="#" class="btn btn-primary" onclick='cluster_show()'>Dump Nodes</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Show System DB -->
+		<div class="col-sm-2">
+			<div class="card" style="width: 14rem;">
+				<i class="card-img-top text-center bi bi-display" style="font-size: 3rem"></i>
+				<div class="card-body">
+					<h5 class="card-title"><b style="color:#0040ff">Show System DB</b></h5>
+					<p class="card-text" id="main-card-clusterx">
+						Show System data</br>
+					</p>
+					<a href="#" class="btn btn-primary" onclick='cluster_show()'>Dump Systems</a>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Show Network DB -->
+		<div class="col-sm-2">
+			<div class="card" style="width: 14rem;">
+				<i class="card-img-top text-center bi bi-diagram-3" style="font-size: 3rem"></i>
+				<div class="card-body">
+					<h5 class="card-title"><b style="color:#0040ff">Show Network DB</b></h5>
+					<p class="card-text" id="main-card-clusterx">
+						Show Network data</br>
+					</p>
+					<a href="#" class="btn btn-primary" onclick='cluster_show()'>Dump Networks</a>
+				</div>
+			</div>
+		</div>
+	
+		<!-- Show Storage DB -->
+		<div class="col-sm-2">
+			<div class="card" style="width: 14rem;">
+				<i class="card-img-top text-center bi bi-server" style="font-size: 3rem"></i>
+				<div class="card-body">
+					<h5 class="card-title"><b style="color:#0040ff">Show Storage DB</b></h5>
+					<p class="card-text" id="main-card-clusterx">
+						Show Storage data</br>
+					</p>
+					<a href="#" class="btn btn-primary" onclick='cluster_show()'>Dump Storage</a>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Show Object DB -->
+		<div class="col-sm-2">
+			<div class="card" style="width: 14rem;">
+				<i class="card-img-top text-center bi bi-router" style="font-size: 3rem"></i>
+				<div class="card-body">
+					<h5 class="card-title"><b style="color:#0040ff">Show Object DB</b></h5>
+					<p class="card-text" id="main-card-clusterx">
+						Show Object data</br>
+					</p>
+					<a href="#" class="btn btn-primary" onclick='cluster_show()'>Dump Objects</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<br/>

@@ -1,0 +1,25 @@
+{
+	"object":{
+		"type":"storage",
+		"model":"iso"
+	},
+	
+	"meta":{
+		"type":"iso",
+		"state":1,
+		"flag":"media"
+	},
+	
+	"id":{
+		"name" : "example-linux-15.0",
+		"desc":"Example Linux 15.0 (64bit)",
+		"group":"linux",
+		"id":"10"			
+	},
+
+	"iso":{
+		"image" : "example-linux64-15.0-install-dvd.iso",
+		"dev":"/example_storage/iso/example_linux/",
+		"source":"lithium-pool"
+	}
+}
