@@ -18,22 +18,12 @@ function api_node_cluster_meta(node){
 
 
 function node_cluster_rest_meta(nodeName){
-	//console.log("SYSTEM REST FETCH");
 	api_get_request_callback_new('api_new', '/service/cluster/meta?name=' + nodeName, 'node_cluster_meta_get');
-	
 }
 
 function node_cluster_rest_obj_get(nodeName, objType, objName){
-	//console.log("SYSTEM REST FETCH");
 	api_get_request_callback_new('api_new', '/service/cluster/object/get?name=' + nodeName + "&obj_type=" + objType + "&obj_name=" + objName, 'node_cluster_object_get');
-	
 }
-
-//function cluster_object_show_async(nodeName, objType, objName){
-	//console.log("SYSTEM REST FETCH");
-//	api_get_request_callback_new('api_new', '/service/cluster/object/get?name=' + nodeName + "&obj_type=" + objType + "&obj_name=" + objName, 'node_cluster_object_get');
-	
-//}
 
 /**
  * Shows the main cluster view and fetches cluster metadata for the default monitor host
@@ -45,7 +35,6 @@ function cluster_show(){
     }
     try {
         main_cluster_show();
-        //api_node_cluster_meta(monitorHost);
         node_cluster_rest_meta(monitorHost);
     } catch (error) {
         console.error('Failed to show cluster:', error);
@@ -64,8 +53,6 @@ function cluster_async_show(node){
     }
     try {
         main_cluster_show();
-        //main_view_set('cluster_node_show', node, '');
-        //api_node_cluster_meta(node);
         node_cluster_rest_meta(node);
     } catch (error) {
         console.error(`Failed to show cluster for node ${node}:`, error);
@@ -120,12 +107,8 @@ function cluster_node_show(nodeName){
 
         main_cluster_show();
         main_view_set('cluster_node_show', nodeName, '');
-        //main_view_set('cluster_node_show', nodeName, '');
         cluster_node_view_process(node);
-        
-        
-        // Optional: Uncomment to also process node metadata
-        // cluster_node_meta_process(node);
+
     } catch (error) {
         console.error(`Failed to show node ${nodeName}:`, error);
         throw error;
@@ -396,58 +379,16 @@ function cluster_object_index_split(index){
  */
 function cluster_object_show_async(nodeName, obj, objType, objSub){
     
-    //main_view_set('cluster_node_show', nodeName, '');
     main_view_set('cluster_object_show', nodeName, '');
     
-    //if(!obj || !objType || typeof obj !== 'string' || typeof objType !== 'string'){
-     //   console.error('Invalid parameters to cluster_object_show_async');
-      //  return;
-    //}
-
-    //log_write_json("cluster_object_show_async", "Requesting object", {
-    //    obj: obj,
-     //   objType: objType,
-    //    objSub: objSub
-    //});
-
-    //const validTypes = ['system', 'node', 'network', 'storage', 'service'];
-    //if(!validTypes.includes(objType)){
-    //    console.error(`Invalid object type: ${objType}`);
-    //    return;
-    //}
-
-    //const params = {
-    //    service: 'node_cluster_obj_get',
-    //    type: objType,
-    //    id: obj,
-    //    callback: 'cluster_obj_show_async',
-    //    node: monitorHost
-    //};
-
     // Special handling for service type which uses objSub
     if(objType === 'service'){
-        //if(!objSub || typeof objSub !== 'string'){
-        //    console.error('Missing required objSub parameter for service type');
-        //    return;
-        //}
-        //params.subtype = objSub;
-        //main_view_set(view, key, id);
-        
         api_get_request_callback_new('api_new', '/service/cluster/service/get?name=' + nodeName + "&obj_type=" + objType + "&srv_name=" + objSub + "&srv_node=" + obj, 'cluster_obj_show_async');
     } 
     else{
-       // params.subtype = obj;
         api_get_request_callback_new('api_new', '/service/cluster/object/get?name=' + nodeName + "&obj_type=" + objType + "&obj_name=" + obj, 'cluster_obj_show_async');
     }
 
-    //api_request_service_callback(
-    //    params.service,
-    //    params.type,
-    //    params.id,
-    //    params.subtype,
-    //    params.node,
-     //   params.callback
-    //);
 }
 
 /**
@@ -477,13 +418,7 @@ function cluster_object_show(data){
         
         json_show(`Cluster object from node [ <b>${nodeName}</b> ]`, nodeName, "cluster", data);
         
-        //json_show(
-        //    `Cluster object [ <b>${data.request.id}</b> ] type [ <b>${data.request.obj}</b> ] node context [ <b>${data.request.node}</b> ]`,
-        //    data.request.id,
-        //    "cluster",
-        //    data
-        //);       
-        
+             
     } catch (error) {
         console.error('Failed to show cluster object:', error);
         throw error;
@@ -787,7 +722,6 @@ function cluster_health_node_process(nodeName){
 		
 		var serviceHealthRate = (parseInt(serviceHealthy) / parseInt(serviceTotal)) * 100;
 
-		//main-cluster-service-health-state
 		document.getElementById("main-health-service").innerHTML = "<b>Services</b> Total [<b>" + serviceTotal + "</b>] - Nodes [<b>" + serviceNodeTotal + "</b>] - Healthy [<b>" + serviceHealthy + "</b>] Warnings [<b>" + serviceWarning + "</b>] - Score [<b>" + serviceHealthRate.toFixed(1) + "</b>]";
 
 	}
@@ -800,8 +734,6 @@ function cluster_health_node_process(nodeName){
 	if((typeof nodeServiceData.data.alarm !== 'undefined') && (nodeServiceData.data.alarm !== null)){
 		var alarms = 0;
 		var alarmHeader = "";
-		
-		//console.log("ALARM INDEX [" + node.config.service.data.monitor.data.alarm.index + "]");
 		
 		if((typeof nodeServiceData.data.alarm.index !== 'undefined') && nodeServiceData.data.alarm.index !== ""){
 		
@@ -958,7 +890,6 @@ function cluster_object_table_build(table, meta, objHealthy, objWarning) {
 			if((typeof objdata.status !== 'undefined')){
 				objStatus = view_health_color_status(objdata.status);
 			}
-			//var objStatus = view_health_color_status(objdata.status);
 
 			$("#" + table + " tbody").append("<tr><td><b>" + warnObj + "</b></td><td>" + objdata.ver + "</td><td>" + objdata.updated + "</td><td><b>" + string_undefined(objdata.delta) + "</b></td><td>" + objState + "</td><td>" + '<b style="color:#FF0000">' + objStatus + "</b></td><td>" + '<b style="color:#0040ff"><a id="tempbtn" class="btn btn-link tablebtn">' + "[show]</a></b></td></tr>");
 			

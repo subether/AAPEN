@@ -320,8 +320,6 @@ function stor_show_pool(poolName) {
 				}
 			});
 			
-			
-			
 			document.getElementById("main-pooldev-obj-system").innerHTML = 'Systems [<b>' + sysnum + '</b>] online [<b>' + sys_online + '</b>] offline [<b>' + sys_offline + '</b>] allocated [<b>' + sys_size_tot + ' GB</b>]';
 
 			//size allocated
@@ -361,7 +359,6 @@ function stor_show_device(deviceName){
 		log_write_json("stor_show_device_new", "[TOP]", deviceData);
 
 		$("#stordevStatusObjTable tbody tr").remove();
-		
 		$("#stordevStatusTable tbody tr").remove();
 		$("#stordevStatusHealth tbody tr").remove();
 		$("#stordevStatusHealthTable tbody tr").remove();

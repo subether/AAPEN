@@ -20,9 +20,6 @@ function system_overview_show() {
 		system_overview_name("");
 	}
 	
-	//system_overview_id("");
-	//system_overview_generate(query, "id");
-	
 }
 
 //
@@ -46,8 +43,6 @@ function system_overview_sort(sorting) {
 		});
 		
 	});
-
-	//console.log(sysArray);
 
 	if(sorting == "id"){
 		sysArray.sort(function (x, y) {
@@ -104,7 +99,6 @@ function system_overview_group_select_build() {
 	
 	// group options
 	sysGroupList.forEach((group) => {
-		//console.log(group);
 		var option = document.createElement("option");
 		option.value = group;
 		option.innerHTML = group;
@@ -119,7 +113,6 @@ function system_overview_group_select_build() {
 //
 function system_overview_group_select_change() {
 	var sysGroupSelect = document.getElementById("systemOvGroupSelect");
-	//console.log("SORTING [" + sysGroupSelect.value + "]");
 	
 	var sortType = "id";
 	if(document.getElementById("switchSysSortName").checked){
@@ -161,10 +154,8 @@ function system_overview_generate(query, sorting, group) {
 	
 	let sysArray = system_overview_sort(sorting);
 	
-	//sysList.forEach((sysName) => {
 	sysArray.forEach((element, index, array) => {
-		//system_resource_accordion(element.key, element);
-		//console.log("element [" + element.key + "] index [" + index + "] array [" + array + "]");
+
 		var sysName = element.key;
 	
 		var match = 0;
@@ -256,7 +247,6 @@ function system_overview_generate(query, sorting, group) {
 		if(eventSysOv.key === "Enter") {
 			eventSysOv.preventDefault();
 			log_write_json("sys_ov_search_bar", "[system-ov-search-bar]", "query [" + searchboxSysOv.value + "]");
-			//system_overview_(searchboxSysOv.value);
 			if(document.getElementById("switchSysSortName").checked){
 				system_overview_generate(searchboxSysOv.value, "name", group);
 			}
@@ -299,7 +289,6 @@ function system_resources_show() {
 	var totNetBytes = 0;
 	
 	sysList.forEach((sysName) => {
-		//var system = db_system_get(value);
 		var systemData = dbnew_system_get(sysName);
 		
 		if(systemData.meta.state == "1"){
@@ -327,7 +316,6 @@ function system_resources_show() {
 		
 				totCpuCore += parseInt(systemData.hw.cpu.core);
 				totCpuPerc += parseInt(systemData.meta.stats.hypervisor.cpu);
-				//totCpuPerc += cpuPerc;
 		
 				// memory
 				if(systemData.meta.stats.hypervisor.rss.includes('M')){
@@ -352,7 +340,6 @@ function system_resources_show() {
 				nicIndex = nic.split(';');
 	
 				nicIndex.forEach((nicDev) => {
-					//console.log("nicDev: " + nicDev);
 					var netTxPackets = 0;
 					var netTxBytes = 0;
 					var netRxPackets = 0;

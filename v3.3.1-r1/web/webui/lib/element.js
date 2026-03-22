@@ -122,9 +122,6 @@ function element_db_process_rest_new(db){
 	if(deviceGroups){ deviceGroupNum = deviceGroups.length; };
 	if(serviceGroups){ serviceGroupNum = serviceGroups.length; };
 	
-	//console.log("DEVICE NUM [" + deviceNum + "] DEVICE GROUPS [" + deviceGroupNum + "]");
-	//console.log("SERVICE NUM [" + serviceNum + "] DEVICE GROUPS [" + serviceGroupNum + "]");	
-	
 	document.getElementById('menu-element-device').innerHTML = "Devices (" + deviceNum + ")";
 	document.getElementById('menu-element-service').innerHTML = "Services (" + serviceNum + ")";
 	document.getElementById("main-card-elements").innerHTML = "Devices [<b>" + deviceNum + "</b>] Groups [<b>" + deviceGroupNum + "</b>]</br>Services [<b>" + serviceNum + "</b>] Groups [<b>" + serviceGroupNum + "</b>]";
@@ -145,15 +142,6 @@ function element_device_menu_remove_all() {
 }
 
 //
-//
-//
-//function element_device_menu_add(elementname) {
-	//const func = function() { cluster_async_show(nodename) };
-//	menu_add_item(nodename, 'collapse-element-online', "node_cluster_" + elementname, "bi-view-stacked", func);
-//}
-
-
-//
 // create device group element accordion
 //
 function element_device_group_accordion(type, init) {
@@ -167,8 +155,6 @@ function element_device_group_accordion(type, init) {
 	header.innerHTML = "<h5>Devices</h5>";
 	
 	var deviceGroup = dbnew_element_index_device_group_get();
-
-	//console.log(deviceGroup);
 
 	var deviceNum = 0;
 	var deviceTotal = 0;
@@ -199,13 +185,9 @@ function element_device_group_accordion(type, init) {
 		//get devices in this group
 		var deviceIndex = dbnew_element_index_device_get();
 		
-		//console.log(deviceIndex);
-		
 		deviceIndex.forEach((deviceName) => {
 			var elementData = dbnew_element_get(deviceName);
-			
-			//console.log(elementData.id.name);
-					
+				
 			if(elementData.id.group == group){
 				
 				if(search.value == ""){
@@ -283,7 +265,6 @@ function element_device_table_build(elementData, group){
 	}
 	
 	var tbodyElement = $('#deviceGrpTbl_' + group + " tbody");
-	//tbodyElement.append("<tr><td>" + '<b style="color:#0040ff"><a id="tempbtn_show" class="btn btn-link tablebtn">' + elementData.id.name + "</a></b></td><td>" + elementData.id.id + "</td><td>" + elementData.id.group + "</td><td>" + elementData.device.model.make + "</td><td>" + elementData.device.model.name + "</td><td>" + address + "</td><td>" + apiEnabled + "</td><td>" + apiStats + "</td><td>" + ssh + "</td><td>" + '<b style="color:#0040ff"><a id="tempbtn_web" class="btn btn-link tablebtn">' + web + "</a></b></td><td>" + '<b style="color:#0040ff"><a id="tempbtn_json" class="btn btn-link tablebtn">' + "[show]</a></b></td></tr>");	
 	tbodyElement.append("<tr><td>" + '<b style="color:#0040ff"><a id="tempbtn_show" class="btn btn-link tablebtn">' + elementData.id.name + "</a></b></td><td>" + elementData.id.id + "</td><td>" + elementData.id.group + "</td><td><b>" + elementData.device.model.make + "</b></td><td><b>" + elementData.device.model.name + "</b></td><td>" + address + "</td><td>" + view_color_boolean(apiEnabled) + "</td><td>" + view_color_boolean(apiStats) + "</td><td>" + ssh + "</td><td>" + '<b style="color:#0040ff"><a id="tempbtn_web" class="btn btn-link tablebtn">' + web + "</a></b></td><td>" + '<b style="color:#0040ff"><a id="tempbtn_json" class="btn btn-link tablebtn">' + "[show]</a></b></td></tr>");	
 	
 	// show
@@ -465,8 +446,6 @@ function element_device_show_clean(){
 	document.getElementById("main-element-device-warranty").value = "";
 	document.getElementById("main-element-device-receipt").value = "";
 	
-	// API
-	
 	document.getElementById("main-elm-dev-api-mt-dev-header").innerHTML = "Device [n/a]";
 	document.getElementById("main-element-device-mt-interface-wifi").innerHTML = "Wireless [n/a]";
 	document.getElementById("main-element-device-mt-interface-bridge").innerHTML = "Bridges [n/a]";
@@ -488,10 +467,6 @@ function element_device_show_clean(){
 	$("#elementDevMtTableEthWg tbody tr").remove();
 	$("#elementDevMtTableEthVlanIf tbody tr").remove();
 	$("#elementDevMtTableWifiCap tbody tr").remove();
-	
-	//$("#elementMlagBridgeHeaderTbl tbody tr").remove();
-	
-	//"elementMlagBridgeHeaderTbl"
 	
 	document.getElementById("main-element-device-mt-ip-routes-header").innerHTML = "Routes [n/a] VRF [n/a]";
 	document.getElementById("main-element-device-mt-interface").innerHTML = "Interfaces [n/a]";
@@ -527,8 +502,6 @@ function element_device_show(deviceName){
 	
 	var deviceData = dbnew_element_get(deviceName);
 	
-	//document.getElementById("main-element-device-btn-api").onclick = function() { main_element_mt_device_show() };
-	//document.getElementById("main-element-device-btn-api").onclick = function() { element_device_mikrotik_show(deviceData) };
 	document.getElementById("main-element-device-btn-json").onclick = function() { json_show("[ " + deviceName + " ]", deviceName, "element_dev", deviceData) };
 	
 	
@@ -581,8 +554,7 @@ function element_device_show(deviceName){
 	//
 	// check for element 
 	//
-	// the device object itself does not contain the elements... TODO..
-	
+
 	// hack
 	if(deviceData.api && deviceData.api.enabled){
 
@@ -602,15 +574,10 @@ function element_device_show(deviceName){
 function element_device_mikrotik_show(deviceData){
 	main_element_mt_device_show();
 	
-	//console.log(deviceData);
-	
 	if(deviceData.meta && deviceData.meta.stats){
-		//console.log("DEVICE DOES HAVE STATS");
-		
+
 		// platform
 		if(deviceData.meta.stats.system && deviceData.meta.stats.system.resource){
-			//console.log("DEVICE DOES HAVE STATS: SYSTEM");
-
 			var diff = date_str_diff_now(deviceData.meta.stats.updated);
 			
 			document.getElementById("main-elm-dev-api-mt-dev-header").innerHTML = "Device [<b>" + deviceData.meta.stats.system.resource.platform + "</b>] model [<b>" + deviceData.meta.stats.system.resource['board-name'] + "</b>] uptime [<b>" + deviceData.meta.stats.system.resource.uptime + "</b>] delta [<b>" + diff + "</b>]";
@@ -636,7 +603,6 @@ function element_device_mikrotik_show(deviceData){
 		
 		// sensors
 		if(deviceData.meta.stats.system && deviceData.meta.stats.system.health){
-			//console.log("DEVICE DOES HAVE STATS: HEALTH");
 			var elementHealthIndex = deviceData.meta.stats.system.health.index;
 			var elementHealthList = elementHealthIndex.split(';');
 			var tbodyElementMtTableHealth = $("#elementDevMtTableHealth tbody");
@@ -645,20 +611,16 @@ function element_device_mikrotik_show(deviceData){
 			var healthStatus = 0;
 
 			elementHealthList.forEach((sensor) => {
-				//console.log("SENSOR: " + sensor);
 				tbodyElementMtTableHealth.append("<tr><td>" + deviceData.meta.stats.system.health[sensor].name + "</td><td>" + deviceData.meta.stats.system.health[sensor].value + " " + deviceData.meta.stats.system.health[sensor].type + "</td></tr>");
 				
-				// temp
-				//var temp = "n/a";
+				// temperature
 				if(deviceData.meta.stats.system.health[sensor].name == "temperature"){
 					healthHeader += " - HW temp [<b>" + view_health_color_temp(deviceData.meta.stats.system.health[sensor].value) + " C</b>]";
 					healthStatus = 1;
 				}
 							
 				// cpu
-				//var cpuTemp = "n/a";
 				if(deviceData.meta.stats.system.health[sensor].name == "cpu-temperature"){
-					//cpuTemp = deviceData.meta.stats.system.health[sensor]['cpu-temperature'];
 					healthHeader += " - CPU temp [<b>" + view_health_color_temp(deviceData.meta.stats.system.health[sensor].value) + " C</b>]";
 					healthStatus = 1;
 				}
@@ -666,7 +628,6 @@ function element_device_mikrotik_show(deviceData){
 				// psu 1
 				var psu1 = "n/a";
 				if(deviceData.meta.stats.system.health[sensor].name == "psu1-state"){
-					//cpuTemp = deviceData.meta.stats.system.health[sensor]['psu1-state'];
 					healthHeader += " - PSU-1 [<b>" + view_health_color_status(deviceData.meta.stats.system.health[sensor].value) + "</b>]";
 					healthStatus = 1;
 				}			
@@ -688,26 +649,21 @@ function element_device_mikrotik_show(deviceData){
 			});
 
 			if(healthStatus){
-				//console.log("YES HEALTH STATUS!!");
 				document.getElementById("main-elm-dev-api-mt-health-header").innerHTML = healthHeader;
 			}
 			else{
 				//console.log("NO HEALTH STATUS!!");
 			}	
 
-			
-			//document.getElementById("main-element-device-mt-ip-routes-header").innerHTML = "Routes [<b>" + routeNum + "</b>] VRF [<b>" + vrfNum + "</b>]";
 		}		
 		
 		// address
 		if(deviceData.meta.stats.ip && deviceData.meta.stats.ip.addr){
-			//console.log("DEVICE DOES HAVE STATS: ADDR");
 			var elementIpAddrIndex = deviceData.meta.stats.ip.addr.index;
 			var elementIpAddrList = elementIpAddrIndex.split(';');
 			var tbodyElementMtTableIpAddr = $("#elementDevMtTableIpAddr tbody");
 
 			elementIpAddrList.forEach((address) => {
-				//console.log("ADDRESS: " + address);
 				tbodyElementMtTableIpAddr.append("<tr><td><b>" + deviceData.meta.stats.ip.addr[address]['interface'] + "</b></td><td><b>" + deviceData.meta.stats.ip.addr[address]['actual-interface'] + "</b></td><td>" + (deviceData.meta.stats.ip.addr[address]['comment'] || "") + "</td><td>" + view_color_boolean_inv(deviceData.meta.stats.ip.addr[address]['disabled']) + "</td><td>" + view_color_boolean_inv(deviceData.meta.stats.ip.addr[address]['invalid']) + "</td><td>" + deviceData.meta.stats.ip.addr[address]['dynamic'] + "</td><td>" + deviceData.meta.stats.ip.addr[address]['slave'] + "</td><td><b>" + deviceData.meta.stats.ip.addr[address]['address'] + "</b></td><td><b>" + deviceData.meta.stats.ip.addr[address]['network'] + "</b></td></tr>");
 			});
 			
@@ -718,13 +674,11 @@ function element_device_mikrotik_show(deviceData){
 
 		// vrf
 		if(deviceData.meta.stats.ip && deviceData.meta.stats.ip.vrf){
-			//console.log("DEVICE DOES HAVE STATS: VRF");
 			var elementIpVRFIndex = deviceData.meta.stats.ip.vrf.index;
 			var elementIpVRFList = elementIpVRFIndex.split(';');
 			var tbodyElementMtTableIpVRF = $("#elementDevMtTableIpVRF tbody");
 
 			elementIpVRFList.forEach((vrf) => {
-				//console.log("VRF: " + vrf);
 				tbodyElementMtTableIpVRF.append("<tr><td><b>" + deviceData.meta.stats.ip.vrf[vrf].name + "</b></td><td>" + (deviceData.meta.stats.ip.vrf[vrf].builtin || "") + "</td><td>" + deviceData.meta.stats.ip.vrf[vrf].disabled + "</td><td>" + deviceData.meta.stats.ip.vrf[vrf].interfaces + "</td></tr>");
 			});
 			
@@ -735,13 +689,11 @@ function element_device_mikrotik_show(deviceData){
 
 		// routes
 		if(deviceData.meta.stats.ip && deviceData.meta.stats.ip.route){
-			//console.log("DEVICE DOES HAVE STATS: ROUTE");
 			var elementIpRouteIndex = deviceData.meta.stats.ip.route.index;
 			var elementIpRouteList = elementIpRouteIndex.split(';');
 			var tbodyElementMtTableIpRoute = $("#elementDevMtTableIpRoute tbody");
 			
 			elementIpRouteList.forEach((route) => {
-				//console.log("ROUTE: " + route);
 				tbodyElementMtTableIpRoute.append("<tr><td><b>" + (deviceData.meta.stats.ip.route[route]['routing-table'] || "") + "</b></td><td>" + (view_color_boolean(deviceData.meta.stats.ip.route[route]['active']) || "") + "</td><td>" + (deviceData.meta.stats.ip.route[route]['dynamic'] || "") + "</td><td>" + (deviceData.meta.stats.ip.route[route]['distance'] || "") + "</td><td><b>" + deviceData.meta.stats.ip.route[route]['gateway'] + "</b></td><td>" + (deviceData.meta.stats.ip.route[route]['immediate-gw'] || "") + "</td><td><b>" + deviceData.meta.stats.ip.route[route]['dst-address'] + "</b></td><td>" + (deviceData.meta.stats.ip.route[route]['local-address'] || "") + "</td></tr>");
 			});
 			
@@ -768,7 +720,6 @@ function element_device_mikrotik_show(deviceData){
 		
 			// iterate interface categories
 			elementEthTypeList.forEach((ethType) => {
-				//console.log("ETHTYPE: " + ethType);
 				
 				// bridge
 				if(ethType == "bridge"){
@@ -776,7 +727,6 @@ function element_device_mikrotik_show(deviceData){
 					var elementEthBridgeList = elementEthBridgeIndex.split(';');
 					
 					elementEthBridgeList.forEach((bridge) => {
-						//console.log("BRIDGE: " + bridge);
 						var tbodyElementMtTableEthBri = $("#elementDevMtTableEthBri tbody");
 						tbodyElementMtTableEthBri.append("<tr><td><b>" + deviceData.meta.stats.interface.bridge[bridge].name + "</b></td><td>" + view_color_boolean(deviceData.meta.stats.interface.bridge[bridge].running) + "</td><td>" + deviceData.meta.stats.interface.bridge[bridge].disabled + "</td><td>" + (deviceData.meta.stats.interface.bridge[bridge]['actual-mtu'] || "") + "</td><td>" + deviceData.meta.stats.interface.bridge[bridge]['mac-address'] + "</td><td><b>" + niceBytes(deviceData.meta.stats.interface.bridge[bridge]['rx-byte']) + "</b></td><td>" + deviceData.meta.stats.interface.bridge[bridge]['rx-drop'] + "</td><td>" + deviceData.meta.stats.interface.bridge[bridge]['rx-error'] + "</td><td><b>" + niceBytes(deviceData.meta.stats.interface.bridge[bridge]['tx-byte']) + "</b></td><td>" + deviceData.meta.stats.interface.bridge[bridge]['tx-drop'] + "</td><td>" + deviceData.meta.stats.interface.bridge[bridge]['tx-error'] + "</td></tr>");
 					});
@@ -790,7 +740,6 @@ function element_device_mikrotik_show(deviceData){
 					var elementEthList = elementEthIndex.split(';');
 					
 					elementEthList.forEach((ether) => {
-						//console.log("ETHER: " + ether);
 						var tbodyElementMtTableEth = $("#elementDevMtTableEth tbody");
 						tbodyElementMtTableEth.append("<tr><td><b>" + deviceData.meta.stats.interface.ether[ether].name + "</b></td><td><b>" + (deviceData.meta.stats.interface.ether[ether].comment || "") + "</b></td><td>" + view_color_boolean(deviceData.meta.stats.interface.ether[ether].running) + "</td><td>" + deviceData.meta.stats.interface.ether[ether].disabled + "</td><td><b>" + (deviceData.meta.stats.interface.ether[ether].slave || "") + "</b></td><td>" + deviceData.meta.stats.interface.ether[ether]['actual-mtu'] + "</td><td>" + deviceData.meta.stats.interface.ether[ether]['mac-address'] + "</td><td><b>" + niceBytes(deviceData.meta.stats.interface.ether[ether]['rx-byte']) + "</b></td><td><b>" + niceBytes(deviceData.meta.stats.interface.ether[ether]['tx-byte']) + "</b></td><td>" + deviceData.meta.stats.interface.ether[ether]['link-downs'] + "</td></tr>");
 					});
@@ -804,7 +753,6 @@ function element_device_mikrotik_show(deviceData){
 					var elementEthBondList = elementEthBondIndex.split(';');
 					
 					elementEthBondList.forEach((bond) => {
-						//console.log("BOND: " + bond);
 						var tbodyElementMtTableEthBond = $("#elementDevMtTableBond tbody");
 						tbodyElementMtTableEthBond.append("<tr><td><b>" + deviceData.meta.stats.interface.bond[bond].name + "</b></td><td><b>" + (deviceData.meta.stats.interface.bond[bond].comment || "") + "</b></td><td>" + view_color_boolean(deviceData.meta.stats.interface.bond[bond].running) + "</td><td>" + deviceData.meta.stats.interface.bond[bond].disabled + "</td><td>" + deviceData.meta.stats.interface.bond[bond].mtu + "</td><td>" + deviceData.meta.stats.interface.bond[bond]['mac-address'] + "</td><td>" + deviceData.meta.stats.interface.bond[bond].mode + "</td><td>" + deviceData.meta.stats.interface.bond[bond]['transmit-hash-policy'] + "</td><td>" + deviceData.meta.stats.interface.bond[bond]['lacp-mode'] + "</td><td><b>" + deviceData.meta.stats.interface.bond[bond]['slaves'] + "</b></td><td>" + (deviceData.meta.stats.interface.bond[bond]['mlag-id'] || "") + "</td></tr>");
 					});
@@ -818,8 +766,6 @@ function element_device_mikrotik_show(deviceData){
 					var elementEthLoList = elementEthLoIndex.split(';');
 					
 					elementEthLoList.forEach((loopback) => {
-						//console.log("LOOPBACK: " + loopback);
-						//elementDevMtTableEthLo
 						var tbodyElementMtTableEthLo = $("#elementDevMtTableEthLo tbody");
 						tbodyElementMtTableEthLo.append("<tr><td><b>" + deviceData.meta.stats.interface.loopback[loopback].name + "</b></td><td>" + view_color_boolean(deviceData.meta.stats.interface.loopback[loopback].running) + "</td><td>" + deviceData.meta.stats.interface.loopback[loopback].disabled + "</td><td>" + deviceData.meta.stats.interface.loopback[loopback].mtu + "</td><td>" + deviceData.meta.stats.interface.loopback[loopback]['mac-address'] + "</td><td><b>" + niceBytes(deviceData.meta.stats.interface.loopback[loopback]['rx-byte']) + "</b></td><td></b>" + deviceData.meta.stats.interface.loopback[loopback]['rx-drop'] + "</td><td>" + deviceData.meta.stats.interface.loopback[loopback]['rx-error'] + "</td><td><b>" + niceBytes(deviceData.meta.stats.interface.loopback[loopback]['tx-byte']) + "</b></td><td>" + deviceData.meta.stats.interface.loopback[loopback]['tx-drop'] + "</td><td>" + deviceData.meta.stats.interface.loopback[loopback]['tx-error'] + "</td></tr>");
 					});
@@ -833,7 +779,6 @@ function element_device_mikrotik_show(deviceData){
 					var elementEthVlanList = elementEthVlanIndex.split(';');
 					
 					elementEthVlanList.forEach((vlan) => {
-						//console.log("VLAN: " + vlan);
 						var tbodyElementMtTableEthVlanIf = $("#elementDevMtTableEthVlanIf tbody");
 						tbodyElementMtTableEthVlanIf.append("<tr><td><b>" + deviceData.meta.stats.interface.vlan[vlan].name + "</b></td><td>" + (deviceData.meta.stats.interface.vlan[vlan].comment || "") + "</td><td>" + view_color_boolean(deviceData.meta.stats.interface.vlan[vlan].running) + "</td><td>" + deviceData.meta.stats.interface.vlan[vlan].disabled + "</td><td>" + deviceData.meta.stats.interface.vlan[vlan].mtu + "</td><td>" + deviceData.meta.stats.interface.vlan[vlan]['mac-address'] + "</td><td><b>" + niceBytes(deviceData.meta.stats.interface.vlan[vlan]['rx-byte']) + "</b></td><td>" + deviceData.meta.stats.interface.vlan[vlan]['rx-drop'] + "</td><td>" + deviceData.meta.stats.interface.vlan[vlan]['rx-error'] + "</td><td><b>" + niceBytes(deviceData.meta.stats.interface.vlan[vlan]['tx-byte']) + "</b></td><td>" + deviceData.meta.stats.interface.vlan[vlan]['tx-drop'] + "</td><td>" + deviceData.meta.stats.interface.vlan[vlan]['tx-error'] + "</td></tr>");
 					});
@@ -847,7 +792,6 @@ function element_device_mikrotik_show(deviceData){
 					var elementEthVrrpList = elementEthVrrpIndex.split(';');
 					
 					elementEthVrrpList.forEach((vrrp) => {
-						//console.log("VRRP: " + vrrp);
 						var tbodyElementMtTableEthVrrp = $("#elementDevMtTableEthVrrp tbody");
 						tbodyElementMtTableEthVrrp.append("<tr><td><b>" + deviceData.meta.stats.interface.vrrp[vrrp].name + "</b></td><td>" + (deviceData.meta.stats.interface.vrrp[vrrp].comment || "") + "</td><td>" + view_color_boolean(deviceData.meta.stats.interface.vrrp[vrrp].running) + "</td><td>" + deviceData.meta.stats.interface.vrrp[vrrp].disabled + "</td><td>" + deviceData.meta.stats.interface.vrrp[vrrp].mtu + "</td><td>" + deviceData.meta.stats.interface.vrrp[vrrp]['mac-address'] + "</td><td>" + niceBytes(deviceData.meta.stats.interface.vrrp[vrrp]['rx-byte']) + "</td><td>" + deviceData.meta.stats.interface.vrrp[vrrp]['rx-drop'] + "</td><td>" + deviceData.meta.stats.interface.vrrp[vrrp]['rx-error'] + "</td><td><b>" + niceBytes(deviceData.meta.stats.interface.vrrp[vrrp]['tx-byte']) + "</b></td><td>" + deviceData.meta.stats.interface.vrrp[vrrp]['tx-drop'] + "</td><td>" + deviceData.meta.stats.interface.vrrp[vrrp]['tx-error'] + "</td><td>" + deviceData.meta.stats.interface.vrrp[vrrp]['link-downs'] + "</td></tr>");
 					});
@@ -861,7 +805,6 @@ function element_device_mikrotik_show(deviceData){
 					var elementEthWgList = elementEthWgIndex.split(';');
 					
 					elementEthWgList.forEach((wg) => {
-						//console.log("WG: " + wg);
 						var tbodyElementMtTableEthWg = $("#elementDevMtTableEthWg tbody");
 						tbodyElementMtTableEthWg.append("<tr><td><b>" + deviceData.meta.stats.interface.wg[wg].name + "</b></td><td>" + (deviceData.meta.stats.interface.wg[wg].comment || "") + "</td><td>" + view_color_boolean(deviceData.meta.stats.interface.wg[wg].running) + "</td><td>" + deviceData.meta.stats.interface.wg[wg].disabled + "</td><td>" + deviceData.meta.stats.interface.wg[wg].mtu + "</td><td><b>" + niceBytes(deviceData.meta.stats.interface.wg[wg]['rx-byte']) + "</b></td><td>" + deviceData.meta.stats.interface.wg[wg]['rx-drop'] + "</td><td>" + deviceData.meta.stats.interface.wg[wg]['rx-error'] + "</td><td><b>" + niceBytes(deviceData.meta.stats.interface.wg[wg]['tx-byte']) + "</b></td><td>" + deviceData.meta.stats.interface.wg[wg]['tx-drop'] + "</td><td>" + deviceData.meta.stats.interface.wg[wg]['tx-error'] + "</td></tr>");
 					});
@@ -875,7 +818,6 @@ function element_device_mikrotik_show(deviceData){
 					var elementEthCapList = elementEthCapIndex.split(';');
 					
 					elementEthCapList.forEach((cap) => {
-						//console.log("VRRP: " + vrrp);
 						var tbodyElementMtTableWifiCap = $("#elementDevMtTableWifiCap tbody");
 						tbodyElementMtTableWifiCap.append("<tr><td><b>" + deviceData.meta.stats.interface.cap[cap].name + "</b></td><td>" + deviceData.meta.stats.interface.cap[cap].type + "</td><td>" + view_color_boolean(deviceData.meta.stats.interface.cap[cap].running) + "</b></td><td>" + deviceData.meta.stats.interface.cap[cap].disabled + "</td><td>" + deviceData.meta.stats.interface.cap[cap]['actual-mtu'] + "</td><td>" + deviceData.meta.stats.interface.cap[cap]['mac-address'] + "</td><td><b>" + niceBytes(deviceData.meta.stats.interface.cap[cap]['rx-byte']) + "</b></td><td>" + deviceData.meta.stats.interface.cap[cap]['rx-drop'] + "</td><td>" + deviceData.meta.stats.interface.cap[cap]['rx-error'] + "</td><td><b>" + niceBytes(deviceData.meta.stats.interface.cap[cap]['tx-byte']) + "</b></td><td>" + deviceData.meta.stats.interface.cap[cap]['tx-drop'] + "</td><td>" + deviceData.meta.stats.interface.cap[cap]['tx-error'] + "</td><td>" + deviceData.meta.stats.interface.cap[cap]['link-downs'] + "</td></tr>");
 					});
@@ -893,38 +835,17 @@ function element_device_mikrotik_show(deviceData){
 		
 		// process interface vlans
 		if(deviceData.meta.stats.vlan && deviceData.meta.stats.vlan.index){
-			//console.log("VLAN INTERFACE DATA IS PRESENT!");
-			
 			var elementVlanIndex = deviceData.meta.stats.vlan.index;
 			var elementVlanList = elementVlanIndex.split(';');
 			
 			elementVlanList.forEach((vlan) => {
-				//console.log("VLAN: " + vlan);
 				var tbodyElementMtTableVlan = $("#elementDevMtTableEthVlan tbody");
 				tbodyElementMtTableVlan.append("<tr><td><b>" + deviceData.meta.stats.vlan[vlan]['vlan-id'] + "</b></td><td><b>" + deviceData.meta.stats.vlan[vlan].name + "</b></td><td><b>" + (deviceData.meta.stats.vlan[vlan].comment || "") + "</b></td><td>" + view_color_boolean(deviceData.meta.stats.vlan[vlan].running) + "</td><td>" + deviceData.meta.stats.vlan[vlan].disabled + "</td><td>" + deviceData.meta.stats.vlan[vlan].mtu + "</td><td>" + deviceData.meta.stats.vlan[vlan]['mac-address'] + "</td><td><b>" + deviceData.meta.stats.vlan[vlan].interface + "</b></td></tr>");
 			});
 			
 			
 		}
-		
-		
-		/*
-		// process interfaces
-		if(deviceData.meta.stats.bridge && deviceData.meta.stats.bridge.index){
-			console.log("BRIDGE DATA IS PRESENT!");
-			
-			// process bridges
-			var elementBriIndex = deviceData.meta.stats.bridge.index;
-			var elementBriList = elementBriIndex.split(';');
-					
-			elementBriList.forEach((bridge) => {
-				console.log("PROCESSING BRIDGE [" + bridge + "]");
-				
-				
-			});
-			
-		}
-		*/
+
 		
 	}
 	else{
@@ -949,9 +870,6 @@ function element_device_mikrotik_bridge_generate(deviceData) {
 	var bridgeDiv = document.createElement("div");
 	bridgeDiv.setAttribute("class", "row row-space g-1 mt-1 ms-1 mb-3 me-1");
 	
-	// header
-	//bridgeDiv.innerHTML = "hello world! TOP MARKER";
-		
 	// bridge main table	
 	bridgeDiv.innerHTML += '<table id="elementBridgeHeaderTbl" class="table table-outline table-striped table-hover"><thead><tr><th style="width: 8%">[ name ]</th><th style="width: 5%">[ id ]</th><th style="width: 7%">[ group ]</th><th style="width: 7%">[ system ]</th><th style="width: 15%">[ web ]</th><th style="width: 5%">[ show ]</th></tr></thead><tbody></tbody></table>';
 	
@@ -962,8 +880,6 @@ function element_device_mikrotik_bridge_generate(deviceData) {
 
 	// iterate bridges
 	elementBridgeList.forEach((bridge) => {
-		//console.log("BRIDGE: " + bridge);
-		
 		var accordion = view_accordion_build("accordionElementMtBridge" + bridge, "collapseMtBridge" + bridge, "bi-diagram-3", "Bridge [<b>" + bridge + "</b>]");
 		var collapse = view_accordion_element_build("collapseMtBridge" + bridge, "headingMtBridge", "accordionElementMtBridge" + bridge);
 		
@@ -978,8 +894,6 @@ function element_device_mikrotik_bridge_generate(deviceData) {
 			
 			// iterate hosts on bridge
 			elementBridgeHostList.forEach((host) => {
-				//console.log("HOST: " + host);
-
 				var accordionHost = view_accordion_build("accordionElementMtBridgeHost" + bridge + host, "collapseMtBridgeHost" + bridge + host, "bi-diagram-3", "Port [<b>" + host + "</b>]");
 				var collapseHost = view_accordion_element_build("collapseMtBridgeHost" + bridge + host, "headingMtBridge", "accordionElementMtBridgeHost" + bridge + host);
 				
@@ -988,8 +902,6 @@ function element_device_mikrotik_bridge_generate(deviceData) {
 				row2.setAttribute("class", "row row-space g-1 mt-2 ms-1 mb-3 me-2");
 				
 				row2.innerHTML = "<b>Hosts<b>";
-				
-				//var row = document.createElement("div");
 				row2.innerHTML += '<table id="elementBridgeHostTbl_' + bridge + host + '" class="table table-outline table-striped table-hover"><thead><tr><th style="width: 10%">[ mac ]</th><th style="width: 10%">[ bridge ]</th><th style="width: 10%">[ interface ]</th><th style="width: 10%">[ disabled ]</th><th style="width: 10%">[ invalid ]</th><th style="width: 10%">[ dynamic ]</th><th style="width: 10%">[ external ]</th><th style="width: 10%">[ vlan id ]</th></tr></thead><tbody></tbody></table>';
 				
 				collapseHost.appendChild(row2);
@@ -1028,9 +940,7 @@ function element_device_mikrotik_bridge_generate(deviceData) {
 				
 					var hostNum = 0;
 				
-					elementBridgeHostMacList.forEach((mac) => {
-						//console.log("MAC: " + mac);
-						
+					elementBridgeHostMacList.forEach((mac) => {						
 						var tbodyElementMtTableBridgeHost = $("#elementBridgeHostTbl_" + bridge + host + " tbody");
 						tbodyElementMtTableBridgeHost.append("<tr><td><b>" + mac +"</b></td><td>" + deviceData.meta.stats.bridge[bridge].host[host][mac].bridge + "</td><td>" + deviceData.meta.stats.bridge[bridge].host[host][mac].interface + "</td><td>" + deviceData.meta.stats.bridge[bridge].host[host][mac].disabled + "</td><td>" + deviceData.meta.stats.bridge[bridge].host[host][mac].invalid + "</td><td>" + deviceData.meta.stats.bridge[bridge].host[host][mac].dynamic + "</td><td>" + deviceData.meta.stats.bridge[bridge].host[host][mac].external + "</td><td><b>" + (deviceData.meta.stats.bridge[bridge].host[host][mac].vid || "") + "</b></td></tr>");
 						
@@ -1071,10 +981,7 @@ function element_device_mikrotik_redundancy(deviceData){
 				var elementMetaDeviceData = dbnew_element_get(deviceData.redundancy.id.name);
 				
 				if(elementMetaDeviceData){
-					console.log("SUCCESSFULLY FETCHED METADEVICE!");
-					
-					//json_show("[ " + deviceData.redundancy.id.name + " ]", deviceData.redundancy.id.name, "metadevice", elementMetaDeviceData);
-					
+
 					if(rtype == "mlag"){
 						element_device_mikrotik_redundancy_mlag_generate(deviceData, elementMetaDeviceData);
 					}
@@ -1084,7 +991,6 @@ function element_device_mikrotik_redundancy(deviceData){
 						element_device_mikrotik_redundancy_vrrp_generate(deviceData, elementMetaDeviceData);
 					}
 					
-					//console.log(elementMetaDeviceData);
 				}
 				else{
 					//console.log("FAILED TO FETCH METADEVICE!");
@@ -1117,13 +1023,8 @@ function element_device_mikrotik_redundancy_vrrp_generate(deviceData, elementMet
 	var vrrpDiv = document.createElement("div");
 	vrrpDiv.setAttribute("class", "row row-space g-1 mt-1 ms-1 mb-3 me-1");
 	
-	// header
-	//vrrpDiv.innerHTML = "hello world! VRRP TOP MARKER AAA";
-	
+	// generate table
 	vrrpDiv.innerHTML += '<table id="elementVrrpHeaderTbl" class="table table-outline table-striped table-hover"><thead><tr><th style="width: 10%">[ id ]</th><th style="width: 10%">[ name ]</th><th style="width: 10%">[ devices ]</th><th style="width: 10%">[ vrrp interfaces ]</th><th style="width: 10%">[ updated ]</th><th style="width: 10%">[ delta ]</th><th style="width: 10%">[ show ]</th></tr></thead><tbody></tbody></table>';
-	
-	//console.log(elementMetaDeviceData);
-	
 	
 	if(elementMetaDeviceData.index && elementMetaDeviceData.index !== ""){
 		
@@ -1136,12 +1037,9 @@ function element_device_mikrotik_redundancy_vrrp_generate(deviceData, elementMet
 		var elementVrrpIndex = elementMetaDeviceData.vrrp.index;
 		var elementVrrpList = elementVrrpIndex.split(';');
 		elementVrrpList = sort_num(elementVrrpList);
-		//console.log("VDEV MLAGS: " + elementVrrpIndex);
 
 		// iterate mlags
-		elementVrrpList.forEach((vrrp) => {
-			//console.log("VVRP: " + vrrp);
-			
+		elementVrrpList.forEach((vrrp) => {			
 			var accordion = view_accordion_build("accordionElementMtVrrp" + vrrp, "collapseMtVrrp" + vrrp, "bi-diagram-3", "VRRP interface [<b>" + vrrp + "</b>] devices [<b>" + elementVrrpDeviceIndex + "</b>]");
 			var collapse = view_accordion_element_build("collapseMtVrrp" + vrrp, "headingMtVrrp", "accordionElementMtVdedBridge" + vrrp);
 			
@@ -1173,7 +1071,6 @@ function element_device_mikrotik_redundancy_vrrp_generate(deviceData, elementMet
 			
 			// iterate devices
 			elementVrrpDeviceList.forEach((device) => {
-				//console.log("VRRP if [" + vrrp + "] device [" + device + "]");	
 				tbodyElementMtTableVrrpDev.append("<tr><td><b>" + device +"</b></td><td><b>" + vrrp +"</b></td><td><b>" + view_color_boolean(elementMetaDeviceData.vrrp.db[vrrp][device].running) + "</b></td><td><b>" + view_color_boolean_inv(elementMetaDeviceData.vrrp.db[vrrp][device].inactive) + "</b></td><td><b>" + view_color_boolean_inv(elementMetaDeviceData.vrrp.db[vrrp][device].disabled) +"</b></td><td><b>" + string_undefined(elementMetaDeviceData.vrrp.db[vrrp][device]['last-link-up-time']) + "</b></td><td><b>" + string_undefined(elementMetaDeviceData.vrrp.db[vrrp][device]['last-link-down-time']) + "</b></td><td><b>" + elementMetaDeviceData.vrrp.db[vrrp][device]['link-downs'] + "</b></td><td><b>" + elementMetaDeviceData.vrrp.db[vrrp][device]['mac-address'] + "</b></td><td><b>" + niceBytes(elementMetaDeviceData.vrrp.db[vrrp][device]['rx-byte']) + "</b></td><td><b>" + niceBytes(elementMetaDeviceData.vrrp.db[vrrp][device]['tx-byte']) + "</b></td></tr>");
 			});
 			
@@ -1311,7 +1208,6 @@ function element_service_show(serviceName){
 	
 	// access web
 	document.getElementById("main-element-service-web-header").innerHTML = "Web Interface [<b>" + servicedata.service.web.url + "</b>]";
-	
 	document.getElementById("main-element-service-web-url").value = servicedata.service.web.url;
 		
 }

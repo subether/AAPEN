@@ -9,7 +9,7 @@
 
 
 //
-// NEW REST API
+// rest get callback request
 //
 function api_get_request_callback_new(req, url, caller){
 	var fid = "[api_get_request_callback_new]";
@@ -29,58 +29,33 @@ function api_get_request_callback_new(req, url, caller){
 	socket.emit('api', packet);
 }
 
-function api_post_request_callback_new_ORIG(req, url, post, caller){
-	var fid = "[api_post_request_callback_new]";
-	
-	api_socket_init();
-	
-	var packet = {};
-	packet['aid'] = aid;
-	packet['pass'] = apiPass;
-	
-	packet['req'] = req;
-	packet['type'] = "post";
-	packet['url'] = url;
-	packet['post'] = post;
-
-	packet['caller'] = caller;
-
-	socket.emit('api', packet);
-}
-
-
+//
+// rest post callback request
+//
 function api_post_request_callback_new(packet){
 	var fid = "[api_post_request_callback_new]";
 	
 	api_socket_init();
-	
-	//var packet = {};
+
 	packet['aid'] = aid;
 	packet['pass'] = apiPass;
-	
+
 	packet['req'] = 'api_new';
 	packet['type'] = "post";
-	//packet['url'] = url;
-	//packet['post'] = post;
 
-	//packet['caller'] = caller;
-
-	console.log("EMITTING PACKET!")
 	console.log(packet)
-
 	socket.emit('api', packet);
 }
 
-
 //
-// NEW REST HANDLER
+// get database wrapper
 //
 function api_rest_new(){
 	api_rest_db_get();
 }
 
 //
-// Get full DB from REST API
+// get database
 //
 function api_rest_db_get(){
 	api_get_request_callback_new('api_new', '/db/get', 'api_rest_new_db_full');
@@ -97,11 +72,10 @@ function api_show_newdb(){
 
 function api_rest_file_get(fileName){
 	api_get_request_callback_new('api_new', '/file/get?name=' + fileName, 'api_rest_file_get');
-	
 }
 
 //
-//
+// process database
 //
 function api_db_process_full(response){
 	var fid = "[api_db_process_full]";
@@ -126,8 +100,7 @@ function api_db_process_full(response){
 
 		// network process
 		element_db_process_rest_new(response.response.response.db);
-		
-		
+			
 		document.getElementById('main-card-rest').innerHTML = "REST API [<b>Enabled</b>] ver [<b>" + response.proto.version + "</b>]<br/>Last Updated [<b>" + date_get_simple() + "</b>]";
 	}
 	else{

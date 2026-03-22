@@ -38,9 +38,6 @@ index.element_service = [];
 index.element_device_group = [];
 index.element_service_group = [];
 
-//
-// NEW DB
-//
 
 // set database
 function dbnew_set(dbData){
@@ -49,7 +46,6 @@ function dbnew_set(dbData){
 
 // get database
 function dbnew_get(){
-	//if((dbnew && dbnew !== "") && typeof db == 'object'){
 	if(dbnew){	
 		return dbnew;	
 	}

@@ -19,7 +19,6 @@ function system_stor_iso_change(systemName, storDev){
 	
 	log_write_json("system_stor_iso_change", systemName, isoSelected);
 
-	//var isodata = db_storage_iso_get(isoSelected);
 	var isodata = dbnew_storage_get(isoSelected);
 
 	if(typeof isodata !== 'undefined'){
@@ -48,10 +47,8 @@ function system_boot_change(systemName){
 	var bootdev = document.getElementById("sysBootSelect" + systemName).value;
 	log_write_json("system_boot_change", "boot changed", "system [" + systemName + "] bootdev [" + bootdev + "]");
 	
-	//system = db_system_get(systemName);
 	var systemData = dbnew_system_get(systemName);
 	systemData.stor.boot = bootdev;
-	//db_system_set(systemName, systemData);
 	dbnew_system_set(systemName, systemData)
 }
 
@@ -65,7 +62,6 @@ function system_boot_change(systemName){
  */
 function system_netdev_add(systemName, nicName, netType, netName){
 	
-	//system = db_system_get(systemName);
 	systemData = dbnew_system_get(systemName);
 	
 	var valid = 1;
@@ -93,7 +89,6 @@ function system_netdev_add(systemName, nicName, netType, netName){
 	}	
 	
 	if(valid){
-		//var network = db_net_get(netName);
 		var network = dbnew_network_get(netName);
 		
 		niccfg = {};
@@ -117,10 +112,8 @@ function system_netdev_add(systemName, nicName, netType, netName){
 			systemData.net.dev += ";" + nicName;
 		}
 		
-		
 		systemData.object['unsaved'] = 1;
 		
-		//db_system_set(systemName, systemData);
 		dbnew_system_set(systemName, systemData);
 
 		system_network_device_add(nicName, systemData);
@@ -141,7 +134,6 @@ function system_netdev_add(systemName, nicName, netType, netName){
  */
 function system_stordev_del(systemName, storName){
 	
-	//system = db_system_get(systemName);
 	var systemData = dbnew_system_get(systemName);
 	
 	if(systemData.stor.boot == storName){
@@ -189,7 +181,6 @@ function system_stordev_del(systemName, storName){
 		
 		delete systemData.stor[storName];
 		
-		//db_system_set(systemName, systemData);
 		dbnew_system_set(systemName, systemData);
 		
 		system_show(systemName);
@@ -206,8 +197,7 @@ function system_stordev_del(systemName, storName){
  * @description Validates and adds new storage device to the system
  */
 function system_stordev_add(systemName, storName, storPool, storSize){
-	
-	//system = db_system_get(systemName);
+
 	var systemData = dbnew_system_get(systemName);
 	
 	var valid = 1;
@@ -256,7 +246,6 @@ function system_stordev_add(systemName, storName, storPool, storSize){
 	if(valid){
 		
 		// get pool
-		//var pool = db_storage_pool_get(storPool);
 		var poolData = dbnew_storage_get(storPool);
 				
 		// 
@@ -298,7 +287,6 @@ function system_stordev_add(systemName, storName, storPool, storSize){
 			
 			systemData.object['unsaved'] = 1;
 			
-			//db_system_set(systemName, systemData);
 			dbnew_system_set(systemName, systemData);
 			system_show(systemName);
 			
@@ -323,7 +311,6 @@ function system_stordev_add(systemName, storName, storPool, storSize){
  */
 function system_isodev_add(systemName, isoDevName, isoName){
 	
-	//system = db_system_get(systemName);
 	var systemData = dbnew_system_get(systemName);
 	
 	var valid = 1;
@@ -365,7 +352,6 @@ function system_isodev_add(systemName, isoDevName, isoName){
 	if(valid){
 		
 		// get pool
-		//var isodata = db_storage_iso_get(isoName);
 		var isodata = dbnew_storage_get(isoName);
 				
 		// 
@@ -393,7 +379,6 @@ function system_isodev_add(systemName, isoDevName, isoName){
 			
 			systemData.object['unsaved'] = 1;
 			
-			//db_system_set(systemName, systemData);
 			dbnew_system_set(systemName, systemData);
 			system_show(systemName);
 			
@@ -459,7 +444,6 @@ function system_bootopts_enumerate(system){
  */
 function system_stor_pool_path_update(systemName, stordev, poolName){
 	
-	//var pooldata = db_storage_pool_get(poolName);
 	var pooldata = dbnew_storage_get(poolName);
 	
 	log_write_json("system_save", "pooldata", pooldata);
@@ -752,7 +736,6 @@ function system_shutdown_accept(systemName){
 	document.getElementById("mainModalIcon").setAttribute("class", "system-load-btn bi bi-power"); 
 	document.getElementById("mainModalBtnAccept").innerHTML = "Shutdown";
 	document.getElementById("mainModalBtnAccept").onclick = function() { 
-		//system_hyper_shutdown(systemName);
 		system_rest_shutdown(systemName);
 		$('#mainModal').modal('hide');
 	};
@@ -773,7 +756,6 @@ function system_reset_accept(systemName){
 	document.getElementById("mainModalIcon").setAttribute("class", "system-load-btn bi bi-arrow-counterclockwise");
 	document.getElementById("mainModalBtnAccept").innerHTML = "Reset";
 	document.getElementById("mainModalBtnAccept").onclick = function() { 
-		//system_reset(systemName);
 		system_rest_reset(systemName);
 		$('#mainModal').modal('hide');
 	};
@@ -781,27 +763,6 @@ function system_reset_accept(systemName){
 	$('#mainModal').modal('show');
 	
 }
-
-/**
- * Shows load confirmation modal
- * @param {string} systemName - Name of the system
- * @param {string} nodeName - Name of the node to load on
- * @description Displays confirmation dialog for system load
- */
-//function system_load_accept(systemName, nodeName){
-//	
-//	document.getElementById("mainModalLabel").innerHTML = "System Load";
-//	document.getElementById("mainModalBody").innerHTML = "Initiate system load for [<b> " + systemName + " </b>] on node [<b> " + nodeName + " </b>] ?";
-//	document.getElementById("mainModalIcon").setAttribute("class", "system-load-btn bi bi-play");
-//	document.getElementById("mainModalBtnAccept").innerHTML = "Load";
-//	document.getElementById("mainModalBtnAccept").onclick = function() { 
-//		system_hyper_load(systemName, nodeName)
-//		$('#mainModal').modal('hide');
-//	};
-//	
-//	$('#mainModal').modal('show');
-//	
-//}
 
 /**
  * Shows unload confirmation modal
@@ -860,7 +821,6 @@ function system_clone_config_accept(systemName, group){
 		var pooldata = dbnew_storage_get(poolName);
 		log_write_json("system_clone_config_accept", "pooldata", pooldata);
 		log_write_json("system_clone", "top", "dest uid [" + destid + "] name [" + destname + "] group [" + groupname + "] pool [" + poolName + "]");
-		//system_clone_config(systemName, destname, destid, groupname, poolName);
 		system_rest_clone_config(systemName, destname, destid, groupname, poolName);
 		
 		$('#mainModal').modal('hide');		
@@ -883,7 +843,6 @@ function system_clone_full_accept(systemName, groupname){
 	var divCloneId = view_textbox_build("clone_input_uid_" + systemName, "System UID", "1000");
 	var divCloneGroup = view_textbox_build("clone_input_group_" + systemName, "System Group", groupname);
 
-	//var poolList = db_storage_index_pool_get();
 	var poolList = dbnew_storage_index_pool_get();
 	var divClonePool = view_selector_build_array("sysStorPoolCloneFull" + systemName, "Storage Pool", poolList, "");
 	
@@ -909,10 +868,7 @@ function system_clone_full_accept(systemName, groupname){
 		var pool = document.getElementById("sysStorPoolCloneFull" + systemName).value;
 		
 		log_write_json("system_clone_full", "top", "dest uid [" + destid + "] name [" + destname + "] node [" + node + "] group [" + group + "] pool [" + pool + "]");
-		//system_clone_full(systemName, destname, destid, node, group, pool);
 		system_rest_clone_full(systemName, destname, destid, node, group, pool);
-		
-		
 		
 		$('#mainModal').modal('hide');
 	};
@@ -946,7 +902,6 @@ function system_create_full_accept(systemName){
 		var node = document.getElementById("create_input_node_" + systemName).value;
 		
 		log_write_json("system_create_full", "top", "host node [" + node + "]");
-		//system_create_full(systemName, node);
 		system_rest_create_full(systemName, node);
 		
 		$('#mainModal').modal('hide');
@@ -1008,9 +963,7 @@ function system_move_full_accept(system){
 		var group = document.getElementById("move_input_group_" + systemName).value;
 		var pool = document.getElementById("sysStorPoolMoveFull" + systemName).value;
 		
-		
 		log_write_json("system_clone_full", "top", "dest uid [" + destid + "] name [" + destname + "] node [" + node + "] group [" + group + "] pool [" + pool + "]");
-		//system_move_full(systemName, destname, destid, node, group, pool);
 		system_rest_move_full(systemName, destname, destid, node, group, pool);
 		
 		$('#mainModal').modal('hide');
@@ -1092,7 +1045,6 @@ function system_storage_move_accept(system, systemName){
 		var pool = document.getElementById("sysStorPool" + systemName).value;
 		
 		log_write_json("system_move_full", "top", "dest uid [" + system.id.id + "] name [" + system.id.name + "] node [" + node + "] group [" + system.id.group + "] pool [" + pool + "]");
-		//system_move_full(systemName, systemName, system.id.id, node, system.id.group, pool);
 		system_rest_move_full(systemName, destname, destid, node, group, pool);
 
 		$('#mainModal').modal('hide');
@@ -1108,7 +1060,6 @@ function system_storage_move_accept(system, systemName){
  * @param {string} systemName - Name of the system
  * @description Displays dialog for moving system storage
  */
- // RETIRED FUNCTION!!
 function system_load_accept(system, systemName){
 		
 	// build a div
@@ -1131,7 +1082,6 @@ function system_load_accept(system, systemName){
 		console.log("system load. system [" + system.id.name + "] node [" + nodeName + "]");
 		
 		log_write_json("system_load", "top", "dest uid [" + system.id.id + "] name [" + system.id.name + "] node [" + nodeName + "]");
-		//system_hyper_load(system.id.name, node);
 		system_rest_load(system.id.name, nodeName);
 
 		$('#mainModal').modal('hide');
@@ -1196,7 +1146,6 @@ function system_stordev_add_accept(systemName, system){
 	span2.innerHTML = "GiB";
 	divStorSize.appendChild(span2);
 	
-	//var poolList = db_storage_index_pool_get();
 	var poolList = dbnew_storage_index_pool_get();
 	var divStorPool = view_selector_build_array("sysStorPool" + systemName, "Storage Pool", poolList, "");
 	
@@ -1438,7 +1387,6 @@ function system_delete_accept(systemName){
 		log_write_json("system_delete", "top", "system [" + systemName + "] node [" + nodeName + "]");
 		system_rest_delete(systemName, nodeName);
 		$('#mainModal').modal('hide');
-		//system_overview_show();
 	};
 	
 	$('#mainModal').modal('show');
@@ -1479,7 +1427,6 @@ function system_validate_accept(systemName){
 	$('#mainModal').modal('show');
 	
 }
-
 
 /**
  * Validates and saves system configuration
@@ -1620,7 +1567,6 @@ function system_save_config(systemName, systemData){
 		
 		log_write_json("system_save", "network", "system name [" + systemName + "] nic [" + nicDev + "] network [" + netName + "] type [" + netType + "]");
 		
-		//var network = db_net_get(netName);
 		var network = dbnew_network_get(netName);
 		log_write_json("system_save", nicDev, network);
 		
@@ -1727,8 +1673,6 @@ function system_save_config(systemName, systemData){
 	
 }
 
-
-
 /**
  * Sets system auto-refresh interval
  * @param {string} time - Refresh interval (disabled/3/5/10)
@@ -1768,12 +1712,6 @@ function system_refresh_time(time){
  * @description Waits specified time then refreshes system view
  */
 async function system_refresh_wait(timeout, systemName) {
-  //console.log('start timer');
-  
-  //await new Promise(resolve => setTimeout(resolve, timeout));
-  //console.log('after ' + timeout + ' second');
   system_refresh(systemName);
-  
-  //console.log('after 1 second');
 }
 

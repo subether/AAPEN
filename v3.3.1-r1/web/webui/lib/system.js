@@ -9,119 +9,79 @@
 
 var systemRefresh = 0;
 
-
-//function system_rest_refresh(){
-//	console.log("SYSTEM REST REFRESH");	
-//	api_get_request_callback_new('api_new', '/db/get', 'api_rest_system_refresh');
-//	
-//}
-
 //
 //
 //
 function system_rest_fetch(systemName){
-	//console.log("SYSTEM REST FETCH");
 	api_get_request_callback_new('api_new', '/system/get?name=' + systemName, 'api_rest_system_get');
-	
 }
-
-//function system_rest_validate(systemName, nodeName){
-	//console.log("SYSTEM REST FETCH");
-//	api_post_request_callback_new('api_new', '/system/validate?name=' + systemName + "&node=" + nodeName, 'node_hyper_sys_validate');
-	
-//}
 
 //
 //
 //
 function system_rest_validate(systemName, nodeName){
-	//console.log("SYSTEM REST FETCH");
-
 	var packet = {};
 	packet['url'] = '/system/validate';
 	packet['name'] = systemName;
 	packet['node'] = nodeName;
 	packet['caller'] = 'system_validate';
 	
-	console.log(packet);
-	
 	api_post_request_callback_new(packet);
-	
 }
 
 //
 //
 //
 function system_rest_reset(systemName){
-	//console.log("SYSTEM REST FETCH");
-
 	var packet = {};
 	packet['url'] = '/system/reset';
 	packet['name'] = systemName;
 	packet['caller'] = 'system_reset';
 	
 	api_post_request_callback_new(packet);
-	
 }
 
 //
 //
 //
 function system_rest_load(systemName, nodeName){
-	//console.log("SYSTEM REST FETCH");
-
 	var packet = {};
 	packet['url'] = '/system/load';
 	packet['name'] = systemName;
 	packet['node'] = nodeName;
 	packet['caller'] = 'system_load';
 	
-	console.log(packet);
-	
 	api_post_request_callback_new(packet);
-	
 }
 
 //
 //
 //
 function system_rest_unload(systemName){
-	//console.log("SYSTEM REST FETCH");
-
 	var packet = {};
 	packet['url'] = '/system/unload';
 	packet['name'] = systemName;
 	packet['caller'] = 'system_unload';
 	
-	console.log(packet);
-	
 	api_post_request_callback_new(packet);
-	
 }
 
 //
 //
 //
 function system_rest_shutdown(systemName){
-	//console.log("SYSTEM REST FETCH");
-
 	var packet = {};
 	packet['url'] = '/system/shutdown';
 	packet['name'] = systemName;
 	packet['caller'] = 'system_shutdown';
 	
-	console.log(packet);
-	
 	api_post_request_callback_new(packet);
-	
 }
 
 //
 //
 //
 function system_rest_clone_config(sourceName, destName, destId, groupName, poolName){
-	//console.log("SYSTEM REST FETCH");
-
 	var packet = {};
 	packet['url'] = '/system/config/clone';
 	packet['caller'] = 'system_clone_conf';
@@ -131,18 +91,13 @@ function system_rest_clone_config(sourceName, destName, destId, groupName, poolN
 	packet['dstgroup'] = groupName;
 	packet['dstpool'] = poolName;
 	
-	console.log(packet);
-	
 	api_post_request_callback_new(packet);
-	
 }
 
 //
 //
 //
 function system_rest_clone_full(sourceName, destName, destId, nodeName, groupName, poolName){
-	//console.log("SYSTEM REST FETCH");
-
 	var packet = {};
 	packet['url'] = '/system/clone';
 	packet['caller'] = 'system_clone_full';
@@ -153,54 +108,39 @@ function system_rest_clone_full(sourceName, destName, destId, nodeName, groupNam
 	packet['dstgroup'] = groupName;
 	packet['dstpool'] = poolName;
 	
-	console.log(packet);
-	
 	api_post_request_callback_new(packet);
-	
 }
 
 //
 //
 //
 function system_rest_create_full(systemName, nodeName){
-	//console.log("SYSTEM REST FETCH");
-
 	var packet = {};
 	packet['url'] = '/system/create';
 	packet['caller'] = 'system_create_full';
 	packet['name'] = systemName;
 	packet['node'] = nodeName;
 	
-	console.log(packet);
-	
 	api_post_request_callback_new(packet);
-	
 }
 
 //
 //
 //
 function system_rest_delete(systemName, nodeName){
-	//console.log("SYSTEM REST FETCH");
-
 	var packet = {};
 	packet['url'] = '/system/delete';
 	packet['caller'] = 'system_delete';
 	packet['name'] = systemName;
 	packet['node'] = nodeName;
 	
-	console.log(packet);
-	
 	api_post_request_callback_new(packet);
-	
 }
 
 //
 //
 //
 function system_rest_move_full(sourceName, destName, destId, nodeName, groupName, poolName){
-	//console.log("SYSTEM REST FETCH");
-
 	var packet = {};
 	packet['url'] = '/system/move';
 	packet['caller'] = 'system_move_full';
@@ -210,11 +150,8 @@ function system_rest_move_full(sourceName, destName, destId, nodeName, groupName
 	packet['dstid'] = destId;
 	packet['dstgroup'] = groupName;
 	packet['dstpool'] = poolName;
-	
-	console.log(packet);
-	
+
 	api_post_request_callback_new(packet);
-	
 }
 
 //
@@ -227,53 +164,8 @@ function system_rest_save(systemName, systemData){
 	packet['system'] = systemData;
 	packet['caller'] = 'system_save';
 	
-	console.log(packet);
-	
 	api_post_request_callback_new(packet);	
-	
 }
-
-
-
-//function system_move_full(sourceSystem, destinationSystem, destuid, nodeName, groupName, poolName) {
-	
-//	var clone = {};
-//	clone['dest_id'] = destuid;
-//	clone['dest_name'] = destinationSystem;
-//	clone['group'] = groupName;
-//	clone['pool'] = poolName;
-	
-//	api_request_callback_extended('sys_move_full', 'system', sourceSystem, nodeName, 'system_move_full', 'clone', clone);
-//}
-
-
-//function system_clone_full(sourceSystem, destinationSystem, destuid, nodeName, groupName, poolName) {
-	
-//	var clone = {};
-//	clone['dest_id'] = destuid;
-//	clone['dest_name'] = destinationSystem;
-//	clone['group'] = groupName;
-//	clone['pool'] = poolName;
-//	
-//	api_request_callback_extended('sys_clone_full', 'system', sourceSystem, nodeName, 'system_clone_full', 'clone', clone);
-//}
-
-
-//function system_create_full(sourceSystem, nodeName) {
-//	api_request_service_callback('node_hyper_sys_create', 'aa', sourceSystem, 'bb', nodeName, 'system_create_full');
-//}
-
-//function system_clone_config(sourceSystem, destinationSystem, destuid, groupname, poolName) {
-	
-//	var clone = {};
-//	clone['dest_id'] = destuid;
-//	clone['dest_name'] = destinationSystem;
-//	clone['group'] = groupname;
-//	clone['pool'] = poolName;
-//	
-//	api_request_callback_extended('sys_clone_conf', 'system', sourceSystem, 'node', 'system_clone_conf', 'clone', clone);
-//}
-
 
 /**
  * Processes system metadata from REST response
@@ -361,106 +253,6 @@ function system_ssh(systemName){
 }
 
 /**
- * Shuts down system hypervisor
- * @param {string} systemName - System name
- * @description Makes API request to shutdown system hypervisor
- */
-//function system_hyper_shutdown(systemName){
-//	api_request('sys_hyper_shutdown', 'system', systemName, 'node');
-//}
-
-/**
- * Unloads system from hypervisor
- * @param {string} systemName - System name
- * @description Makes API request to unload system from hypervisor
- */
-//function system_hyper_unload(systemName){
-//	api_request('sys_hyper_unload', 'system', systemName, 'node');
-//}
-
-/**
- * Resets system
- * @param {string} systemName - System name
- * @description Makes API request to reset system
- */
-//function system_reset(systemName){
-//	api_request('sys_reset', 'system', systemName, 'node');
-//}
-
-/**
- * Loads system onto hypervisor
- * @param {string} systemName - System name
- * @param {string} nodeName - Node name to load system onto
- * @description Makes API request to load system onto specified node
- */
-//function system_hyper_load(systemName, nodeName){
-//	log_write_json("system_hyper_load", "[system_hyper_load]", "system [" + systemName + "] node [" + nodeName + "]");
-//	api_request_callback('sys_hyper_load', 'system', systemName, nodeName, 'sys_hyper_load');
-//}
-
-//
-//
-//
-//function system_hyper_validate(systemName, nodeName){
-//	log_write_json("system_hyper_load", "[system_hyper_load]", "system [" + systemName + "] node [" + nodeName + "]");
-//	api_request_callback('sys_hyper_validate', 'system', systemName, nodeName, 'node_hyper_sys_validate');
-//}
-
-
-/**
- * Clones system configuration
- * @param {string} sourceSystem - Source system name
- * @param {string} destinationSystem - Destination system name
- * @param {string} destuid - Destination system UID
- * @param {string} groupname - Group name
- * @param {string} poolname - Storage pool name
- * @description Makes API request to clone system configuration
- */
-
-
-/**
- * Fully clones a system
- * @param {string} sourceSystem - Source system name
- * @param {string} destinationSystem - Destination system name
- * @param {string} destuid - Destination system UID
- * @param {string} nodeName - Node name
- * @param {string} group - Group name
- * @param {string} pool - Storage pool name
- * @description Makes API request to fully clone a system including storage
- */
-//function system_clone_full(sourceSystem, destinationSystem, destuid, nodeName, groupName, poolName) {
-	
-//	var clone = {};
-//	clone['dest_id'] = destuid;
-//	clone['dest_name'] = destinationSystem;
-//	clone['group'] = groupName;
-//	clone['pool'] = poolName;
-	
-//	api_request_callback_extended('sys_clone_full', 'system', sourceSystem, nodeName, 'system_clone_full', 'clone', clone);
-//}
-
-/**
- * Moves a system to new location
- * @param {string} sourceSystem - Source system name
- * @param {string} destinationSystem - Destination system name
- * @param {string} destuid - Destination system UID
- * @param {string} nodeName - Node name
- * @param {string} group - Group name
- * @param {string} pool - Storage pool name
- * @description Makes API request to move system to new location
- */
-//function system_move_full(sourceSystem, destinationSystem, destuid, nodeName, groupName, poolName) {
-//	
-//	var clone = {};
-//	clone['dest_id'] = destuid;
-//	clone['dest_name'] = destinationSystem;
-//	clone['group'] = groupName;
-//	clone['pool'] = poolName;
-	
-//	api_request_callback_extended('sys_move_full', 'system', sourceSystem, nodeName, 'system_move_full', 'clone', clone);
-//}
-
-/**
  * Migrates system between nodes
  * @param {string} sys - System name
  * @param {string} srcnode - Source node name
@@ -476,28 +268,6 @@ function system_migrate(systemName, sourceNode, destNode) {
 
 	api_request_callback_extended('node_hyper_sys_migrate', destNode, systemName, srcNode, 'system_migrate', 'migrate', migrate);
 }
-
-/**
- * Original system clone function (legacy)
- * @param {string} sourceSystem - Source system name
- * @param {string} destinationSystem - Destination system name
- * @param {string} destuid - Destination system UID
- * @param {string} nodeName - Node name
- * @description Legacy API request to clone system
- */
-//function system_clone_full_orig(sourceSystem, destinationSystem, destuid, nodeName) {
-//	api_request_service_callback('sys_clone_full', destinationSystem, sourceSystem, destuid, nodeName, 'system_clone_full');
-//}
-
-/**
- * Creates a new system
- * @param {string} sourceSystem - Source system name
- * @param {string} nodeName - Node name
- * @description Makes API request to create new system
- */
-//function system_create_full(sourceSystem, nodeName) {
-//	api_request_service_callback('node_hyper_sys_create', 'aa', sourceSystem, 'bb', nodeName, 'system_create_full');
-//}
 
 /**
  * Creates storage device for system
@@ -739,7 +509,6 @@ function system_show(systemName) {
 			
 				if((typeof systemData.object.meta !== 'undefined')){
 					var diff = date_str_diff_now(systemData.object.meta.date);
-					//document.getElementById("main-system-state-header").innerHTML = 'State [<b style="color:#24be14">ONLINE</b>] status [<b>' + system.state.vm_status + "</b>] ver [<b>" + system.object.meta.ver + "</b>] updated [<b>" + system.object.meta.date + "</b>] delta [<b>" + system.object.meta.delta + "</b>] node [<b>" + system.meta.node_name + "</b>] id [<b>" + system.meta.node_id + "</b>]";
 					document.getElementById("main-system-state-header").innerHTML = 'State [<b style="color:#24be14">ONLINE</b>] status [<b>' + systemData.state.vm_status + "</b>] ver [<b>" + systemData.object.meta.ver + "</b>] updated [<b>" + systemData.object.meta.date + "</b>] delta [<b>" + diff + "</b>] node [<b>" + systemData.meta.node_name + "</b>] id [<b>" + systemData.meta.node_id + "</b>]";
 				}
 				else{
@@ -1028,7 +797,6 @@ function system_novnc_open(systemName){
  * @description Displays network statistics table for system
  */
 function system_network_stats(systemName, networkName){
-	//var system = db_system_get(systemName);
 	var systemData = dbnew_system_get(systemName);
 
 	log_write_json("system_network_stats", "[top::syslist]", systemData);
@@ -1412,12 +1180,10 @@ function system_storage_item_add(storageDevice, systemData) {
 	if((typeof systemData.meta.disk !== 'undefined') && (typeof systemData.meta.stats !== 'undefined') && (systemData.meta.stats !== null) && (typeof systemData.meta.disk[storageDevice] !== 'undefined') && (typeof systemData.meta.stats.hypervisor !== 'undefined')){
 		
 		if((typeof systemData.meta.stats.hypervisor.disk !== 'undefined') && (typeof systemData.meta.stats.hypervisor.disk[storageDevice].size !== 'undefined')){
-			//tbodyResourceStorage.append("<tr><td><b>" + storageDevice + "</b></td><td>" + systemData.stor[storageDevice].driver + "</td><td>" + systemData.stor[storageDevice].cache + "</td><td>" + systemData.stor[storageDevice].type + "</td><td><b>" + systemData.stor[storageDevice].size + " GB</b></td><td><b>" + systemData.meta.stats.hypervisor.disk[storageDevice].size + "</b></td><td><b>" + systemData.meta.disk[storageDevice].virt_size +  " " + niceUnits(systemData.meta.disk[storageDevice].virt_unit) + "</b></td><td><b>" + systemData.meta.disk[storageDevice].disk_size +  " " + niceUnits(systemData.meta.disk[storageDevice].disk_unit) + "</b></td><td>" + systemData.meta.disk[storageDevice].format + "</td><td>" + systemData.meta.disk[storageDevice].corrupt + "</td></tr>");
 			tbodyResourceStorage.append("<tr><td><b>" + storageDevice + "</b></td><td>" + systemData.stor[storageDevice].driver + "</td><td>" + systemData.stor[storageDevice].cache + "</td><td>" + systemData.stor[storageDevice].type + "</td><td><b>" + systemData.stor[storageDevice].size + " GB</b></td><td><b>" + systemData.meta.stats.hypervisor.disk[storageDevice].size + "</b></td><td><b>" + systemData.meta.disk[storageDevice].virt_size +  " " + niceUnits(systemData.meta.disk[storageDevice].virt_size_unit) + "</b></td><td><b>" + systemData.meta.disk[storageDevice].disk_size +  " " + niceUnits(systemData.meta.disk[storageDevice].disk_size_unit) + "</b></td><td>" + systemData.meta.disk[storageDevice].format + "</td><td>" + systemData.meta.disk[storageDevice].corrupt + "</td></tr>");
 			sysStorHeader += " on disk [<b>" + systemData.meta.stats.hypervisor.disk[storageDevice].size + "</b>]";
 		}
 		else{
-			//tbodyResourceStorage.append("<tr><td><b>" + storageDevice + "</b></td><td>" + systemData.stor[storageDevice].driver + "</td><td>" + systemData.stor[storageDevice].cache + "</td><td>" + systemData.stor[storageDevice].type + "</td><td><b>" + systemData.stor[storageDevice].size + " GB</b></td><td><b>" + systemData.stor[storageDevice].size + " GB</b></td><td>" + "n/a" + "</td><td><b>" + systemData.meta.disk[storageDevice].disk_size +  " " + niceUnits(systemData.meta.disk[storageDevice].disk_unit) + "</b></td><td>" + systemData.meta.disk[storageDevice].format + "</td><td>" + systemData.meta.disk[storageDevice].corrupt + "</td></tr>");
 			tbodyResourceStorage.append("<tr><td><b>" + storageDevice + "</b></td><td>" + systemData.stor[storageDevice].driver + "</td><td>" + systemData.stor[storageDevice].cache + "</td><td>" + systemData.stor[storageDevice].type + "</td><td><b>" + systemData.stor[storageDevice].size + " GB</b></td><td><b>" + systemData.stor[storageDevice].size + " GB</b></td><td>" + "n/a" + "</td><td><b>" + systemData.meta.disk[storageDevice].disk_size +  " " + niceUnits(systemData.meta.disk[storageDevice].disk_size_unit) + "</b></td><td>" + systemData.meta.disk[storageDevice].format + "</td><td>" + systemData.meta.disk[storageDevice].corrupt + "</td></tr>");
 		}
 	}
@@ -1606,8 +1372,6 @@ function system_storage_iso_add(storageDevice, systemData) {
 		isoDesc = systemData.stor[storageDevice].desc;
 	}
 
-
-	//var isoList = db_storage_index_iso_get();
 	var isoList = dbnew_storage_index_iso_get()
 	
 	var divIsoSel = view_selector_build_array("sysIsoSel_" + systemData.id.name + storageDevice, "ISO", isoList, isoName);

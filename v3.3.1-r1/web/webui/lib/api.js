@@ -737,50 +737,11 @@ function api_response(response){
 				}
 
 				if(response.request.caller == "api_rest_file_get"){
-					//cluster_object_show(response);
-					//json_show("TEST" , "test1", "test2", response);
 					text_show(response);
-					//file_show("HELLO WORLD", response['file_data']);
 				}
-
-				//}
-
-				//if(response.request.caller == "api_rest_system_get"){
-					//api_db_process_full(response);
-				//	json_show("bah", "bah", "bah", response);
-				//}
-				
-				//if(response.request.caller == "api_rest_system_validate"){
-					//api_rest_system_process(response);
-				//	console.log(response);
-					//json_show("[ " + systemName + " ]", systemName, "system", systemData)
-					
-				//}
-				
-				//if(response.request.caller == "api_rest_network_fetch"){
-				//	api_rest_network_process(response);
-				//}
-
-				//if(response.request.caller == "api_rest_storage_fetch"){
-				//	api_rest_storage_process(response);
-				//}
-
-				//if(response.request.caller == "api_rest_node_fetch"){
-					//api_rest_node_process(response);
-				//	api_rest_new_callback(response);
-				//}
-
-				//if(response.request.caller == "api_rest_new_fetch"){
-					//api_rest_element_process(response);
-					//toast_show("RECEIVED CALLBACK FOR NEW REST HANDLER!");
-				//	toast_show("REST | API", "bi-activity", "API", "NEW REST CALLBACK");
-					
-				//	api_rest_new_callback(response);
-				//}
 
 				// handle view callbacks
 				main_view_process();
-				
 			}
 			
         } 
