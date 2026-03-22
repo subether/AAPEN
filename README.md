@@ -15,25 +15,14 @@ through a modular, socket-based and micro-service centric architecture. The fram
 **AAPEN**, for short, or "**Adaptive Arrray of Power Efficient Nodes**", was originally built as part of a Masters (MSc) project where the goal was to develop an adaptive, flexible and dynamic clustering platform framework that would allow research
 into deeper topics related to clustering; networking, virtualization and other relevant topics that otherwise might muse me. Using the **AAPEN** cluster framework as an underlay and glue to achieve this flexibility.
 The original framework was written primarily in C with the front end (**CLI**) and management layer (**API**) was written in Perl. The framework has seen many iterations since then. This concept is still today reflected in the code which retains its "C syntax" (using Perl Experimental to replicate this..).. even though the original C code has been merged to Perl...
-And now as the needs evolve the project is slowly migrating assorted components to RUST (where it makes sense)... such is time and the bane of progress... I guess...
+And now as the needs evolve the project is slowly migrating assorted components to RUST (where it makes sense)..
 
 Just as large parts of the front-end was once written in Java and using Swift for GUI elements, and the native API protocol; the modern front end has long since been migrated to HTML5, Javascript, Bootstrap, and a modern and easy-to use and quite feature-full and feature-complete REST API (absolutely everything that can be done via the Web interface and the CLI can be done using simple REST requests.. there is even a fully featured native API abstraction layer for these requests..)..
 Yet, the **AAPEN** cluster framework, in its essence and purpose still somehow remains, though. As the project has been useful and served its purposes it has slowly evolved, and has remained the framework that I have used to manage my computing resources.
 
 And in this manner the project is now released under an **Open Source** license (**GPL/AGPL**) in the hopes that either the framework, or at least some parts of it, may be somewhat useful to others as well. Open Source is what brings the world forard.. However, the **Catch 22** here is that as the framework is only used internally the 'need' to make it useful in such a matter has never been such a goal..
 
-None the less... in a working condition (given its installed).. AAPEN matches even Proxmox, Nutanix and other more commercial solutions in complexity and functionaliy. As an individual that is both heavily certified and have worked, designed and implemented such solutions with many of these software solutions, this might even be an understatement..
-Being certified and working professionally at a large scale with vmWare and Nutanix, as well as being certified and working with Cisco and DNA Center (more recently Catalyst Center) in large scale critical networks, and network automation via such SDN and SD-WAN solutions, the **AAPEN** framework provides very much similar functionaly via the "**Cluster Elements**" and the more recent and fully cloud-aware "**Cluster Instance**" micro-services..
-
-However, keep in mind, **AAPEN** is developed on limited resources; internal functionality and my muses generally comes first; however, want some features or functionality? I'll do my very best to accomodate..
-
-
----
-**AI and Vibe Coding disclaimer:** This project has existed long before LLM and Vibe Coding became a thing. I do try to use the various models as much as possible (I even pay for a number of them... the model curretly used is DeepSeek and CLINE), even hosting locally (the AAPEN framework has great IOMMU support, GPU accelerated system support for both AI LLM and VDI usage, already...), as well as using the large commercial models.
-
-**However**, for AI LLM to be useful it needs to undersand (and buffer..) the full picture of the project, including libraries and underlying logic, and in its current state this is complicated.
-Thus, LLM and AI has been used, however minor. Maybe as the models improve this usage can increase, there is always a trade-off. However, if your contribution to the project is solely LLM and Vibe coded additions without sanity these changes may not be added.
-As the author of the project I am fully able to "vibe code" additions using purchased tokens for commercial LLM coding models myself. All other help what-so-wever, however, is very much appreciated!!
+Keep in mind, **AAPEN** is developed on limited resources; internal functionality and my muses generally comes first; however, want some features or functionality? I'll do my very best to accomodate..
 
 ---
 
