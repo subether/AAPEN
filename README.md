@@ -41,10 +41,7 @@ As the author of the project I am fully able to "vibe code" additions using purc
 
 
 ## AAPEN | Architecture
-![AAPEN | Architecture](https://syn.ether.no:8080/aapen-release/aapen_architecture_00.drawio.png)
-
-<img src="[image.png](https://syn.ether.no:8080/aapen-release/aapen_architecture_00.drawio.png)" alt="AAPEN | Architecture" width="300" height="200">
-
+![AAPEN | Architecture](img/aapen_architecture.jpg))
 
 ## AAPEN | Demo
 [![Watch the demo](https://img.youtube.com/vi/0lMvCLUGjkI/hqdefault.jpg)](https://www.youtube.com/watch?v=0lMvCLUGjkI)
