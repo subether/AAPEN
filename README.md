@@ -47,8 +47,6 @@ As the author of the project I am fully able to "vibe code" additions using purc
 [![Watch the demo](https://img.youtube.com/vi/0lMvCLUGjkI/hqdefault.jpg)](https://www.youtube.com/watch?v=0lMvCLUGjkI)
 
 
-![YouTube | AAPEN | Demo](https://www.youtube.com/watch?v=0lMvCLUGjkI)
-
 ## AAPEN | Key Features
 
 ### AAPEN | Core Capabilities
