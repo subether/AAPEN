@@ -41,15 +41,13 @@ As the author of the project I am fully able to "vibe code" additions using purc
 
 
 ## AAPEN | Architecture
-![picture](http://plateau.eth/aapen-release/aapen_architecture_00.drawio.png)
+![picture](https://syn.ether.no:8080/aapen-release/aapen_architecture_00.drawio.png)
 
 ## AAPEN | Demo
-<video controls>
-  <source src="http://plateau.eth/aapen-release/aapen-video00-mov" type="video/mov">
-  <p>Your browser doesn't support HTML5 video. Here is a <a href="http://plateau.eth/aapen-release/aapen-video00-mov">link to the video</a> instead.</p>
-  ![picture](http://plateau.eth/aapen-release/aapen-overview-02.gif)
-</video>
+[![Watch the demo](https://img.youtube.com/vi/0lMvCLUGjkI/hqdefault.jpg)](https://www.youtube.com/watch?v=0lMvCLUGjkI)
 
+
+[YouTube | AAPEN | Demo](https://www.youtube.com/watch?v=0lMvCLUGjkI)
 
 ## AAPEN | Key Features
 
@@ -227,90 +225,90 @@ The AAPEN cluster framework runs fine on Ubuntu... most cloud instances of AAPEN
 ### OVERVIEW VIEW
 
 **[ Cluster | Login ]** Navigate to the management node (here 'http://plateau.eth/aapen') using the API key and port
-![picture](http://plateau.eth/aapen-release/web-login-00.jpg)
+![picture](https://syn.ether.no:8080/aapen-release/web-login-00.jpg)
 
 **[ Cluster | Overview ]** The web interface cluster overview
-![picture](http://plateau.eth/aapen-release/aapen-overview-00.jpg)
+![picture](https://syn.ether.no:8080/aapen-release/aapen-overview-00.jpg)
 
 ### AAPEN | NODE VIEW
 
 **[ Node | Overview ]** The node overview shows a simple table based view of the nodes in the cluster
-![picture](http://plateau.eth/aapen-release/node-overview-00.jpg)
+![picture](https://syn.ether.no:8080/aapen-release/node-overview-00.jpg)
 
 **[ Node | Resources ]** The node resource view gives a quick overview of the node resource usage
-![picture](http://plateau.eth/aapen-release/node-resource-00.jpg)
+![picture](https://syn.ether.no:8080/aapen-release/node-resource-00.jpg)
 
 **[ Node | View ]** The node view gives a detailed view of the node
-![picture](http://plateau.eth/aapen-release/node-view-00.jpg)
+![picture](https://syn.ether.no:8080/aapen-release/node-view-00.jpg)
 
 ---
 
 **[ Node View | Network ]** The status of the network service for a node
-![picture](http://plateau.eth/aapen-release/node-network-00.jpg)
+![picture](https://syn.ether.no:8080/aapen-release/node-network-00.jpg)
 
 **[ Node View | Hypervisor ]** The status of the hypervisor service for a node
-![picture](http://plateau.eth/aapen-release/node-hypervisor-00.jpg)
+![picture](https://syn.ether.no:8080/aapen-release/node-hypervisor-00.jpg)
 
 **[ Node View | Hyperivsor | Async ]** The status and result of async jobs
-![picture](http://plateau.eth/aapen-release/node-hypervisor-01.jpg)
+![picture](https://syn.ether.no:8080/aapen-release/node-hypervisor-01.jpg)
 
 
 
 ### AAPEN | SYSTEM VIEW
 
 **[ System | Overview ]** The system overview
-![picture](http://plateau.eth/aapen-release/system-overview-00.jpg)
+![picture](https://syn.ether.no:8080/aapen-release/system-overview-00.jpg)
 
 **[ System | Resource View ]** The system resource overview
-![picture](http://plateau.eth/aapen-release/system-resource-00.jpg)
+![picture](https://syn.ether.no:8080/aapen-release/system-resource-00.jpg)
 
 
 ### AAPEN | NETWORK VIEW
 
 **[ Network | System Overview ]** The system view here with the statistics expanded
-![picture](http://plateau.eth/aapen-release/network-system-view-00.jpg)
+![picture](https://syn.ether.no:8080/aapen-release/network-system-view-00.jpg)
 
 **[ Network | View ]** The network object view
-![picture](http://plateau.eth/aapen-release/network-view-00.jpg)
+![picture](https://syn.ether.no:8080/aapen-release/network-view-00.jpg)
 
 
 ### AAPEN | STORAGE VIEW
 
 **[ Storage | Overview ]** The storage overview gives the following list
-![picture](http://plateau.eth/aapen-release/storage-overview-00.jpg)
+![picture](https://syn.ether.no:8080/aapen-release/storage-overview-00.jpg)
 
 **[ Storage | Pool View ]** The following picture shows the storage overview
-![picture](http://plateau.eth/aapen-release/storage-pool-view-00.jpg)
+![picture](https://syn.ether.no:8080/aapen-release/storage-pool-view-00.jpg)
 
 
 ### AAPEN | HEALTH VIEW
 
 **[ Cluster | Health ]** The Health 'Overview' option selects the main cluster node by default (here plateau)**
-![picture](http://plateau.eth/aapen-release/cluster-health-00.jpg)
+![picture](https://syn.ether.no:8080/aapen-release/cluster-health-00.jpg)
 
 **[ Cluster | Health ]**  The 'Overview' Health and Alarm view drawers expanded
-![picture](http://plateau.eth/aapen-release/cluster-health-01.jpg)
+![picture](https://syn.ether.no:8080/aapen-release/cluster-health-01.jpg)
 
 **[ Cluster | Health ]** The Node 'Overview' Node Monitor view
-![picture](http://plateau.eth/aapen-release/cluster-health-02.jpg)
+![picture](https://syn.ether.no:8080/aapen-release/cluster-health-02.jpg)
 
 **[ Cluster | health ]** The 'Overview' Object Service view**
-![picture](http://plateau.eth/aapen-release/cluster-health-03.jpg)
+![picture](https://syn.ether.no:8080/aapen-release/cluster-health-03.jpg)
 
 
 ### AAPEN |  CLI
 
 **[ CLI | Overall ]** The overall CLI functionality
-![picture](http://plateau.eth/aapen-release/cli-00.jpg)
+![picture](https://syn.ether.no:8080/aapen-release/cli-00.jpg)
 
 **[ CLI | System ]** Show command example
-![picture](http://plateau.eth/aapen-release/cli-01.jpg)
+![picture](https://syn.ether.no:8080/aapen-release/cli-01.jpg)
 
 
 ### AAPEN | Cluster Monitor
 
 **[ Cluster | Health Monitor ]** Monitors the cluster health and publishes the state to the cluster
-![picture](http://plateau.eth/aapen-release/service-monitor-00.jpg)
+![picture](https://syn.ether.no:8080/aapen-release/service-monitor-00.jpg)
 
 ---
 
